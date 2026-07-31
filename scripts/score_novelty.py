@@ -117,6 +117,11 @@ def quarter_floor(moment: datetime) -> datetime:
     firm model. Which sentences get scored would then depend on the `TZ` of the
     process, which is not a property anyone would think to check.
     """
+    if moment.tzinfo is None:
+        # `.astimezone` on a naive datetime does not raise, it assumes system
+        # local time, which would reintroduce the bug this function just
+        # documented by a different route.
+        raise ValueError(f"quarter_floor needs an aware datetime, got naive {moment!r}")
     moment = moment.astimezone(timezone.utc)
     quarter_start_month = 3 * ((moment.month - 1) // 3) + 1
     return datetime(moment.year, quarter_start_month, 1, tzinfo=timezone.utc)

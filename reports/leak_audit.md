@@ -136,6 +136,34 @@ them and every span is unchanged, so the corpus did not need rebuilding.
 
 ---
 
+## Re-audit of the four fixes
+
+All four verified CLOSED against the code and against the tests, run rather than
+read. The re-audit found three things the first pass could not have.
+
+**The overlap test was vacuous.** The first version of
+`test_incorporation_repair_drops_an_item_that_overlaps_the_recovered_span`
+deleted the heading that bounds Item 7A, which makes 7A fail with "no closing
+boundary" and never be emitted, so there was no section left to overlap. Both
+its assertions held with the guard deleted outright. Producing a real overlap
+needs two conditions at once: the joint-presentation repair must decline, which
+means a non-target heading between the 7 and 7A headings, and 7A must keep a
+boundary past the recovered narrative, which means a later heading added. The
+test now constructs that, asserts on the failure text rather than only on the
+absence of overlaps, and is paired with a second test that pins the fixture
+itself by checking the overlap exists before the guard runs. Confirmed by
+disabling the guard: the test fails.
+
+**A legacy tuned run would still sit in the glob.** Moving the write does not
+move a file someone already has. `scripts/fuse.py` now refuses to run while
+`data/runs/wsum.jsonl` exists, rather than deleting a file it did not create.
+
+**`quarter_floor` accepted a naive datetime.** `.astimezone` on a naive value
+assumes system local time instead of raising, which is the same bug by a
+different route. It now raises.
+
+---
+
 ## LOW, recorded and not fixed
 
 **`held_out_score` trusts the `train_ids` its caller hands it.** Nothing binds

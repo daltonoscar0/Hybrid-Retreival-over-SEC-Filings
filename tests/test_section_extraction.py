@@ -831,22 +831,85 @@ def test_extraction_matches_approved_fixture(accession, expected_path):
         )
 
 
+def _extract_10k_before_minimums(text: str):
+    """The repaired spans as `_repair_short_item7` leaves them, guard removed.
+
+    Reaches past the public entry point on purpose: the guard's whole job is
+    to remove an overlap, so the only way to assert an overlap exists is to
+    look at the spans before it runs.
+    """
+    from ticker.sections import (
+        TEN_K_TARGET_ITEMS,
+        _build_sections,
+        _find_item_headers,
+        _incorporated_item7_span,
+        _resolve_in_order,
+    )
+
+    headers = _find_item_headers(text)
+    resolved, missing = _resolve_in_order(headers, TEN_K_TARGET_ITEMS)
+    built = _build_sections(text, headers, resolved, missing)
+    by_item = {item: (s, e) for item, s, e in built.sections}
+    incorporated = _incorporated_item7_span(text, by_item["7"][0])
+    assert incorporated is not None, "fixture does not trigger the repair at all"
+    return [(i, s, e) for i, s, e in built.sections if i != "7"] + [
+        ("7", incorporated[0], incorporated[1])
+    ]
+
+
+def _overlapping_incorporated_10k() -> str:
+    """A filing where Item 7A really does run into the recovered Item 7 span.
+
+    Getting here needs two things at once and the obvious construction supplies
+    neither. Repair 1 preempts repair 2 whenever the Item 7 and 7A headings are
+    adjacent, so the adjacency has to be broken by a non-target heading between
+    them. And simply deleting the heading that bounds 7A makes 7A fail with "no
+    closing boundary" instead of overrunning, so a later heading has to be added
+    past the recovered narrative for 7A's end to land beyond it.
+
+    The first version of this test did only the deletion and was vacuous: it
+    passed with the guard removed, because the section it was checking for an
+    overlap was never emitted at all.
+    """
+    text = _incorporated_10k(2019)
+    text = text.replace(
+        "Item 7A. Quantitative and Qualitative Disclosures\n\n",
+        "Item 7B. Other Matters\n\nNothing to report.\n\n"
+        "Item 7A. Quantitative and Qualitative Disclosures\n\n",
+    )
+    text = text.replace("Item 8. Financial Statements\n\nSee attached.\n", "")
+    return text + "\n\nItem 9A. Controls and Procedures\n\nControls were effective.\n"
+
+
 def test_incorporation_repair_drops_an_item_that_overlaps_the_recovered_span():
     # The repair relocates Item 7 past every other item's start marker. An
     # item whose own end boundary runs into the new span would double every
     # sentence between them through the chunker and into both language models.
-    text = _incorporated_10k(2019)
-    # Delete the Item 8 heading that currently bounds Item 7A, so 7A's end
-    # boundary runs on past the recovered Item 7 narrative.
-    text = text.replace("Item 8. Financial Statements\n\nSee attached.\n", "")
-    result = extract_sections(text, "10-K")
-    spans = [(s, e) for _, s, e in result.sections]
-    for i, (a_start, a_end) in enumerate(spans):
-        for b_start, b_end in spans[i + 1:]:
-            assert not (a_start < b_end and b_start < a_end), (
-                f"sections {a_start}-{a_end} and {b_start}-{b_end} overlap"
-            )
+    result = extract_sections(_overlapping_incorporated_10k(), "10-K")
+
+    reasons = dict(result.failures)
+    assert "7A" in reasons, (
+        "the fixture no longer produces an overlap, so this test proves nothing"
+    )
+    assert "overlaps the Item 7 narrative recovered at" in reasons["7A"]
+    assert "7A" not in {item for item, _, _ in result.sections}
     assert "7" in {item for item, _, _ in result.sections}
+
+
+def test_the_overlap_fixture_really_does_overlap_without_the_guard():
+    # Pins the fixture itself. Without this, a later edit that stops producing
+    # an overlap turns the test above back into a test of nothing, and it would
+    # still pass its own assertions right up until the `7A in reasons` check.
+    text = _overlapping_incorporated_10k()
+    built = _extract_10k_before_minimums(text)
+    spans = {item: (s, e) for item, s, e in built}
+    assert "7" in spans and "7A" in spans
+    seven_start, seven_end = spans["7"]
+    seven_a_start, seven_a_end = spans["7A"]
+    assert seven_a_start < seven_end and seven_start < seven_a_end, (
+        f"7A {seven_a_start}-{seven_a_end} does not overlap 7 "
+        f"{seven_start}-{seven_end}; the fixture is not exercising the guard"
+    )
 
 
 def test_no_two_sections_ever_overlap_in_a_repaired_filing():

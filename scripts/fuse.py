@@ -205,6 +205,22 @@ def main() -> None:
     parser.add_argument("--step", type=float, default=DEFAULT_WEIGHT_STEP)
     args = parser.parse_args()
 
+    # A run of this script from before the tuned artifact moved would have left
+    # `wsum.jsonl` inside the glob, where `scripts/evaluate.py` still finds it
+    # and scores it over every judged query. Moving the write does not move the
+    # file someone already has. Refusing to run is the right response: the
+    # alternative is deleting a file this script did not create in this run.
+    legacy_wsum = args.runs_dir / f"{WSUM_NAME}.jsonl"
+    if legacy_wsum.exists():
+        print(
+            f"{legacy_wsum} exists. That path is inside the directory "
+            "scripts/evaluate.py globs, so a tuned run left there would be "
+            "scored over the queries that chose its weights. It is written to "
+            f"{args.runs_dir / TUNED_SUBDIR} now. Delete the old file, then "
+            "re-run."
+        )
+        raise SystemExit(1)
+
     runs, missing = _load_systems(args.runs_dir, args.systems)
     if missing:
         print(

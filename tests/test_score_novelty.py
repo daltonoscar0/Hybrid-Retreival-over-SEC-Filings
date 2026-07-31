@@ -67,3 +67,10 @@ def test_quarter_floor_reads_the_calendar_in_utc_not_the_session_zone():
     floor = quarter_floor(moment)
     assert (floor.year, floor.month) == (2020, 1)
     assert floor < moment
+
+
+def test_quarter_floor_rejects_a_naive_datetime():
+    # `.astimezone` on a naive value silently assumes system local time, which
+    # is the same class of bug in a different disguise.
+    with pytest.raises(ValueError, match="aware datetime"):
+        quarter_floor(datetime(2024, 2, 14, 12, 0))
