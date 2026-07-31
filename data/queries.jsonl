@@ -1,0 +1,60 @@
+{"query_id": "q01", "text": "customer concentration risk", "sector": "both", "note": "exact-phrase lexical match; the term appears near-verbatim in risk-factor sections"}
+{"query_id": "q02", "text": "goodwill impairment charge in the current period", "sector": "both", "note": "lexical accounting term plus a recency qualifier a pure keyword match cannot resolve"}
+{"query_id": "q03", "text": "management commentary on gross margin compression", "sector": "both", "note": "semantic: margin-pressure narrative phrased many ways, no single fixed term to match"}
+{"query_id": "q04", "text": "newly disclosed litigation", "sector": "both", "note": "novelty-flavored: recognizing recency of a legal disclosure, not just the legal-proceedings topic"}
+{"query_id": "q05", "text": "foreign exchange impact on reported revenue", "sector": "both", "note": "lexical FX terminology combined with a causal revenue-impact framing"}
+{"query_id": "q06", "text": "changes to revenue recognition policy", "sector": "both", "note": "semantic change-detection language rather than a single fixed accounting term"}
+{"query_id": "q07", "text": "data center capital expenditure plans", "sector": "both", "note": "forward-looking capex language; relevant to both semiconductor supply and bank IT spend"}
+{"query_id": "q08", "text": "cybersecurity incident disclosure", "sector": "both", "note": "lexical: a fairly standardized disclosure heading and term across both sectors"}
+{"query_id": "q09", "text": "supply chain disruption affecting component availability", "sector": "semiconductors", "note": "lexical/semantic mix on a semiconductor-heavy operational-risk theme"}
+{"query_id": "q10", "text": "share repurchase authorization increase", "sector": "both", "note": "lexical: standard capital-return boilerplate phrase"}
+{"query_id": "q11", "text": "wafer fabrication capacity constraints", "sector": "semiconductors", "note": "sector jargon, lexical; tests retrieval on fab-specific vocabulary"}
+{"query_id": "q12", "text": "inventory write-downs due to excess supply", "sector": "semiconductors", "note": "semantic: write-down language varies in phrasing across filers"}
+{"query_id": "q13", "text": "export restrictions on sales to China", "sector": "semiconductors", "note": "lexical, geopolitical/regulatory proper-noun query"}
+{"query_id": "q14", "text": "foundry versus integrated device manufacturing strategy", "sector": "semiconductors", "note": "sector jargon; tests understanding of IDM vs. fabless business-model terms"}
+{"query_id": "q15", "text": "research and development spending as a share of revenue", "sector": "semiconductors", "note": "lexical, numeric-framing query over a standard R&D-intensity disclosure"}
+{"query_id": "q16", "text": "automotive semiconductor demand trends", "sector": "semiconductors", "note": "cross-cutting end-market query, semantic trend framing"}
+{"query_id": "q17", "text": "data center GPU demand growth", "sector": "semiconductors", "note": "high lexical specificity on a single hot end-market term"}
+{"query_id": "q18", "text": "pricing pressure from competing chip suppliers", "sector": "semiconductors", "note": "semantic: competitive-dynamics narrative, not a fixed phrase"}
+{"query_id": "q19", "text": "order backlog and cancellations", "sector": "semiconductors", "note": "lexical demand-signal term common in earnings releases"}
+{"query_id": "q20", "text": "advanced packaging and process node transition costs", "sector": "semiconductors", "note": "jargon-heavy lexical query on manufacturing-technology transitions"}
+{"query_id": "q21", "text": "CHIPS Act government incentives", "sector": "semiconductors", "note": "lexical, proper-noun legislation reference"}
+{"query_id": "q22", "text": "semiconductor equipment lead times", "sector": "semiconductors", "note": "lexical supply-chain timing term"}
+{"query_id": "q23", "text": "design wins with major customers", "sector": "semiconductors", "note": "lexical sales-pipeline term specific to component suppliers"}
+{"query_id": "q24", "text": "licensing and royalty revenue from patents", "sector": "semiconductors", "note": "lexical IP-monetization term"}
+{"query_id": "q25", "text": "distributor channel inventory levels", "sector": "semiconductors", "note": "lexical channel-inventory term distinct from company-held inventory"}
+{"query_id": "q26", "text": "net interest margin compression", "sector": "regional_banks", "note": "lexical, core banking-profitability metric"}
+{"query_id": "q27", "text": "allowance for credit losses methodology change", "sector": "regional_banks", "note": "lexical accounting-standard term (CECL-flavored) plus a change qualifier"}
+{"query_id": "q28", "text": "commercial real estate loan concentration", "sector": "regional_banks", "note": "lexical, current risk-factor topic for regional banks"}
+{"query_id": "q29", "text": "deposit outflows and funding cost pressure", "sector": "regional_banks", "note": "semantic, post-2023 banking-stress theme phrased multiple ways"}
+{"query_id": "q30", "text": "unrealized losses on available-for-sale securities", "sector": "regional_banks", "note": "lexical balance-sheet term tied to the same stress episode"}
+{"query_id": "q31", "text": "interest rate risk management strategy", "sector": "regional_banks", "note": "semantic asset-liability-management theme, not a single fixed phrase"}
+{"query_id": "q32", "text": "capital ratios and stress test results", "sector": "regional_banks", "note": "lexical regulatory-capital term"}
+{"query_id": "q33", "text": "nonperforming loan trends", "sector": "regional_banks", "note": "lexical credit-quality term"}
+{"query_id": "q34", "text": "bank merger and acquisition activity", "sector": "regional_banks", "note": "semantic consolidation theme"}
+{"query_id": "q35", "text": "branch network reduction and digital banking investment", "sector": "regional_banks", "note": "semantic strategy-shift theme, two related trends in one query"}
+{"query_id": "q36", "text": "wealth management and fee income growth", "sector": "regional_banks", "note": "lexical noninterest-income term"}
+{"query_id": "q37", "text": "loan loss provision increase", "sector": "regional_banks", "note": "lexical income-statement term"}
+{"query_id": "q38", "text": "Federal Reserve discount window borrowing", "sector": "regional_banks", "note": "lexical proper-noun liquidity-facility term, low base rate"}
+{"query_id": "q39", "text": "deposit insurance assessment costs", "sector": "regional_banks", "note": "lexical FDIC special-assessment term, time-bounded to 2023-2024"}
+{"query_id": "q40", "text": "credit card and consumer loan delinquency rates", "sector": "regional_banks", "note": "lexical consumer-credit-quality term"}
+{"query_id": "q41", "text": "executive compensation changes", "sector": "both", "note": "semantic governance theme"}
+{"query_id": "q42", "text": "board of directors changes", "sector": "both", "note": "lexical governance/proxy term"}
+{"query_id": "q43", "text": "climate change risk disclosure", "sector": "both", "note": "lexical ESG/regulatory theme"}
+{"query_id": "q44", "text": "data privacy regulation compliance", "sector": "both", "note": "semantic regulatory-compliance theme"}
+{"query_id": "q45", "text": "workforce reduction and restructuring charges", "sector": "both", "note": "lexical layoffs/restructuring term"}
+{"query_id": "q46", "text": "stock-based compensation expense trends", "sector": "both", "note": "lexical standard financial-statement term"}
+{"query_id": "q47", "text": "effective tax rate changes", "sector": "both", "note": "lexical tax-disclosure term with a change qualifier"}
+{"query_id": "q48", "text": "pension plan funded status", "sector": "both", "note": "lexical legacy-obligation term, more common at older filers"}
+{"query_id": "q49", "text": "related party transactions", "sector": "both", "note": "lexical governance/disclosure term"}
+{"query_id": "q50", "text": "environmental remediation liabilities", "sector": "semiconductors", "note": "lexical legacy-environmental-liability term, distinctive to fab operations"}
+{"query_id": "q51", "text": "intellectual property litigation", "sector": "both", "note": "semantic legal-proceedings theme"}
+{"query_id": "q52", "text": "antitrust investigation", "sector": "both", "note": "lexical regulatory/legal term"}
+{"query_id": "q53", "text": "credit rating downgrade risk", "sector": "both", "note": "semantic financing-risk theme"}
+{"query_id": "q54", "text": "liquidity and access to capital markets", "sector": "both", "note": "semantic funding-risk theme"}
+{"query_id": "q55", "text": "foreign currency hedging program", "sector": "both", "note": "lexical treasury-management term"}
+{"query_id": "q56", "text": "segment reporting changes", "sector": "both", "note": "lexical disclosure-structure term"}
+{"query_id": "q57", "text": "impairment of long-lived assets", "sector": "both", "note": "lexical accounting term distinct from goodwill impairment (q02)"}
+{"query_id": "q58", "text": "going concern doubt", "sector": "both", "note": "lexical, rare high-severity term; tests precision on a low base-rate alarm phrase"}
+{"query_id": "q59", "text": "material weakness in internal controls", "sector": "both", "note": "lexical, rare high-severity governance term"}
+{"query_id": "q60", "text": "why did operating expenses increase this quarter", "sector": "both", "note": "natural-language question form; stress-tests paraphrase matching against noun-phrase queries"}

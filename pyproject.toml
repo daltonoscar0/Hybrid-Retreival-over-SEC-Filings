@@ -7,6 +7,8 @@ dependencies = [
     "edgartools>=3.13",
     "duckdb>=1.0",
     "pytz>=2026.3.post1",
+    "ranx>=0.3.21",
+    "pytrec-eval>=0.5",
 ]
 
 [dependency-groups]
