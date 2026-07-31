@@ -23,6 +23,23 @@ judging pool, and every row of the ablation ladder.
 This is a throughput limit, not a defect, and the number behind it is measured
 rather than estimated. See below.
 
+When the build finishes, in this order:
+
+```
+uv run python scripts/search.py \
+    --retriever ticker.retrieval.bm25:load_retriever \
+    --retriever ticker.retrieval.dense:load_retriever
+uv run python scripts/fuse.py
+uv run python scripts/pool.py \
+    --bm25 ticker.retrieval.bm25:load_retriever \
+    --dense ticker.retrieval.dense:load_retriever
+```
+
+`search.py` rewrites both single-system run files, `fuse.py` produces RRF and
+skips the weighted arm until judgments exist, and `pool.py` overwrites
+`data/pool/pool.jsonl` with the three-source pool that judging should actually
+use. Nothing in that sequence needs a decision.
+
 ## Two problems found while building it, both real
 
 ### A two-OpenMP-runtime segfault, at scale only
