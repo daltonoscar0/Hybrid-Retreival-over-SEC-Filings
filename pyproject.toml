@@ -9,6 +9,10 @@ dependencies = [
     "pytz>=2026.3.post1",
     "ranx>=0.3.21",
     "pytrec-eval>=0.5",
+    "bm25s>=0.3.10",
+    "sentence-transformers>=3.0",
+    "faiss-cpu>=1.8",
+    "scikit-learn>=1.5",
 ]
 
 [dependency-groups]

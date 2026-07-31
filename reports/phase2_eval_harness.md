@@ -11,7 +11,7 @@ is how the retrieval agent is unblocked without waiting on human judging.
 
 | Piece | File | Tests |
 |---|---|---|
-| Query set (60 candidates) | `data/queries.jsonl` | -- |
+| Query set (40 queries) | `data/queries.jsonl` | -- |
 | Retriever interface | `src/ticker/retrieval_types.py` | -- |
 | Pooling | `src/ticker/pooling.py`, `scripts/pool.py` | `tests/test_pooling.py` (8) |
 | Qrels JSONL I/O | `src/ticker/qrels.py` | `tests/test_qrels.py` (10) |
@@ -25,7 +25,7 @@ yet reviewed). New dependencies added with `uv add`: `ranx`, `pytrec-eval`.
 
 ## Query set
 
-`data/queries.jsonl`, 60 rows, one JSON object per line:
+`data/queries.jsonl`, 40 rows, one JSON object per line:
 `{query_id, text, sector, note}`. `sector` is `semiconductors`,
 `regional_banks`, or `both`, for stratifying later work (e.g. picking the 25
 queries for Phase 6's novelty-conditioned re-judge). `note` is one line on

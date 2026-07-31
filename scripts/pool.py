@@ -90,7 +90,7 @@ def main() -> None:
             "retrieval exist, before anyone judges it."
         )
 
-    con = db.connect(args.db)
+    con = db.connect_readonly(args.db)
     try:
         pooled = pool_queries(
             con,

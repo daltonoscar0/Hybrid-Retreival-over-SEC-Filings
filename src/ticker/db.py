@@ -63,6 +63,21 @@ def connect(path: str | Path = ":memory:") -> duckdb.DuckDBPyConnection:
     return duckdb.connect(str(path))
 
 
+def connect_readonly(path: str | Path) -> duckdb.DuckDBPyConnection:
+    """Read-only handle, for every tool that only queries.
+
+    DuckDB takes an exclusive file lock on a read-write connection, so one
+    reader opened read-write locks every other process out of the corpus.
+    That is not a theoretical concern here: the Phase 4 scoring pass runs for
+    tens of minutes, and it must not be able to block a judging session, or a
+    judging session it. Read-only handles share.
+
+    Not the default for `connect`, because `scripts/ingest_corpus.py` writes
+    and an in-memory database cannot be opened read-only at all.
+    """
+    return duckdb.connect(str(path), read_only=True)
+
+
 def create_schema(con: duckdb.DuckDBPyConnection) -> None:
     con.execute(SCHEMA_SQL)
 

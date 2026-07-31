@@ -125,7 +125,7 @@ def main() -> None:
     session_id = args.session_id or uuid.uuid4().hex[:12]
     query_texts = _load_queries(args.queries)
 
-    con = db.connect(args.db)
+    con = db.connect_readonly(args.db)
     try:
         if args.rejudge is not None:
             sample = sample_for_rejudge(out_path, args.rejudge, seed=args.rejudge_seed)
