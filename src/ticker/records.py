@@ -11,6 +11,7 @@ class Filing:
     accession: str
     cik: int
     ticker: str
+    sector: str
     form: str
     filed_at: datetime
     period_end: date | None

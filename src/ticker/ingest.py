@@ -1,9 +1,10 @@
 """End-to-end ingestion of a single filing: filings -> sections -> sentences -> chunks.
 
-Section extraction here is provisional: one section spanning the whole
-document body, labeled PROVISIONAL_FULL_TEXT. The real item-boundary
-extractor, with per-item regression tests against hand-checked filings, is
-Phase 1's job and does not belong in this module.
+Section extraction here is still provisional: one section spanning the whole
+document body, labeled PROVISIONAL_FULL_TEXT. This module is a one-filing
+convenience path for ad hoc smoke testing; scripts/ingest_corpus.py is the
+real corpus builder and uses ticker.sections.extract_sections for real item
+boundaries.
 """
 
 from __future__ import annotations
@@ -25,14 +26,16 @@ def ingest_latest_filing(
     con: duckdb.DuckDBPyConnection,
     ticker: str,
     form: str,
+    sector: str,
     cache_dir: Path = DEFAULT_CACHE_DIR,
 ) -> Filing:
-    downloaded = fetch_latest_filing(ticker, form, cache_dir=cache_dir)
+    downloaded = fetch_latest_filing(ticker, form, sector, cache_dir=cache_dir)
 
     filing = Filing(
         accession=downloaded.accession,
         cik=downloaded.cik,
         ticker=downloaded.ticker,
+        sector=downloaded.sector,
         form=downloaded.form,
         filed_at=downloaded.filed_at,
         period_end=downloaded.period_end,

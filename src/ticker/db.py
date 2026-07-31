@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS filings (
     accession   VARCHAR PRIMARY KEY,
     cik         BIGINT NOT NULL,
     ticker      VARCHAR NOT NULL,
+    sector      VARCHAR NOT NULL,
     form        VARCHAR NOT NULL,
     filed_at    TIMESTAMPTZ NOT NULL,
     period_end  DATE,
@@ -79,11 +80,12 @@ def _require_aware(value: datetime, label: str) -> None:
 def insert_filing(con: duckdb.DuckDBPyConnection, filing: Filing) -> None:
     _require_aware(filing.filed_at, "Filing.filed_at")
     con.execute(
-        "INSERT INTO filings VALUES (?, ?, ?, ?, ?, ?, ?)",
+        "INSERT INTO filings VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
         [
             filing.accession,
             filing.cik,
             filing.ticker,
+            filing.sector,
             filing.form,
             filing.filed_at,
             filing.period_end,
@@ -164,9 +166,9 @@ def background_sentences(
 ) -> list[Sentence]:
     """Sentences filed strictly before `as_of`, excluding `exclude_cik`.
 
-    Corpus-wide minus the target firm. Sector-scoped background (peers only,
-    per PLAN.md phase 4) needs a sector column that Phase 1 adds to
-    `filings`; until then this is the whole corpus minus the excluded firm.
+    Corpus-wide minus the target firm. `filings.sector` exists as of Phase 1
+    but this function does not filter on it; sector-scoped background (peers
+    only, per PLAN.md phase 4) is that phase's job, not this one's.
     """
     _require_aware(as_of, "as_of")
     rows = con.execute(

@@ -27,6 +27,7 @@ def _filing(accession: str, cik: int, filed_at: datetime) -> Filing:
         accession=accession,
         cik=cik,
         ticker="TEST",
+        sector="test_sector",
         form="10-K",
         filed_at=filed_at,
         period_end=None,
@@ -163,3 +164,12 @@ def test_naive_filed_at_raises_on_sentence_insert(con):
     )
     with pytest.raises(ValueError):
         db.insert_sentence(con, naive_sentence)
+
+
+def test_sector_round_trips_on_filings(con):
+    filing = _filing("acc-sector", TARGET_CIK, T_MINUS_1)
+    db.insert_filing(con, filing)
+    row = con.execute(
+        "SELECT sector FROM filings WHERE accession = ?", ["acc-sector"]
+    ).fetchone()
+    assert row == (filing.sector,)
