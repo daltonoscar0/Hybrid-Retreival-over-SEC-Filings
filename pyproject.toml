@@ -1,0 +1,19 @@
+[project]
+name = "ticker"
+version = "0.1.0"
+description = "Hybrid retrieval over SEC filings with a per-sentence novelty layer"
+requires-python = ">=3.12"
+dependencies = [
+    "edgartools>=3.13",
+    "duckdb>=1.0",
+    "pytz>=2026.3.post1",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+]
+
+[build-system]
+requires = ["uv_build>=0.11.19,<0.12.0"]
+build-backend = "uv_build"
