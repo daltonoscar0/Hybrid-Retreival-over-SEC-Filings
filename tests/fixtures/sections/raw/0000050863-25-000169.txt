@@ -1,0 +1,1488 @@
+                                                                    Exhibit 99.1
+                                                                                
+  Intel Corporation                                                             
+                                                                                
+2200 Mission College Blvd.
+
+Santa Clara, CA 95054-1549
+                                                                    News Release
+                                                                                
+               Intel Reports Third-Quarter 2025 Financial Results               
+                                                                                
+News Summary
+
+▪ Third-quarter revenue was $13.7 billion, up 3% year-over-year (YoY).
+
+▪ Third-quarter earnings (loss) per share (EPS) attributable to Intel was $0.90;
+non-GAAP EPS attributable to Intel was $0.23.
+
+▪ Forecasting fourth-quarter 2025 revenue of $12.8 billion to $13.8 billion ;
+expecting fourth-quarter EPS attributable to Intel of $(0.14) and non-GAAP EPS
+attributable to Intel of $0.08 . Intel's guidance excludes Altera, following the
+sale of a majority ownership interest completed in the third quarter of 2025.
+
+SANTA CLARA, Calif., October 23, 2025 – Intel Corporation today reported third-
+quarter 2025 financial results.
+
+“Our Q3 results reflect improved execution and steady progress against our
+strategic priorities,” said Lip-Bu Tan, Intel CEO. "AI is accelerating demand
+for compute and creating attractive opportunities across our portfolio,
+including our core x86 platforms, new efforts in purpose-built ASICs and
+accelerators, and foundry services. Intel’s industry-leading CPUs and ecosystem,
+along with our unique U.S.-based leading-edge logic manufacturing and R&D,
+position us well to capitalize on these trends over time.”
+
+“We took meaningful steps this quarter to strengthen our balance sheet,
+including accelerated funding from the U.S. Government and investments by NVIDIA
+and SoftBank Group that increase our operational flexibility and demonstrate the
+critical role we play in the ecosystem,” said David Zinsner, Intel CFO. “Our
+stronger than expected Q3 results mark our fourth consecutive quarter of
+improved execution and reflect the underlying strength of our core markets.
+Current demand is outpacing supply, a trend we expect will persist into 2026.”
+
+Q3 2025 Financial Results
+                                                                                
+                GAAP                           Non-GAAP                         
+             Q3 2025    Q3 2024    vs. Q3       Q3 2025    Q3 2024    vs. Q3    
+                                   2024                               2024      
+  Revenue      $13.7      $13.3    up 3%                                        
+  ($B)                                                                          
+  Gross        38.2%      15.0%    up 23.2        40.0%      18.0%    up 22     
+  margin                           ppts                               ppts      
+  R&D and                                                                       
+  MG&A          $4.4       $5.4    down 20%        $3.9       $4.8    down 17%  
+  ($B)                                                                          
+  Operat…                          up 73.2                            up 29     
+  margin        5.0%    (68.2)%    ppts           11.2%    (17.8)%    ppts      
+  (loss)                                                                        
+  Tax           6.6%    (87.0)%    up 93.6        12.0%      13.0%    down 1    
+  rate                             ppts                               ppt       
+  Net                                                                           
+  income                                                                        
+  (loss)                                                                        
+  attrib…       $4.1    $(16.6)    up 124%         $1.0     $(2.0)    *n/m      
+  to                                                                            
+  Intel                                                                         
+  ($B)                                                                          
+  Earnin…                                                                       
+  (loss)                                                                        
+  per                                                                           
+  share        $0.90    $(3.88)    up 123%        $0.23    $(0.46)    *n/m      
+  attrib…                                                                       
+  to                                                                            
+  Intel—…                                                                       
+                                                                                
+Full reconciliations between GAAP and non-GAAP measures are provided below.
+
+*Not meaningful
+
+In the third quarter, the company generated $2.5 billion in cash from
+operations.
+
+The financial results presented in this release are preliminary and unaudited,
+and may be revised based on consultation with the staff of the SEC, as discussed
+below under “Accounting for U.S. Government Transactions.”
+
+Intel/Page 2
+
+Business Unit Summary
+
+In the first quarter of 2025, the company made an organizational change to
+integrate the Network and Edge Group (NEX) into CCG and DCAI and modified
+Intel's segment reporting to align to this and certain other business
+reorganizations. All prior-period segment data has been retrospectively adjusted
+to reflect the way Intel's chief operating decision maker internally receives
+information and manages and monitors the company's operating segment
+performance. Effective September 12, 2025, Altera, previously a wholly owned
+subsidiary, was deconsolidated from Intel's consolidated financial statements
+following the closing of the sale of 51% of Altera's issued and outstanding
+common stock. Altera's financial results of operations were included in Intel's
+consolidated financial results and its "all other" business unit category for
+all periods presented through September 11, 2025. There are no changes to
+Intel's consolidated financial statements for any prior periods.
+                                                                                
+  Business Unit Revenue and          Q3 20251          vs. Q3 2024              
+  Trends                                                                        
+  Intel Products:                                                               
+  Client Computing Group (CCG)       $8.5 billion                     up    5%  
+  Data Center and AI (DCAI)          $4.1 billion                     down  1%  
+  Total Intel Products revenue       $12.7 billion                    up    3%  
+  Intel Foundry                      $4.2 billion                     down  2%  
+  All other                          $1.0 billion                     up    3%  
+  Intersegment eliminations          $(4.2) billion                             
+  Total net revenue                  $13.7 billion                    up    3%  
+  1Operating segment revenues                                                   
+  include                                                                       
+  intersegment transactions and                                                 
+  are                                                                           
+  presented as actual and                                                       
+  rounded; as a                                                                 
+  result, totals may not sum.                                                   
+                                                                                
+                                                                                
+  Business Highlights                                                           
+                                                                                
+▪ Intel and the Trump Administration announced an agreement to support the
+continued expansion of American technology and manufacturing leadership through
+$8.9 billion in funding from the U.S. Government. During the quarter, Intel
+received $5.7 billion from the U.S. Government.
+
+▪ Intel and NVIDIA announced a collaboration to jointly develop multiple
+generations of custom data center and PC products across hyperscale, enterprise
+and consumer markets. The collaboration will integrate the strengths of Intel's
+leading CPU technologies and x86 ecosystem with NVIDIA’s AI and accelerated
+computing platforms using NVIDIA NVLink.
+
+▪ NVIDIA also agreed to invest $5.0 billion in Intel common stock.
+
+▪ SoftBank Group made a $2.0 billion investment in Intel common stock,
+reflecting its belief that Intel will play a critical role in expanding advanced
+semiconductor manufacturing and supply in the United States.
+
+▪ Intel unveiled the architecture of its Intel® Core™ Ultra series 3 processors
+(code-named Panther Lake), the first client SoCs built on Intel 18A technology.
+Additionally, Intel advanced its relationship with Microsoft through a
+collaboration with Windows ML and the integration of Intel vPro® manageability
+with Microsoft Intune.
+
+▪ The company provided a first look at Intel® Xeon® 6+ (code-named Clearwater
+Forest), Intel’s next-gen server product on Intel 18A, showing significant power
+and performance gains. It also announced details of a new inference-optimized
+GPU code-named Crescent Island for token clouds and enterprise-level inference.
+
+▪ Fab 52, Intel's fifth high-volume fab at its Ocotillo campus in Chandler,
+Arizona, became fully operational. This facility manufactures Intel 18A wafers,
+the most advanced logic wafers developed and produced in the United States, and
+is part of the more than $100 billion Intel is investing to expand its domestic
+operations.
+
+▪ Intel received $5.2 billion with the completion of the Altera transaction and
+a stake sale of Mobileye.
+
+Intel/Page 3
+
+Business Outlook
+
+Intel's guidance for the fourth quarter of 2025 includes both GAAP and non-GAAP
+estimates as follows:
+                                                                            
+  Q4 2025                                   GAAP                  Non-GAAP  
+  Revenue                                   $12.8-13.8 billion              
+  Gross margin                              34.5%                    36.5%  
+  Tax Rate                                  476%                       12%  
+  Earnings (Loss) Per Share Attributable    $(0.14)                  $0.08  
+  to Intel—Diluted                                                          
+                                                                            
+Effective September 12, 2025 , Altera, previously a wholly owned subsidiary, was
+deconsolidated from Intel's consolidated financial statements following the
+closing of the sale of 51% of Altera's issued and outstanding common stock. As a
+result, fourth quarter guidance excludes the results of Altera.
+
+Reconciliations between GAAP and non-GAAP financial measures are included below.
+Actual results may differ materially from Intel’s business outlook as a result
+of, among other things, the factors described under “Forward-Looking Statements”
+below. The gross margin and EPS outlooks are based on the midpoint of the
+revenue range.
+
+Earnings Webcast
+
+Intel will hold a public webcast at 2 p.m. PDT today to discuss the results for
+its third quarter of 2025. The live public webcast can be accessed on Intel's
+Investor Relations website at www.intc.com . The corresponding earnings
+presentation and webcast replay will also be available on the site.
+
+Accounting for U.S. Government Transactions
+
+Intel's transactions with the U.S. Government during the third quarter of 2025,
+including the equity issuances and the amendment to the commercial CHIPS Act
+agreement, are complex. There is limited precedent for the accounting treatment
+of such transactions. While Intel believes it has selected the appropriate
+accounting approach for these transactions in the third quarter 2025 financial
+results reported in this release, there are other potential approaches that, if
+applied, would result in materially different financial results for the quarter.
+Given the complexity associated with these transactions, Intel recently
+initiated a consultation with the staff of the SEC to seek confirmation that
+they do not disagree with the accounting treatment. Due to the current U.S.
+Government shutdown, Intel has been unable to conclude its consultation with the
+staff of the SEC. If the staff of the SEC were to have a different view of the
+appropriate accounting treatment of these transactions, Intel may revise its
+third quarter 2025 financial results, including the recognition of additional
+costs or losses, and any such revisions could be material.
+
+For a description of the transactions with the U.S. Government entered into
+during the third quarter of 2025, see our Current Reports on Form 8-K filed with
+the SEC on August 25, 2025 and August 29, 2025.
+
+Forward-Looking Statements
+
+This release contains forward-looking statements that involve a number of risks
+and uncertainties. Words such as "accelerate", "achieve", "aim", "ambitions",
+"anticipate", "believe", "committed", "continue", "could", "designed",
+"estimate", "expect", "forecast", "future", "goals", "grow", "guidance",
+"intend", "likely", "may", "might", "milestones", "next generation",
+"objective", "on track", "opportunity", "outlook", "pending", "plan",
+"position", "possible", "potential", "predict", "progress", "ramp", "roadmap",
+"seek", "should", "strive", "targets", "to be", "upcoming", "will", "would", and
+variations of such words and similar expressions are intended to identify such
+forward-looking statements, which may include statements regarding:
+                                                                                
+  ▪                                                                             
+                                                                                
+our business plans and strategy and anticipated benefits therefrom;
+                                                                                
+  ▪                                                                             
+                                                                                
+projections of our future financial performance, including future revenue, gross
+profits, capital expenditures, and cash flows;
+                                                                                
+  ▪                                                                             
+                                                                                
+projected costs and yield trends;
+
+Intel/Page 4
+                                                                                
+  ▪                                                                             
+                                                                                
+future cash requirements, the availability, uses, sufficiency, and cost of
+capital resources, and sources of funding, including for future capital and R&D
+investments and for returns to stockholders, such as stock repurchases and
+dividends, and credit ratings expectations;
+                                                                                
+  ▪                                                                             
+                                                                                
+future products, services, and technologies, and the expected goals, timeline,
+ramps, progress, availability, production, regulation, and benefits of such
+products, services, and technologies, including future process nodes and
+packaging technology, product roadmaps, schedules, future product architectures,
+expectations regarding process performance, per-watt parity, and metrics, and
+expectations regarding product and process leadership;
+                                                                                
+  ▪                                                                             
+                                                                                
+investment plans and impacts of investment plans, including in the US and
+abroad;
+                                                                                
+  ▪                                                                             
+                                                                                
+internal and external manufacturing plans, including future internal
+manufacturing volumes, manufacturing expansion plans and the financing therefor,
+and external foundry usage;
+                                                                                
+  ▪                                                                             
+                                                                                
+future production capacity and product supply;
+                                                                                
+  ▪                                                                             
+                                                                                
+supply expectations, including regarding constraints, limitations, pricing, and
+industry shortages;
+                                                                                
+  ▪                                                                             
+                                                                                
+plans and goals related to Intel's foundry business, including with respect to
+anticipated customers, future manufacturing capacity and service, technology,
+and IP offerings;
+                                                                                
+  ▪                                                                             
+                                                                                
+expected timing and impact of acquisitions, divestitures, and other significant
+transactions;
+                                                                                
+  ▪                                                                             
+                                                                                
+expected completion and impacts of restructuring activities and cost-saving or
+efficiency initiatives;
+                                                                                
+  ▪                                                                             
+                                                                                
+future social and environmental performance goals, measures, strategies, and
+results;
+                                                                                
+  ▪                                                                             
+                                                                                
+our anticipated growth, future market share, customer demand, and trends in our
+businesses and operations;
+                                                                                
+  ▪                                                                             
+                                                                                
+projected growth and trends in markets relevant to our businesses;
+                                                                                
+  ▪                                                                             
+                                                                                
+anticipated trends and impacts related to industry component, substrate, and
+foundry capacity utilization, shortages, and constraints;
+                                                                                
+  ▪                                                                             
+                                                                                
+expectations regarding government funding, incentives, policies, and priorities;
+                                                                                
+  ▪                                                                             
+                                                                                
+future technology trends and developments, such as AI;
+                                                                                
+  ▪                                                                             
+                                                                                
+future macro environmental and economic conditions;
+                                                                                
+  ▪                                                                             
+                                                                                
+geopolitical tensions and conflicts, including with respect to international
+trade policies in areas such as tariffs and export controls, and their potential
+impact on our business;
+                                                                                
+  ▪                                                                             
+                                                                                
+tax- and accounting-related expectations;
+                                                                                
+  ▪                                                                             
+                                                                                
+expectations regarding our relationships with certain sanctioned parties; and
+                                                                                
+  ▪                                                                             
+                                                                                
+other characterizations of future events or circumstances.
+
+Such statements involve many risks and uncertainties that could cause our actual
+results to differ materially from those expressed or implied, including those
+associated with:
+                                                                                
+  ▪                                                                             
+                                                                                
+the high level of competition and rapid technological change in our industry;
+                                                                                
+  ▪                                                                             
+                                                                                
+the significant long-term and inherently risky investments we are making in R&D
+and manufacturing facilities that may not realize a favorable return;
+                                                                                
+  ▪                                                                             
+                                                                                
+the complexities and uncertainties in developing and implementing new
+semiconductor products and manufacturing process technologies;
+                                                                                
+  ▪                                                                             
+                                                                                
+our ability to time and scale our capital investments appropriately and
+successfully secure favorable alternative financing arrangements and government
+grants;
+                                                                                
+  ▪                                                                             
+                                                                                
+implementing new business strategies and investing in new businesses and
+technologies;
+                                                                                
+  ▪                                                                             
+                                                                                
+changes in demand for our products;
+                                                                                
+  ▪                                                                             
+                                                                                
+macroeconomic conditions and geopolitical tensions and conflicts, including
+geopolitical and trade tensions between the US and China, the impacts of
+Russia's war on Ukraine, tensions and conflict affecting Israel and the Middle
+East, and rising tensions between mainland China and Taiwan;
+                                                                                
+  ▪                                                                             
+                                                                                
+the evolving market for products with AI capabilities;
+                                                                                
+  ▪                                                                             
+                                                                                
+our complex global supply chain supporting our manufacturing facilities and
+incorporating external foundries, including from disruptions, delays, trade
+tensions and conflicts, or shortages;
+                                                                                
+  ▪                                                                             
+                                                                                
+recently elevated geopolitical tensions, volatility and uncertainty with respect
+to international trade policies, including tariffs and export controls,
+impacting our business, the markets in which we compete and the world economy;
+
+Intel/Page 5
+                                                                                
+  ▪                                                                             
+                                                                                
+product defects, errata and other product issues, particularly as we develop
+next-generation products and implement next-generation manufacturing process
+technologies;
+                                                                                
+  ▪                                                                             
+                                                                                
+potential security vulnerabilities in our products;
+                                                                                
+  ▪                                                                             
+                                                                                
+increasing and evolving cybersecurity threats and privacy risks;
+                                                                                
+  ▪                                                                             
+                                                                                
+IP risks including related litigation and regulatory proceedings;
+                                                                                
+  ▪                                                                             
+                                                                                
+the need to attract, retain, and motivate key talent;
+                                                                                
+  ▪                                                                             
+                                                                                
+strategic transactions and investments;
+                                                                                
+  ▪                                                                             
+                                                                                
+sales-related risks, including customer concentration and the use of
+distributors and other third parties;
+                                                                                
+  ▪                                                                             
+                                                                                
+our significantly reduced return of capital in recent years;
+                                                                                
+  ▪                                                                             
+                                                                                
+US Government ownership of significant equity interests in the company;
+
+▪ our debt obligations and our ability to access sources of capital;
+                                                                                
+  ▪                                                                             
+                                                                                
+complex and evolving laws and regulations across many jurisdictions;
+                                                                                
+  ▪                                                                             
+                                                                                
+fluctuations in currency exchange rates;
+                                                                                
+  ▪                                                                             
+                                                                                
+changes in our effective tax rate;
+                                                                                
+  ▪                                                                             
+                                                                                
+catastrophic events;
+                                                                                
+  ▪                                                                             
+                                                                                
+environmental, health, safety, and product regulations;
+                                                                                
+  ▪                                                                             
+                                                                                
+our initiatives and new legal requirements with respect to corporate
+responsibility matters; and
+                                                                                
+  ▪                                                                             
+                                                                                
+other risks and uncertainties described in this release, our 2024 Form 10-K, our
+Q1 2025 Form 10-Q, our Q2 2025 Form 10-Q, and our other filings with the SEC.
+
+Given these risks and uncertainties, readers are cautioned not to place undue
+reliance on such forward-looking statements. Readers are urged to carefully
+review and consider the various disclosures made in this release and in other
+documents we file from time to time with the SEC that disclose risks and
+uncertainties that may affect our business.
+
+Unless specifically indicated otherwise, the forward-looking statements in this
+release do not reflect the potential impact of any divestitures, mergers,
+acquisitions, or other business combinations that have not been completed as of
+the date of this filing. In addition, the forward-looking statements in this
+release are based on management's expectations as of the date of this release,
+unless an earlier date is specified, including expectations based on third-party
+information and projections that management believes to be reputable. We do not
+undertake, and expressly disclaim any duty, to update such statements, whether
+as a result of new information, new developments, or otherwise, except to the
+extent that disclosure may be required by law.
+
+About Intel
+
+Intel (Nasdaq: INTC) designs and manufactures advanced semiconductors that
+connect and power the modern world. Every day, our engineers create new
+technologies that enhance and shape the future of computing to enable new
+possibilities for every customer we serve. Learn more at intel.com.
+
+© Intel Corporation. Intel, the Intel logo, and other Intel marks are trademarks
+of Intel Corporation or its subsidiaries. Other names and brands may be claimed
+as the property of others.
+
+Intel/Page 6
+                               Intel Corporation                                
+                                                                                
+     Consolidated Condensed Statements of Operations and Other Information      
+                                                                                
+                (In Millions,                                                   
+                Except Per                                                      
+                Share Amounts;  Three Months                                    
+                Unaudited)      Ended          Sep 27, 2025       Sep 28, 2024  
+ ────────────────────────────────────────────────────────────────────────────── 
+  Net revenue                   $                    13,653    $        13,284  
+  Cost of                                             8,435             11,287  
+  sales                                                                         
+  Gross profit                                        5,218              1,997  
+  Research and                                        3,231              4,049  
+  development                                                                   
+  Marketing,                                                                    
+  general, and                                        1,129              1,383  
+  administrat…                                                                  
+  Restructuri…                                                                  
+  and other                                             175              5,622  
+  charges                                                                       
+  Operating                                           4,535             11,054  
+  expenses                                                                      
+  Operating                                                                     
+  income                                                683             -9,057  
+  (loss)                                                                        
+  Gains                                                                         
+  (losses) on                                                                   
+  equity                                                221               -159  
+  investments,                                                                  
+  net                                                                           
+  Interest and                                        3,670                130  
+  other, net                                                                    
+  Income                                                                        
+  (loss)                                              4,574             -9,086  
+  before taxes                                                                  
+  Provision                                                                     
+  for (benefit                                          304              7,903  
+  from) taxes                                                                   
+  Net income                                          4,270            -16,989  
+  (loss)                                                                        
+  Less: net                                                                     
+  income                                                                        
+  (loss)                                                                        
+  attributable                                          207               -350  
+  to                                                                            
+  non-control…                                                                  
+  interests                                                                     
+  Net income                                                                    
+  (loss)                        $                     4,063    $       -16,639  
+  attributable                                                                  
+  to Intel                                                                      
+  Earnings                                                                      
+  (loss) per                                                                    
+  share                         $                      0.90    $         -3.88  
+  attributable                                                                  
+  to                                                                            
+  Intel—basic                                                                   
+  Earnings                                                                      
+  (loss) per                                                                    
+  share                         $                      0.90    $         -3.88  
+  attributable                                                                  
+  to                                                                            
+  Intel—dilut…                                                                  
+  Weighted                                                                      
+  average                                                                       
+  shares of                                                                     
+  common stock                                                                  
+  outstanding:                                                                  
+  Basic                                               4,514              4,292  
+  Diluted                                             4,531              4,292  
+                                                                                
+                                                                                
+               (In                                                              
+  Other        Thousands;                                              Sep 28,  
+  informatio…  Unaudited)      Sep 27, 2025      Jun 28, 2025             2024  
+ ────────────────────────────────────────────────────────────────────────────── 
+  Employees                                                                     
+  Intel1                               83.3              96.4            115.0  
+  Mobileye                                                                      
+  and other                             5.1               5.0              5.4  
+  subsidiari…                                                                   
+  NAND2                                   —                 —              3.7  
+  Total Intel                          88.4             101.4            124.1  
+  1Altera,                                                                      
+  previously                                                                    
+  a wholly                                                                      
+  owned                                                                         
+  subsidiary,                                                                   
+  was                                                                           
+  deconsolid…                                                                   
+  following                                                                     
+  the sale of                                                                   
+  51% of its                                                                    
+  common                                                                        
+  stock on                                                                      
+  September                                                                     
+  12, 2025.                                                                     
+  As a                                                                          
+  result,                                                                       
+  approximat…                                                                   
+  3.3                                                                           
+  thousand                                                                      
+  Altera                                                                        
+  employees                                                                     
+  are                                                                           
+  excluded                                                                      
+  from                                                                          
+  Intel’s                                                                       
+  employee                                                                      
+  count as of                                                                   
+  September                                                                     
+  27, 2025.                                                                     
+  2Employees                                                                    
+  of the NAND                                                                   
+  memory                                                                        
+  business,                                                                     
+  which we                                                                      
+  divested to                                                                   
+  SK hynix                                                                      
+  upon the                                                                      
+  first                                                                         
+  closing on                                                                    
+  Dec. 29,                                                                      
+  2021, and                                                                     
+  fully                                                                         
+  deconsolid…                                                                   
+  in Q1 2022.                                                                   
+  Employees                                                                     
+  are                                                                           
+  excluded                                                                      
+  from                                                                          
+  Intel's                                                                       
+  total                                                                         
+  employee                                                                      
+  count                                                                         
+  following                                                                     
+  the                                                                           
+  completion                                                                    
+  of the                                                                        
+  second                                                                        
+  closing of                                                                    
+  the                                                                           
+  divestiture                                                                   
+  on March                                                                      
+  27, 2025.                                                                     
+                                                                                
+Intel/Page 7
+                               Intel Corporation                                
+                                                                                
+                     Consolidated Condensed Balance Sheets                      
+                                                                                
+                      (In Millions, Except                                      
+                      Par Value;                                                
+                      Unaudited)               Sep 27, 2025       Dec 28, 2024  
+ ────────────────────────────────────────────────────────────────────────────── 
+  Assets                                                                        
+  Current assets:                                                               
+  Cash and cash                             $        11,141    $         8,249  
+  equivalents                                                                   
+  Short-term                                         19,794             13,813  
+  investments                                                                   
+  Accounts                                            3,202              3,478  
+  receivable, net                                                               
+  Inventories                                                                   
+  Raw materials                                       1,135              1,344  
+  Work in process                                     6,751              7,432  
+  Finished goods                                      3,603              3,422  
+                                                     11,489             12,198  
+  Other current                                       6,105              9,586  
+  assets                                                                        
+  Total current                                      51,731             47,324  
+  assets                                                                        
+  Property, plant,                                  105,047            107,919  
+  and equipment, net                                                            
+  Equity investments                                  8,667              5,383  
+  Goodwill                                           23,912             24,693  
+  Identified                                                                    
+  intangible assets,                                  2,877              3,691  
+  net                                                                           
+  Other long-term                                    12,280              7,475  
+  assets                                                                        
+  Total assets                              $       204,514    $       196,485  
+  Liabilities and                                                               
+  stockholders'                                                                 
+  equity                                                                        
+  Current                                                                       
+  liabilities:                                                                  
+  Accounts payable                                   10,268             12,556  
+  Accrued                                                                       
+  compensation and                                    3,756              3,343  
+  benefits                                                                      
+  Short-term debt                                     2,496              3,729  
+  Income taxes                                          825              1,756  
+  payable                                                                       
+  Other accrued                                      14,952             14,282  
+  liabilities                                                                   
+  Total current                                      32,297             35,666  
+  liabilities                                                                   
+  Debt                                               44,057             46,282  
+  Other long-term                                    11,430              9,505  
+  liabilities                                                                   
+  Stockholders'                                                                 
+  equity:                                                                       
+  Common stock and                                                              
+  capital in excess                                                             
+  of                                                                            
+  par value, 4,766                                                              
+  issued and                                         56,755             50,949  
+  outstanding                                                                   
+  (4,330 issued and                                                             
+  outstanding as of                                                             
+  December 28, 2024)                                                            
+  Accumulated other                                                             
+  comprehensive                                          19               -711  
+  income                                                                        
+  (loss)                                                                        
+  Retained earnings                                  49,602             49,032  
+  Total Intel                                                                   
+  stockholders'                                     106,376             99,270  
+  equity                                                                        
+  Non-controlling                                    10,354              5,762  
+  interests                                                                     
+  Total                                                                         
+  stockholders'                                     116,730            105,032  
+  equity                                                                        
+  Total liabilities                                                             
+  and stockholders'                         $       204,514    $       196,485  
+  equity                                                                        
+                                                                                
+Intel/Page 8
+                               Intel Corporation                                
+                                                                                
+                Consolidated Condensed Statements of Cash Flows                 
+                                                                                
+                (In Millions;  Nine Months                                      
+                Unaudited)     Ended           Sep 27, 2025       Sep 28, 2024  
+ ────────────────────────────────────────────────────────────────────────────── 
+  Cash and                                                                      
+  cash                                                                          
+  equivalents,                 $                      8,249    $         7,079  
+  beginning of                                                                  
+  period                                                                        
+  Cash flows                                                                    
+  provided by                                                                   
+  (used for)                                                                    
+  operating                                                                     
+  activities:                                                                   
+  Net income                                            359            -19,080  
+  (loss)                                                                        
+  Adjustments                                                                   
+  to reconcile                                                                  
+  net income                                                                    
+  (loss) to                                                                     
+  net cash                                                                      
+  provided by                                                                   
+  operating                                                                     
+  activities:                                                                   
+  Depreciation                                        7,971              7,651  
+  Share-based                                         1,896              2,759  
+  compensation                                                                  
+  Restructuri…                                                                  
+  and other                                             372              3,626  
+  charges                                                                       
+  Amortization                                                                  
+  of                                                    708              1,081  
+  intangibles                                                                   
+  (Gains)                                                                       
+  losses on                                                                     
+  equity                                               -611                 75  
+  investments,                                                                  
+  net                                                                           
+  Mark-to-mar…                                                                  
+  (gains)                                                                       
+  losses on                                                                     
+  obligation                                          1,687                  —  
+  to issue                                                                      
+  Escrowed                                                                      
+  Shares1                                                                       
+  (Gains)                                                                       
+  losses on                                          -5,355                  —  
+  divestitures                                                                  
+  Deferred                                              123              6,368  
+  taxes                                                                         
+  Impairments                                                                   
+  and net                                                                       
+  (gain) loss                                                                   
+  on                                                    465              2,290  
+  retirement                                                                    
+  of property,                                                                  
+  plant, and                                                                    
+  equipment                                                                     
+  Changes in                                                                    
+  assets and                                                                    
+  liabilities:                                                                  
+  Accounts                                              162                282  
+  receivable                                                                    
+  Inventories                                            -9               -969  
+  Accounts                                             -281                566  
+  payable                                                                       
+  Accrued                                                                       
+  compensation                                          541              1,384  
+  and benefits                                                                  
+  Income taxes                                       -1,196               -930  
+  Other assets                                                                  
+  and                                                -1,423                 20  
+  liabilities                                                                   
+  Total                                               5,050             24,203  
+  adjustments                                                                   
+  Net cash                                                                      
+  provided by                                                                   
+  (used for)                                          5,409              5,123  
+  operating                                                                     
+  activities                                                                    
+  Cash flows                                                                    
+  provided by                                                                   
+  (used for)                                                                    
+  investing                                                                     
+  activities:                                                                   
+  Additions to                                                                  
+  property,                                         -11,158            -18,110  
+  plant, and                                                                    
+  equipment                                                                     
+  Proceeds                                                                      
+  from                                                                          
+  capital-rel…                                        1,018                725  
+  government                                                                    
+  incentives                                                                    
+  Purchases of                                                                  
+  short-term                                        -16,401            -31,519  
+  investments                                                                   
+  Maturities                                                                    
+  and sales of                                       10,964             34,268  
+  short-term                                                                    
+  investments                                                                   
+  Sales of                                                                      
+  equity                                                642                503  
+  investments                                                                   
+  Proceeds                                                                      
+  from                                                6,186                  —  
+  divestitures                                                                  
+  Other                                                 494               -359  
+  investing                                                                     
+  Net cash                                                                      
+  provided by                                                                   
+  (used for)                                         -8,255            -14,492  
+  investing                                                                     
+  activities                                                                    
+  Cash flows                                                                    
+  provided by                                                                   
+  (used for)                                                                    
+  financing                                                                     
+  activities:                                                                   
+  Issuance of                                                                   
+  commercial                                                                    
+  paper, net                                          3,493              7,349  
+  of                                                                            
+  issuance                                                                      
+  costs                                                                         
+  Repayment of                                                                  
+  commercial                                         -3,493             -7,349  
+  paper                                                                         
+  Partner                                             3,652             12,278  
+  contributio…                                                                  
+  Proceeds                                                                      
+  from sales                                                                    
+  of                                                    922                  —  
+  subsidiary                                                                    
+  shares                                                                        
+  Additions to                                                                  
+  property,                                          -2,493               -741  
+  plant, and                                                                    
+  equipment                                                                     
+  Issuance of                                                                   
+  long-term                                                                     
+  debt, net of                                            —              2,975  
+  issuance                                                                      
+  costs                                                                         
+  Repayment of                                       -3,750             -2,288  
+  debt                                                                          
+  Proceeds                                                                      
+  from sales                                                                    
+  of common                                                                     
+  stock                                                                         
+  through                                               777                986  
+  employee                                                                      
+  equity                                                                        
+  incentive                                                                     
+  plans                                                                         
+  Net proceeds                                                                  
+  from sale of                                        3,737                  —  
+  common stock                                                                  
+  and warrants                                                                  
+  Proceeds for                                                                  
+  obligation                                                                    
+  to issue                                            3,945                  —  
+  Escrowed                                                                      
+  Shares1                                                                       
+  Payment of                                                                    
+  dividends to                                            —             -1,599  
+  stockholders                                                                  
+  Other                                              -1,052               -536  
+  financing                                                                     
+  Net cash                                                                      
+  provided by                                                                   
+  (used for)                                          5,738             11,075  
+  financing                                                                     
+  activities                                                                    
+  Net increase                                                                  
+  (decrease)                                                                    
+  in cash and                                         2,892              1,706  
+  cash                                                                          
+  equivalents                                                                   
+  Cash and                                                                      
+  cash                                                                          
+  equivalents,                 $                     11,141    $         8,785  
+  end of                                                                        
+  period                                                                        
+                                                                                
+1 Escrowed Shares refer to shares of Intel common stock held in escrow to be
+released to the U.S. Department of Commerce (DOC) as we perform and receive cash
+proceeds in connection with our CHIPS Act Secure Enclave agreement with the U.S.
+Government.
+
+Intel/Page 9
+                               Intel Corporation                                
+                                                                                
+                     Supplemental Operating Segment Results                     
+                                                                                
+       T…                                                                       
+       M…                                                                       
+       E…                                                                       
+  …    S…                                                                       
+  …    2…                                                                       
+  …    2…                                                                       
+ ────────────────────────────────────────────────────────────────────────────── 
+       I…                                                                       
+       P…                                                                       
+                           T…        …        …        …        …        …      
+       C…        D…        I…        …        …        …        …        …      
+                           P…                                                   
+  …    $   8…    $   4…    $   1…    $  4…    $  9…    $   —    $  -…    $  1…  
+  …                                                                             
+  …                                                                             
+  …        5…        3…        8…       6…       8…       7…       -…       1…  
+  …                                                                             
+  …                                                                             
+  …                                                                             
+  …                                                                             
+  …    $   2…    $   9…    $   3…    $  -…    $  1…    $  -…    $  28    $  6…  
+  …                                                                             
+                                                                                
+                                                                                
+       T…                                                                       
+       M…                                                                       
+       E…                                                                       
+  …    S…                                                                       
+  …    2…                                                                       
+  …    2…                                                                       
+ ────────────────────────────────────────────────────────────────────────────── 
+       I…                                                                       
+       P…                                                                       
+                           T…        …        …        …        …        …      
+       C…        D…        I…        …        …        …        …        …      
+                           P…                                                   
+  …    $   8…    $   4…    $   1…    $  4…    $  9…    $   —    $  -…    $  1…  
+  …                                                                             
+  …                                                                             
+  …        5…        3…        8…       1…       9…       6…       -…       2…  
+  …                                                                             
+  …                                                                             
+  …                                                                             
+  …                                                                             
+  …    $   2…    $   3…    $   3…    $  -…    $   5    $  -…    $  -…    $  -…  
+  …                                                                             
+                                                                                
+1 The "all other" category includes the results of operations from other non-
+reportable segments, including our Mobileye businesses, our IMS business,
+startup businesses that support our initiatives, and historical results of
+operations from divested businesses, including Altera, which we divested on
+September 12, 2025. Altera's results were included within "all other" for all
+periods presented through September 11, 2025.
+
+Intel/Page 10
+                               Intel Corporation                                
+                                                                                
+                        Explanation of Non-GAAP Measures                        
+In addition to disclosing financial results in accordance with US GAAP, this
+document references non-GAAP financial measures below. We believe these non-GAAP
+financial measures provide investors with useful supplemental information about
+our operating performance, enable comparison of financial trends and results
+between periods where certain items may vary independent of business
+performance, and allow for greater transparency with respect to key metrics used
+by management in operating our business and measuring our performance. These
+non-GAAP financial measures are used in our performance-based RSUs and our cash
+bonus plans.
+
+Our non-GAAP financial measures reflect adjustments based on one or more of the
+following items, as well as the related effects to income taxes and net income
+(loss) attributable to non-controlling interests effects. Income tax effects are
+calculated using a fixed long-term projected tax rate. For 2025 and 2024, we
+determined the projected non-GAAP tax rate to be 12% and 13%, respectively. We
+project this long-term non-GAAP tax rate on at least an annual basis using a
+five-year non-GAAP financial projection that excludes the income tax effects of
+each adjustment. The projected non-GAAP tax rate also considers factors such as
+our tax structure, our tax positions in various jurisdictions, and key
+legislation in significant jurisdictions where we operate. This long-term non-
+GAAP tax rate may be subject to change for a variety of reasons, including the
+rapidly evolving global tax environment, significant changes in our geographic
+earnings mix, or changes to our strategy or business operations. Management uses
+this non-GAAP tax rate in managing internal short- and long-term operating plans
+and in evaluating our performance; we believe this approach facilitates
+comparison of our operating results and provides useful evaluation of our
+current operating performance. Non-GAAP adjustments attributable to non-
+controlling interests are calculated by adjusting for the minority stockholder
+portion of non-GAAP adjustments we make for relevant acquisition-related costs,
+share-based compensation, restructuring and other charges, and income tax
+effects, as applicable to each majority-owned subsidiary.
+
+Our non-GAAP financial measures should not be considered a substitute for, or
+superior to, financial measures calculated in accordance with US GAAP, and the
+financial results calculated in accordance with US GAAP and reconciliations from
+these results should be carefully evaluated.
+                                                                                
+  Non-GAAP adjustment or                               Usefulness to            
+  measure                   Definition                 management and           
+                                                       investors                
+                            Amortization of                                     
+                            acquisition-related                                 
+                            intangible assets                                   
+                            consists of                We exclude amortization  
+                            amortization of            charges for our          
+                            intangible assets such     acquisition-related      
+                            as developed               intangible assets for    
+                            technology, brands, and    purposes of calculating  
+                            customer relationships     certain non-GAAP         
+                            acquired in connection     measures because these   
+                            with business              charges are              
+                            combinations. Charges      inconsistent in size     
+                            related to the             and are significantly    
+  Acquisition-related       amortization of these      impacted by the timing   
+  adjustments               intangibles are            and valuation of our     
+                            recorded within both       acquisitions. These      
+                            cost of sales and          adjustments facilitate   
+                            marketing, general and     a useful evaluation of   
+                            administrative expenses    our current operating    
+                            in our US GAAP             performance and          
+                            financial statements.      comparison to our past   
+                            Amortization charges       operating performance    
+                            are recorded over the      and provide investors    
+                            estimated useful life      with additional means    
+                            of the related acquired    to evaluate cost and     
+                            intangible asset, and      expense trends.          
+                            thus are generally                                  
+                            recorded over multiple                              
+                            years.                                              
+                                                       We exclude charges       
+                                                       related to share-based   
+                                                       compensation for         
+                                                       purposes of calculating  
+                                                       certain non-GAAP         
+                                                       measures because we      
+                                                       believe these            
+                                                       adjustments provide      
+                            Share-based                comparability to peer    
+                            compensation consists      company results and      
+                            of charges related to      because these charges    
+                            our employee equity        are not viewed by        
+                            incentive plans.           management as part of    
+  Share-based               Charges related to         our core operating       
+  compensation              shared-based               performance. We believe  
+                            compensation are           these adjustments        
+                            recorded within cost of    provide investors with   
+                            sales, research and        a useful view, through   
+                            development, and           the eyes of management,  
+                            marketing, general and     of our core business     
+                            administrative.            model, how management    
+                                                       currently evaluates      
+                                                       core operational         
+                                                       performance, and         
+                                                       additional means to      
+                                                       evaluate expense         
+                                                       trends, including in     
+                                                       comparison to other      
+                                                       peer companies.          
+                                                                                
+Intel/Page 11
+                                                                                
+  Non-GAAP adjustment or                               Usefulness to            
+  measure                   Definition                 management and           
+                                                       investors                
+                            Restructuring charges                               
+                            are costs associated                                
+                            with restructuring                                  
+                            plans and are primarily                             
+                            related to employee                                 
+                            severance and benefit                               
+                            arrangements. Q3 2025                               
+                            primarily includes                                  
+                            charges associated with                             
+                            the 2025 Restructuring                              
+                            Plan primarily                                      
+                            comprised of cash-based    We exclude               
+                            employee severance and     restructuring and other  
+                            benefit arrangements.      charges, including any   
+                            Q3 2024 primarily          adjustments to charges   
+                            includes charges           recorded in prior        
+                            associated with the        periods, for purposes    
+                            2024 Restructuring Plan    of calculating certain   
+                            primarily comprised of     non-GAAP measures        
+                            cash-based employee        because these costs do   
+                            severance and benefit      not reflect our core     
+  Restructuring and         arrangements, and cash     operating performance.   
+  other charges             and non-cash charges       These adjustments        
+                            related to real estate     facilitate a useful      
+                            exits and                  evaluation of our core   
+                            consolidations, as well    operating performance    
+                            as non-cash                and comparisons to past  
+                            construction in            operating results and    
+                            progress asset             provide investors with   
+                            impairments resulting      additional means to      
+                            from business exit         evaluate expense         
+                            activities. Other          trends.                  
+                            charges include                                     
+                            periodic goodwill and                               
+                            asset impairments, and                              
+                            other costs associated                              
+                            with certain non-core                               
+                            activities. Q3 2024                                 
+                            includes noncash                                    
+                            charges resulting from                              
+                            the impairment of                                   
+                            goodwill and certain                                
+                            acquired intangible                                 
+                            assets.                                             
+                            (Gains) losses on                                   
+                            equity investments, net    We exclude these         
+                            consists of ongoing        non-operating gains and  
+                            mark-to-market             losses for purposes of   
+                            adjustments on             calculating certain      
+  (Gains) losses on         marketable equity          non-GAAP measures to     
+  equity investments,       securities, observable     provide comparability    
+  net                       price adjustments on       between periods. The     
+                            non-marketable equity      exclusion reflects how   
+                            securities, related        management evaluates     
+                            impairment charges, and    the core operations of   
+                            the gains (losses) from    the business.            
+                            the sale of equity                                  
+                            investments and other.                              
+                            (Gains) losses are                                  
+                            recognized at the close                             
+                            of a divestiture, or       We exclude               
+                            over a specified           non-operating gains or   
+                            deferral period when       losses resulting from    
+                            deferred consideration     divestitures for         
+                            is received at the time    purposes of calculating  
+                            of closing, as a           certain non-GAAP         
+                            component of interest      measures because they    
+  (Gains) losses from       and other, net. Q3 2025    do not reflect our       
+  divestitures              includes a gain on the     current operating        
+                            sale of our Altera         performance. These       
+                            business. Q3 2024          adjustments facilitate   
+                            includes a portion of      a useful evaluation of   
+                            the initial closing        our current operating    
+                            consideration that was     performance and          
+                            deferred and recognized    comparisons to past      
+                            between the first and      operating results.       
+                            second closing of the                               
+                            sale of our NAND memory                             
+                            business.                                           
+                            (Gains) losses on                                   
+                            mark-to-market of                                   
+                            Escrowed Shares is a                                
+                            component of interest      We exclude these         
+                            and other, net and         non-operating gains and  
+                            relates to the changes     losses for purposes of   
+                            in fair value of           calculating certain      
+  (Gains) losses from       Escrowed Shares            non-GAAP measures to     
+  mark-to-market of         released during the        provide comparability    
+  Escrowed Shares           period and held as of      between periods. The     
+                            Q3 2025 resulting from     exclusion reflect how    
+                            the Escrowed Shares        management evaluates     
+                            derivative liability       the core operations of   
+                            recognized in              the business.            
+                            connection with the                                 
+                            Warrant and Common                                  
+                            Stock Agreement with                                
+                            the US Government.                                  
+                                                       We excluded the          
+                            Deferred tax assets        discreet valuation       
+                            valuation allowances       allowance when           
+                            relate to a discreet       calculating certain      
+                            non-cash charge            non-GAAP measures as     
+                            recognized in Q3 2024      there is no such         
+  Deferred tax              related to a valuation     historical cumulative    
+  assets valuation          allowance established      loss on a non-GAAP       
+  allowances                against                    basis; and because of    
+                            our US deferred tax        the size of the charge,  
+                            assets due to a            the adjustment           
+                            historical                 facilitates a useful     
+                            cumulative loss for        evaluation of our core   
+                            GAAP purposes.             operating performance    
+                                                       and comparisons to our   
+                                                       past operating results.  
+                            We reference a non-GAAP                             
+                            financial measure of                                
+                            adjusted free cash                                  
+                            flow, which is used by                              
+                            management when                                     
+                            assessing our sources                               
+                            of liquidity, capital      This non-GAAP financial  
+                            resources, and quality     measure is helpful in    
+                            of earnings. Adjusted      understanding our        
+  Adjusted free cash        free cash flow is          capital requirements     
+  flow                      operating cash flow        and sources of           
+                            adjusted for (1)           liquidity by providing   
+                            additions to property,     an additional means to   
+                            plant, and equipment,      evaluate the cash flow   
+                            net of proceeds from       trends of our business.  
+                            capital-related                                     
+                            government incentives                               
+                            and net partner                                     
+                            contributions, and (2)                              
+                            payments on finance                                 
+                            leases.                                             
+                                                                                
+Intel/Page 12
+                                                                                
+  Non-GAAP adjustment or                               Usefulness to            
+  measure                   Definition                 management and           
+                                                       investors                
+                                                       We believe this measure  
+                            We reference a non-GAAP    provides investors with  
+                            financial measure of       useful supplemental      
+                            net capital spending,      information about our    
+                            which is additions to      capital investment       
+                            property, plant, and       activities and capital   
+  Net capital spending      equipment, net of          offsets, and allowsfor   
+                            proceeds from              greater transparency     
+                            capital-related            with respect to a key    
+                            government incentives      metric used by           
+                            and net partner            management in operating  
+                            contributions.             our business and         
+                                                       measuring our            
+                                                       performance.             
+                                                                                
+Intel/Page 13
+                               Intel Corporation                                
+                                                                                
+        Supplemental Reconciliations of GAAP Actuals to Non-GAAP Actuals        
+Set forth below are reconciliations of the non-GAAP financial measure to the
+most directly comparable US GAAP financial measure. These non-GAAP financial
+measures should not be considered a substitute for, or superior to, financial
+measures calculated in accordance with US GAAP, and the reconciliations from US
+GAAP to Non-GAAP actuals should be carefully evaluated. Please refer to
+"Explanation of Non-GAAP Measures" in this document for a detailed explanation
+of the adjustments made to the comparable US GAAP measures, the ways management
+uses the non-GAAP measures, and the reasons why management believes the non-GAAP
+measures provide useful information for investors.
+                                                                                
+               (In                                                              
+               Millions,                                                        
+               Except Per                                                       
+               Share         Three                                              
+               Amounts;      Months                                 Sep 28,     
+               Unaudited)    Ended        Sep 27, 2025                 2024     
+ ────────────────────────────────────────────────────────────────────────────── 
+  GAAP gross                 $                   5,218       $        1,997     
+  profit                                                                        
+  Acquisitio…                                      101                  224     
+  adjustments                                                                   
+  Share-based                                      137                  172     
+  compensati…                                                                   
+  Non-GAAP                                                                      
+  gross                      $                   5,456       $        2,393     
+  profit                                                                        
+  GAAP gross                                                                    
+  margin                                          38.2  %              15.0  %  
+  percentage                                                                    
+  Acquisitio…                                      0.7  %               1.7  %  
+  adjustments                                                                   
+  Share-based                                      1.0  %               1.3  %  
+  compensati…                                                                   
+  Non-GAAP                                                                      
+  gross                                           40.0  %              18.0  %  
+  margin                                                                        
+  percentage                                                                    
+  GAAP R&D                   $                   4,360       $        5,432     
+  and MG&A                                                                      
+  Acquisitio…                                      -17                  -42     
+  adjustments                                                                   
+  Share-based                                     -411                 -628     
+  compensati…                                                                   
+  Non-GAAP                                                                      
+  R&D and                    $                   3,932       $        4,762     
+  MG&A                                                                          
+  GAAP                                                                          
+  operating                  $                     683       $       -9,057     
+  income                                                                        
+  (loss)                                                                        
+  Acquisitio…                                      118                  266     
+  adjustments                                                                   
+  Share-based                                      548                  800     
+  compensati…                                                                   
+  Restructur…                                                                   
+  and other                                        175                5,622     
+  charges                                                                       
+  Non-GAAP                                                                      
+  operating                  $                   1,524       $       -2,369     
+  income                                                                        
+  (loss)                                                                        
+  GAAP                                                                          
+  operating                                        5.0  %             -68.2  %  
+  margin                                                                        
+  (loss)                                                                        
+  Acquisitio…                                      0.9  %               2.0  %  
+  adjustments                                                                   
+  Share-based                                      4.0  %               6.0  %  
+  compensati…                                                                   
+  Restructur…                                                                   
+  and other                                        1.3  %              42.3  %  
+  charges                                                                       
+  Non-GAAP                                                                      
+  operating                                       11.2  %             -17.8  %  
+  margin                                                                        
+  (loss)                                                                        
+  GAAP tax                                         6.6  %             -87.0  %  
+  rate                                                                          
+  Deferred                                                                      
+  tax assets                                         —  %             121.0  %  
+  valuation                                                                     
+  allowance                                                                     
+  Income tax                                       5.4  %             -21.0  %  
+  effects                                                                       
+  Non-GAAP                                        12.0  %              13.0  %  
+  tax rate                                                                      
+  GAAP net                                                                      
+  income                                                                        
+  (loss)                     $                   4,063       $      -16,639     
+  attributab…                                                                   
+  to                                                                            
+  Intel                                                                         
+  Acquisitio…                                      118                  266     
+  adjustments                                                                   
+  Share-based                                      548                  800     
+  compensati…                                                                   
+  Restructur…                                                                   
+  and other                                        175                5,622     
+  charges                                                                       
+  (Gains)                                                                       
+  losses on                                                                     
+  equity                                          -221                  159     
+  investment…                                                                   
+  net                                                                           
+  (Gains)                                                                       
+  losses from                                   -5,452                  -39     
+  divestiture                                                                   
+  (Gains)                                                                       
+  losses from                                                                   
+  mark-to-ma…                                    1,687                    —     
+  of                                                                            
+  Escrowed                                                                      
+  Shares                                                                        
+  Adjustments                                                                   
+  attributab…                                                                   
+  to                                               -27                 -344     
+  non-contro…                                                                   
+  interest                                                                      
+  Deferred                                                                      
+  tax assets                                         —                9,925     
+  valuation                                                                     
+  allowances                                                                    
+  Income tax                                       132               -1,726     
+  effects                                                                       
+  Non-GAAP                                                                      
+  net income                                                                    
+  (loss)                     $                   1,023       $       -1,976     
+  attributab…                                                                   
+  to Intel                                                                      
+                                                                                
+Intel/Page 14
+                                                                      
+  GAAP earnings (loss) per share              $    0.90    $   -3.88  
+  attributable to Intel—diluted                                       
+  Acquisition-related adjustments                  0.03         0.06  
+  Share-based compensation                         0.12         0.19  
+  Restructuring and other charges                  0.04         1.31  
+  (Gains) losses on equity investments,           -0.05         0.04  
+  net                                                                 
+  (Gains) losses from divestiture                 -1.20        -0.01  
+  (Gains) losses from mark-to-market of            0.37            —  
+  Escrowed Shares                                                     
+  Adjustments attributable to                     -0.01        -0.08  
+  non-controlling interest                                            
+  Deferred tax assets valuation allowance             —         2.31  
+  Income tax effects                               0.03        -0.40  
+  Non-GAAP earnings (loss) per share          $    0.23    $   -0.46  
+  attributable to Intel—diluted                                       
+  GAAP net cash provided by (used for)        $   2,546    $   4,054  
+  operating activities                                                
+  Additions to property, plant, and              -2,956       -7,199  
+  equipment (gross capital expenditures)                              
+  Proceeds from capital-related government           54           26  
+  incentives                                                          
+  Partner contributions, net                      1,346          417  
+  Net purchase of property, plant, and           -1,556       -6,756  
+  equipment (net capital expenditures)                                
+  Payments on finance leases                        -94            —  
+  Adjusted free cash flow                     $     896    $  -2,702  
+  GAAP net cash provided by (used for)        $  -6,250    $  -2,764  
+  investing activities                                                
+  GAAP net cash provided by (used for)        $   5,152    $  -3,792  
+  financing activities                                                
+                                                                      
+Intel/Page 15
+                               Intel Corporation                                
+                                                                                
+        Supplemental Reconciliations of GAAP Outlook to Non-GAAP Outlook        
+Set forth below are reconciliations of the non-GAAP financial measure to the
+most directly comparable US GAAP financial measure. These non-GAAP financial
+measures should not be considered a substitute for, or superior to, financial
+measures calculated in accordance with US GAAP, and the financial outlook
+prepared in accordance with US GAAP and the reconciliations from this Business
+Outlook should be carefully evaluated. Please refer to "Explanation of Non-GAAP
+Measures" in this document for a detailed explanation of the adjustments made to
+the comparable US GAAP measures, the ways management uses the non-GAAP measures,
+and the reasons why management believes the non-GAAP measures provide useful
+information for investors.
+                                                                    
+  (Unaudited)                           Q4 2025 Outlook1            
+                                        Approximately               
+  GAAP gross margin percentage                             34.5  %  
+  Acquisition-related adjustments                           0.8  %  
+  Share-based compensation                                  1.2  %  
+  Non-GAAP gross margin percentage                         36.5  %  
+  GAAP tax rate                                             476  %  
+  Income tax effects                                       -464  %  
+  Non-GAAP tax rate                                          12  %  
+  GAAP earnings (loss) per share        $                 -0.14     
+  attributable to Intel—diluted                                     
+  Acquisition-related adjustments                          0.02     
+  Share-based compensation                                 0.11     
+  Restructuring and other charges                          0.03     
+  Adjustments attributable to                             -0.01     
+  non-controlling interest                                          
+  Income tax effects                                       0.07     
+  Non-GAAP earnings (loss) per share    $                  0.08     
+  attributable to Intel—diluted                                     
+                                                                    
+1 Non-GAAP gross margin percentage and non-GAAP earnings (loss) per share
+attributable to Intel outlook based on the mid-point of the revenue range.
+
+Intel/Page 16
+                               Intel Corporation                                
+                                                                                
+Supplemental Reconciliations of Other GAAP to Non-GAAP Forward-Looking Estimates
+Set forth below are reconciliations of the non-GAAP financial measure to the
+most directly comparable US GAAP financial measure. These non-GAAP financial
+measures should not be considered a substitute for, or superior to, financial
+measures calculated in accordance with US GAAP, and the reconciliations should
+be carefully evaluated. Please refer to "Explanation of Non-GAAP Measures" in
+this document for a detailed explanation of the adjustments made to the
+comparable US GAAP measures, the ways management uses the non-GAAP measures, and
+the reasons why management believes the non-GAAP measures provide useful
+information for investors.
+                                                           
+                                     Full-Year 2026        
+  (In Billions; Unaudited)           Approximately         
+ ───────────────────────────────────────────────────────── 
+  GAAP operating expenses            $               19.0  
+  Acquisition-related adjustments                    -0.1  
+  Share-based compensation                           -2.9  
+  Restructuring and other charges                       —  
+  Non-GAAP operating expenses        $               16.0  
+                                                           
+Contacts:
+
+Investor Relations
+
+investor.relations@intel.com
+
+Sophie Metzger
+
+Media Relations
+
+sophie.metzger@intel.com

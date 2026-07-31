@@ -1,0 +1,38 @@
+{
+  "accession": "0001045810-24-000264",
+  "ticker": "NVDA",
+  "form": "10-Q",
+  "text_length": 214277,
+  "sections": {
+    "Part I Item 2": [
+      114203,
+      161274
+    ],
+    "Part II Item 1": [
+      164508,
+      164891
+    ],
+    "Part II Item 1A": [
+      164891,
+      202983
+    ]
+  },
+  "preview": {
+    "Part I Item 2": {
+      "length": 47071,
+      "head": "Item 2. Management's Discussion and Analysis of Financial Condition and Results of Operations\n\nForward-Looking Statements\n\nThis Quarterly Report on Form 10-Q contains forward-looking statements based ",
+      "tail": "ewable energy or climate-related business trends.\n\nAdoption of New and Recently Issued Accounting Pronouncements\n\nThere has been no adoption of any new and recently issued accounting pronouncements.\n\n"
+    },
+    "Part II Item 1": {
+      "length": 383,
+      "head": "Item 1. Legal Proceedings\n\nRefer to Part I, Item 1, Note 12 of the Notes to Condensed Consolidated Financial Statements for a discussion of significant developments in our legal proceedings since Janu",
+      "tail": "edings since January 28, 2024. Also refer to Item 3, \u201cLegal Proceedings\u201d in our Annual Report on Form 10-K for the fiscal year ended January 28, 2024 for a prior discussion of our legal proceedings.\n\n"
+    },
+    "Part II Item 1A": {
+      "length": 38092,
+      "head": "Item 1A. Risk Factors\n\nOther than the risk factors listed below, there have been no material changes from the risk factors previously described under Item 1A of our Annual Report on Form 10-K for the ",
+      "tail": "cially in Taiwan. Any new restrictions that negatively impact our ability to receive supply of components, parts, or services from Taiwan, would negatively impact our business and financial results.\n\n"
+    }
+  },
+  "failures": []
+}

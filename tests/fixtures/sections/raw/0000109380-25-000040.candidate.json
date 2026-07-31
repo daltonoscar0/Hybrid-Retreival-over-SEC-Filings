@@ -1,0 +1,56 @@
+{
+  "accession": "0000109380-25-000040",
+  "ticker": "ZION",
+  "form": "10-K",
+  "text_length": 793249,
+  "sections": {
+    "1": [
+      24625,
+      63197
+    ],
+    "1A": [
+      63197,
+      109183
+    ],
+    "3": [
+      115441,
+      115593
+    ],
+    "7": [
+      121033,
+      391991
+    ],
+    "7A": [
+      391991,
+      392224
+    ]
+  },
+  "preview": {
+    "1": {
+      "length": 38572,
+      "head": "ITEM 1. BUSINESS\n\nDESCRIPTION OF BUSINESS\n\nZions Bancorporation, National Association (\u201cZions Bancorporation, N.A.,\u201d \u201cthe Bank,\u201d \u201cwe,\u201d \u201cour,\u201d \u201cus\u201d) is a bank headquartered in Salt Lake City, Utah with",
+      "tail": "ed focus groups. These forums facilitate stronger relationships with managers, clarify organizational purpose and goals, and reinforce our Guiding Principles and Code of Business Conduct and Ethics.\n\n"
+    },
+    "1A": {
+      "length": 45986,
+      "head": "ITEM 1A. RISK FACTORS\n\nWe generate revenue and grow our businesses by taking prudent and well-managed risks. These risks are outlined in our Risk Management Framework. The Board has established an Aud",
+      "tail": "rest rates, among other unforeseen consequences. In such an event, the Bank\u2019s liquidity, operating margins, financial condition, and results of operations could be materially and adversely affected.\n\n"
+    },
+    "3": {
+      "length": 152,
+      "head": "ITEM 3. LEGAL PROCEEDINGS\n\nThe information contained in Note 16 of the Notes to Consolidated Financial Statements is incorporated by reference herein.\n\n",
+      "tail": "ITEM 3. LEGAL PROCEEDINGS\n\nThe information contained in Note 16 of the Notes to Consolidated Financial Statements is incorporated by reference herein.\n\n"
+    },
+    "7": {
+      "length": 270958,
+      "head": "ITEM 7. MANAGEMENT\u2019S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS\n\nKey Corporate Objectives\n\nWe conduct our operations primarily through seven separately managed and geogra",
+      "tail": "llion accruals associated with the FDIC special assessment recorded in deposit insurance and regulatory expense, the efficiency ratio for 2024 and 2023 would have been 64.5% and 65.8%, respectively.\n\n"
+    },
+    "7A": {
+      "length": 233,
+      "head": "ITEM 7A. QUANTITATIVE AND QUALITATIVE DISCLOSURES ABOUT MARKET RISK\n\nInformation required by this Item is included in \u201cInterest Rate and Market Risk Management\u201d in MD&A beginning on page 70, and is he",
+      "tail": "TIVE DISCLOSURES ABOUT MARKET RISK\n\nInformation required by this Item is included in \u201cInterest Rate and Market Risk Management\u201d in MD&A beginning on page 70, and is hereby incorporated by reference.\n\n"
+    }
+  },
+  "failures": []
+}

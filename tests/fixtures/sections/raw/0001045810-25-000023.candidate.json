@@ -1,0 +1,56 @@
+{
+  "accession": "0001045810-25-000023",
+  "ticker": "NVDA",
+  "form": "10-K",
+  "text_length": 436888,
+  "sections": {
+    "1": [
+      13780,
+      68881
+    ],
+    "1A": [
+      68881,
+      179674
+    ],
+    "3": [
+      184562,
+      184761
+    ],
+    "7": [
+      192455,
+      237662
+    ],
+    "7A": [
+      237662,
+      240958
+    ]
+  },
+  "preview": {
+    "1": {
+      "length": 55101,
+      "head": "Item 1. Business\n\nOur Company\n\nNVIDIA pioneered accelerated computing to help solve the most challenging computational problems. NVIDIA is now a full-stack computing infrastructure company with data-c",
+      "tail": "tatements, and other information regarding issuers that file electronically with the SEC. Our web site and the information on it or connected to it are not a part of this Annual Report on Form 10-K.\n\n"
+    },
+    "1A": {
+      "length": 110793,
+      "head": "Item 1A. Risk Factors\n\nThe following risk factors should be considered in addition to the other information in this Annual Report on Form 10-K. The following risks could harm our business, financial c",
+      "tail": "change in \ncontrol of NVIDIA, discourage proxy contests, and make it more difficult for shareholders to elect directors of their choosing and to cause us to take other corporate actions they desire.\n\n"
+    },
+    "3": {
+      "length": 199,
+      "head": "Item 3. Legal Proceedings\n\nPlease see Note 12 of the Notes to the Consolidated Financial Statements in Part IV, Item 15 of this Annual Report on Form 10-K for a discussion of our legal proceedings.\n\n",
+      "tail": "Item 3. Legal Proceedings\n\nPlease see Note 12 of the Notes to the Consolidated Financial Statements in Part IV, Item 15 of this Annual Report on Form 10-K for a discussion of our legal proceedings.\n\n"
+    },
+    "7": {
+      "length": 45207,
+      "head": "Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations\n\nThe following discussion and analysis of our financial condition and results of operations should be read",
+      "tail": "Note 1 of the Notes to the Consolidated Financial Statements in Part IV, Item 15 of this Annual Report on Form 10-K for a discussion of adoption of new and recently issued accounting pronouncements.\n\n"
+    },
+    "7A": {
+      "length": 3296,
+      "head": "Item 7A. Quantitative and Qualitative Disclosures about Market Risk\n\nInvestment and Interest Rate Risk\n\nWe are exposed to interest rate risk related to our fixed-rate investment portfolio and outstand",
+      "tail": "d monetary assets and liabilities balances.\n\nRefer to Note 10 of the Notes to the Consolidated Financial Statements in Part IV, Item 15 of this Annual Report on Form 10-K for additional information.\n\n"
+    }
+  },
+  "failures": []
+}

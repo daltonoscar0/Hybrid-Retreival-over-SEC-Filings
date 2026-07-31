@@ -1,0 +1,56 @@
+{
+  "accession": "0001212545-24-000092",
+  "ticker": "WAL",
+  "form": "10-K",
+  "text_length": 867844,
+  "sections": {
+    "1": [
+      24434,
+      76452
+    ],
+    "1A": [
+      76452,
+      154943
+    ],
+    "3": [
+      161869,
+      162336
+    ],
+    "7": [
+      166451,
+      375469
+    ],
+    "7A": [
+      375469,
+      385217
+    ]
+  },
+  "preview": {
+    "1": {
+      "length": 52018,
+      "head": "Item 1. Business.\n\nOrganization Structure and Description of Services\n\nWAL is a bank holding company headquartered in Phoenix, Arizona, incorporated under the laws of the state of Delaware. WAL provid",
+      "tail": "ite and the information contained therein are not incorporated into this Form 10-K.\n\nIn addition, copies of the Company\u2019s annual report will be made available, free of charge, upon written request.\n\n\n"
+    },
+    "1A": {
+      "length": 78491,
+      "head": "Item 1A. Risk Factors.\n\nInvesting in our common stock involves various risks, many of which are specific to our business. The discussion below addresses the material risks and uncertainties, of which ",
+      "tail": "e measure in response to a \ntakeover proposal. These provisions could make it more difficult for a third party to acquire us even if an acquisition might be in the best interest of our stockholders.\n\n"
+    },
+    "3": {
+      "length": 467,
+      "head": "Item 3. Legal Proceedings.\n\nThere are no material pending legal proceedings to which the Company is a party to or to which any of its properties are subject. There are no material proceedings known to",
+      "tail": " time to time, the Company is involved in a variety of litigation matters in the ordinary course of its business and anticipates that it will become involved in new litigation matters in the future.\n\n"
+    },
+    "7": {
+      "length": 209018,
+      "head": "Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations.\n\nThe following discussion is designed to provide insight on the financial condition and results of operat",
+      "tail": "ts of operations of the Company. A change in statutes, regulations, or \nregulatory policies applicable to WAL or any of its subsidiaries could have a material effect on the business of the Company.\n\n\n"
+    },
+    "7A": {
+      "length": 9748,
+      "head": "Item 7A. Quantitative and Qualitative Disclosures about Market Risk.\n\nMarket risk is the risk of loss in a financial instrument arising from adverse changes in market prices and rates, foreign currenc",
+      "tail": " on how derivatives in a hedging relationship (fair value hedges) are used to manage the Company's interest rate risk, see \"Note 14. Derivatives and Hedging Activities\" in Item 8 of this Form 10-K.\n\n\n"
+    }
+  },
+  "failures": []
+}

@@ -1,0 +1,56 @@
+{
+  "accession": "0000050863-20-000011",
+  "ticker": "INTC",
+  "form": "10-K",
+  "text_length": 553095,
+  "sections": {
+    "1": [
+      13038,
+      74316
+    ],
+    "7": [
+      74316,
+      161321
+    ],
+    "1A": [
+      195413,
+      264571
+    ],
+    "3": [
+      480702,
+      490984
+    ],
+    "7A": [
+      161321,
+      169251
+    ]
+  },
+  "preview": {
+    "1": {
+      "length": 61278,
+      "head": "  A YEAR IN REVIEW  \n\n  Our transformation to a data-centric company continued in 2019, and we experienced strong demand and reached critical product milestones. We achieved record revenue of $72.0 bi",
+      "tail": "sed on executing an annual cadence of leadership products. Strong demand across our product lines,...  \n\n1 Source: Intel calculated 2024 TAM derived from industry analyst reports.\n\n  MD&A      16  \n\n\n"
+    },
+    "7": {
+      "length": 87005,
+      "head": "  OUR PRODUCTS  \n\n  OUR PRODUCTS PROVIDE END-TO-END SOLUTIONS  \n\nWe are at the forefront of developing new technologies and new products as building blocks for an increasingly smart and connected worl",
+      "tail": "le, as the amount is contingent upon continued employment. In addition, the amount of the obligation is unknown, as it is based in part on the market price of our \ncommon stock when the awards vest.\n\n"
+    },
+    "1A": {
+      "length": 69158,
+      "head": "RISK FACTORS\n\nThe following risks could materially and adversely affect our business, financial condition, cash flows, and results of operations, and the trading price of our common stock could declin",
+      "tail": "hanges in cash flows, tax laws and other laws, and the market price of our common stock can also limit or alter the amount and\nfrequency of our stock repurchases.\n\n  OTHER KEY INFORMATION      60  \n\n\n"
+    },
+    "3": {
+      "length": 10282,
+      "head": "LEGAL PROCEEDINGS\n\nWe are a party to various legal proceedings, including those noted in this section. Although management at present believes that the ultimate outcome of these proceedings, individua",
+      "tail": "tiffs leave to amend. Defendants' motion to dismiss plaintiffs' third amended complaint is scheduled for hearing in March 2020.\n\n  FINANCIAL STATEMENTS      Notes to Financial Statements      108  \n\n\n"
+    },
+    "7A": {
+      "length": 7930,
+      "head": "QUANTITATIVE AND QUALITATIVE DISCLOSURES ABOUT MARKET RISK\n\nWe are affected by changes in currency exchange and interest rates, as well as equity and commodity prices. Our risk management programs are",
+      "tail": "such as commodity swaps, in these hedging programs. In addition, we have sourcing plans in place that are designed to mitigate the risk of a potential supplier concentration for our key commodities.\n\n"
+    }
+  },
+  "failures": []
+}

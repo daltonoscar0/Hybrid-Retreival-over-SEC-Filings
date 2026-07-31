@@ -1,0 +1,38 @@
+{
+  "accession": "0000050863-25-000074",
+  "ticker": "INTC",
+  "form": "10-Q",
+  "text_length": 182233,
+  "sections": {
+    "Part I Item 2": [
+      131005,
+      160567
+    ],
+    "Part II Item 1": [
+      104418,
+      122095
+    ],
+    "Part II Item 1A": [
+      160567,
+      165735
+    ]
+  },
+  "preview": {
+    "Part I Item 2": {
+      "length": 29562,
+      "head": "  Operating Segments Trends and Results  \n\nIntel Products\n\nIntel Products consists substantially of the design, development, marketing, sale, support, and servicing of CPUs and related solutions for t",
+      "tail": "increased partner contributions and no dividend \npayments in the first three months of 2025 compared to the first three months of 2024.\n\n  MD&A      34  \n\n\n  Risk Factors and Other Key Information  \n\n"
+    },
+    "Part II Item 1": {
+      "length": 17677,
+      "head": "Legal Proceedings\n\nWe are regularly party to various ongoing claims, litigation, and other proceedings, including those noted in this section. As of March 29, 2025, we have accrued a charge of $1.0 bi",
+      "tail": "are unable to make a reasonable estimate \nof the potential loss or range of losses, if any, that might arise from these matters.\n\n  Financial Statements      Notes to Financial Statements      23  \n\n\n"
+    },
+    "Part II Item 1A": {
+      "length": 5168,
+      "head": "Risk Factors\n\nThe risks described in \"Risk Factors\" within Other Key Information in our 2024 Form 10-K could materially and adversely affect our business, financial condition, and results of operation",
+      "tail": "product demand and pricing, and profitability, and may increase the likelihood, or amplify the impacts, of other risks, including those highlighted in the Risk Factors section of our 2024 Form 10-K.\n\n"
+    }
+  },
+  "failures": []
+}

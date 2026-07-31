@@ -1,0 +1,20 @@
+{
+  "accession": "0001628280-25-045685",
+  "ticker": "WAL",
+  "form": "8-K",
+  "text_length": 171246,
+  "sections": {
+    "EX-99.1": [
+      0,
+      171246
+    ]
+  },
+  "preview": {
+    "EX-99.1": {
+      "length": 171246,
+      "head": "                                         \n  Western Alliance Bancorporation        \n  One East Washington Street             \n  Phoenix, AZ 85004                      \n  www.westernalliancebancorporat",
+      "tail": "rength of the Company.               \n                                                                                \n                                       17                                       \n"
+    }
+  },
+  "failures": []
+}

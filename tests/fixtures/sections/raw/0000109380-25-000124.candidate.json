@@ -1,0 +1,20 @@
+{
+  "accession": "0000109380-25-000124",
+  "ticker": "ZION",
+  "form": "8-K",
+  "text_length": 195562,
+  "sections": {
+    "EX-99.1": [
+      0,
+      195562
+    ]
+  },
+  "preview": {
+    "EX-99.1": {
+      "length": 195562,
+      "head": "                               \n  Zions Bancorporation, N.A.   \n  One South Main               \n  Salt Lake City, UT 84133     \n  October 20, 2025             \n \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 \n  www.zi",
+      "tail": "                       \n                                                                                \n1 Effective the first quarter of 2025, net CVA is included in capital markets\nfees and income.\n"
+    }
+  },
+  "failures": []
+}

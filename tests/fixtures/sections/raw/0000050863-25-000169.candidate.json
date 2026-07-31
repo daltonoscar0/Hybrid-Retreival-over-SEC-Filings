@@ -1,0 +1,20 @@
+{
+  "accession": "0000050863-25-000169",
+  "ticker": "INTC",
+  "form": "8-K",
+  "text_length": 109687,
+  "sections": {
+    "EX-99.1": [
+      0,
+      109687
+    ]
+  },
+  "preview": {
+    "EX-99.1": {
+      "length": 109687,
+      "head": "                                                                    Exhibit 99.1\n                                                                                \n  Intel Corporation                   ",
+      "tail": "              16.0  \n                                                           \nContacts:\n\nInvestor Relations\n\ninvestor.relations@intel.com\n\nSophie Metzger\n\nMedia Relations\n\nsophie.metzger@intel.com\n"
+    }
+  },
+  "failures": []
+}

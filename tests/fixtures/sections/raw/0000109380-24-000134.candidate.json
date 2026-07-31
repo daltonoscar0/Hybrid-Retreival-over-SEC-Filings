@@ -1,0 +1,38 @@
+{
+  "accession": "0000109380-24-000134",
+  "ticker": "ZION",
+  "form": "10-Q",
+  "text_length": 500740,
+  "sections": {
+    "Part I Item 2": [
+      12045,
+      194797
+    ],
+    "Part II Item 1": [
+      495533,
+      495685
+    ],
+    "Part II Item 1A": [
+      495685,
+      495845
+    ]
+  },
+  "preview": {
+    "Part I Item 2": {
+      "length": 182752,
+      "head": "ITEM 2. MANAGEMENT\u2019S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS\n\nFORWARD-LOOKING INFORMATION\n\nThis quarterly report includes \u201cforward-looking statements\u201d as that term is ",
+      "tail": " property (recorded in dividends and other income), the efficiency ratio for the three months ended June 30, 2024 would have been 65.6%.\n\n\nZIONS BANCORPORATION, NATIONAL ASSOCIATION AND SUBSIDIARIES\n\n"
+    },
+    "Part II Item 1": {
+      "length": 152,
+      "head": "ITEM 1. LEGAL PROCEEDINGS\n\nThe information contained in Note 10 of the Notes to Consolidated Financial Statements is incorporated by reference herein.\n\n",
+      "tail": "ITEM 1. LEGAL PROCEEDINGS\n\nThe information contained in Note 10 of the Notes to Consolidated Financial Statements is incorporated by reference herein.\n\n"
+    },
+    "Part II Item 1A": {
+      "length": 160,
+      "head": "ITEM 1A. RISK FACTORS\n\nThere have been no material changes to the risk factors as previously disclosed in Part I, Item 1A. Risk Factors in our 2023 Form 10-K.\n\n",
+      "tail": "ITEM 1A. RISK FACTORS\n\nThere have been no material changes to the risk factors as previously disclosed in Part I, Item 1A. Risk Factors in our 2023 Form 10-K.\n\n"
+    }
+  },
+  "failures": []
+}
