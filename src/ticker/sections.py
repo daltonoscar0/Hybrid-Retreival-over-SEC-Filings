@@ -755,10 +755,38 @@ def _repair_short_item7(
 
     incorporated = _incorporated_item7_span(text, start)
     if incorporated is not None:
-        repaired = [(item, s, e) for item, s, e in sections if item != "7"] + [
-            ("7", incorporated[0], incorporated[1])
-        ]
-        return sorted(repaired, key=lambda row: row[1]), []
+        # This repair moves Item 7 to a span far later in the document, past
+        # every other item's start marker, while leaving the other items where
+        # the item-label path put them. Nothing in that path guarantees one of
+        # them does not run into the new span: an item whose own end boundary
+        # is the next item-label heading will overrun if there is no such
+        # heading between it and the F-pages. Two sections over overlapping
+        # offsets would insert the same sentences twice, into the chunker, both
+        # indexes, and both language models.
+        #
+        # Measured over all 966 filings this does not happen, so the guard
+        # never fires today. It is here because "measured not to happen" is a
+        # property of this corpus and the repair is a property of the code.
+        # Overlapping items are reported rather than silently trimmed, since a
+        # section that overruns into the financial statements has a wrong end
+        # boundary whether or not Item 7 moved.
+        new_start, new_end = incorporated
+        kept: list[tuple[str, int, int]] = [("7", new_start, new_end)]
+        overlaps: list[tuple[str, str]] = []
+        for item, section_start, section_end in sections:
+            if item == "7":
+                continue
+            if section_start < new_end and new_start < section_end:
+                overlaps.append((
+                    item,
+                    f"span {section_start}-{section_end} overlaps the Item 7 "
+                    f"narrative recovered at {new_start}-{new_end}; dropped "
+                    "rather than emitted, because two sections over the same "
+                    "offsets would double every sentence between them",
+                ))
+                continue
+            kept.append((item, section_start, section_end))
+        return sorted(kept, key=lambda row: row[1]), overlaps
 
     return sections, []
 

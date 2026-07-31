@@ -64,6 +64,20 @@ DEFAULT_SPLIT_SEED = 42
 RRF_NAME = "rrf"
 WSUM_NAME = "wsum"
 
+# The tuned run does not go in --runs-dir. `ticker.evaluation.discover_runs`
+# globs `*.jsonl` there, non-recursively, and `scripts/evaluate.py` scores
+# every file it finds over every judged query. A tuned system discovered that
+# way would get a row in reports/results.md whose score covers the queries that
+# chose its weights, complete with a bootstrap CI and a significance marker
+# against the untuned arms. Every guard in ticker.fusion would still have done
+# its job and the reported number would still be contaminated, because the
+# contamination route is the filesystem rather than the call graph.
+#
+# So the tuned artifact lives one directory down, out of the glob, and its
+# number is reported only in reports/fusion_tuning.md, only on the held-out
+# split, and only alongside every other arm scored on that same split.
+TUNED_SUBDIR = "tuned"
+
 
 def _load_systems(runs_dir: Path, systems: list[str]):
     """Returns ({name: run}, [missing names]). A missing run file is not an
@@ -213,7 +227,7 @@ def main() -> None:
     lines = _report_header(runs, args.runs_dir, args.rrf_k, rrf_rows)
 
     qrels = load_qrels_dict(args.qrels)
-    wsum_path = args.runs_dir / f"{WSUM_NAME}.jsonl"
+    wsum_path = args.runs_dir / TUNED_SUBDIR / f"{WSUM_NAME}.jsonl"
     if not qrels:
         print(
             f"no judgments in {args.qrels}, so the weighted arm is skipped. RRF "

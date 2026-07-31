@@ -42,7 +42,7 @@ Input contract
 
 `novelty` is the raw contrast, firm-prior surprisal minus background-prior
 surprisal. Not the within-document z-score: deciles are cut across the whole
-file, so the values have to be comparable across documents, and CLAUDE.md
+file, so the values have to be comparable across documents, and project
 invariant 3 says the z-scored form is not. Extra keys on a line are ignored,
 a repeated `sentence_id` is an error, and a non-finite `novelty` is an error.
 

@@ -14,11 +14,14 @@ single call that tunes and reports.
 
 from __future__ import annotations
 
+import importlib.util
+import sys
+
 from pathlib import Path
 
 import pytest
 
-from ticker.evaluation import load_run_jsonl
+from ticker.evaluation import discover_runs, load_run_jsonl
 from ticker.fusion import (
     DEFAULT_RRF_K,
     held_out_score,
@@ -31,6 +34,18 @@ from ticker.fusion import (
     weighted,
     write_run_jsonl,
 )
+
+# scripts/ is not a package; import scripts/fuse.py by file path, the same way
+# tests/test_bm25.py imports scripts/index.py.
+_SPEC = importlib.util.spec_from_file_location(
+    "ticker_scripts_fuse",
+    Path(__file__).resolve().parents[1] / "scripts" / "fuse.py",
+)
+fuse_script = importlib.util.module_from_spec(_SPEC)
+sys.modules[_SPEC.name] = fuse_script
+_SPEC.loader.exec_module(fuse_script)
+
+
 
 
 def _assert_runs_close(actual: dict, expected: dict) -> None:
@@ -316,3 +331,26 @@ def test_write_run_jsonl_is_byte_stable(tmp_path: Path):
     write_run_jsonl(a, fused)
     write_run_jsonl(b, rrf(dict(reversed(list(_two_systems().items())))))
     assert a.read_bytes() == b.read_bytes()
+
+
+def test_the_tuned_run_is_not_discoverable_by_the_ablation_ladder(tmp_path: Path):
+    """The guard that matters is where the file lands, not what tuned it.
+
+    `ticker.evaluation.discover_runs` globs the runs directory and
+    `scripts/evaluate.py` scores everything it returns over every judged query.
+    A tuned run sitting in that directory would be reported on the queries that
+    chose its weights, with every in-process guard in this module having done
+    its job. `scripts/fuse.py` writes it to a subdirectory for that reason, and
+    this pins the subdirectory to being out of the glob.
+    """
+    runs_dir = tmp_path / "runs"
+    tuned_dir = runs_dir / fuse_script.TUNED_SUBDIR
+    write_run_jsonl(runs_dir / "bm25.jsonl", _two_systems()["bm25"])
+    write_run_jsonl(runs_dir / "rrf.jsonl", rrf(_two_systems()))
+    write_run_jsonl(tuned_dir / f"{fuse_script.WSUM_NAME}.jsonl", _two_systems()["dense"])
+
+    discovered = set(discover_runs(runs_dir))
+
+    assert discovered == {"bm25", "rrf"}
+    assert fuse_script.WSUM_NAME not in discovered
+    assert (tuned_dir / f"{fuse_script.WSUM_NAME}.jsonl").exists()

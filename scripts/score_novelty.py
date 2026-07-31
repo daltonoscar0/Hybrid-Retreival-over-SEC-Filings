@@ -21,22 +21,40 @@ filed before the cutoff, refit from scratch. Fitting one per filing means one
 fit per distinct filing date, which for 966 filings is 966 fits over corpora
 that reach six figures of sentences.
 
-`--as-of` chooses the grid the cutoff is snapped to. Both settings preserve
-invariant 1, and the reason is worth stating precisely rather than trusting:
+`--as-of` chooses the grid the cutoff is snapped to. The default is `filing`,
+the exact cutoff.
 
-  filing   cutoff is the filing's own `filed_at`. Exact, and the most data
+  filing   cutoff is the filing's own `filed_at`. Exact, and the most history
            the time discipline permits.
   quarter  cutoff is the first instant of the quarter containing `filed_at`.
-           Strictly earlier than the filing date, so the training set is a
-           PREFIX of what `filing` would have allowed. Never a superset.
-           A model fit on less data than permitted is a weaker model, not a
-           leaking one, and the failure it can produce is an understated
-           novelty contrast rather than a score that saw its own document.
+           Collapses the 966 distinct cutoffs to at most 24, so the two sector
+           background models are fit at most 48 times instead of 966.
 
-`quarter` collapses the 966 distinct cutoffs to at most 24, so the two sector
-background models are fit at most 48 times instead of 966. Filings in the
-same sector and quarter then share one background fit. Use `filing` for
-anything where the extra weeks of history matter and the scope is small.
+`quarter` does not leak. The training set it produces is a prefix of what
+`filing` would have allowed, never a superset, and no sentence can be both
+trained on and scored: `fit` rejects a sentence at or after `as_of`,
+`novelty_raw` rejects one before it, and the two predicates are complementary.
+
+It is still the wrong default, for a reason that took an audit to see. The bias
+it introduces runs toward FALSE NOVELTY, not toward an understated contrast.
+Take a firm that files its earnings 8-K on January 20 and the 10-K whose MD&A
+recycles that language on February 10. Both snap to `as_of` January 1, so the
+firm model scoring the 10-K has not seen the 8-K, even though the 8-K predates
+it. The recycled text is unseen by the firm model, so firm surprisal is high;
+the sector background has not seen it either, so subtracting does not cancel
+it; the contrast reads new for text the firm published three weeks earlier.
+Under the exact cutoff the firm model would have seen it and scored it strongly
+negative.
+
+That is not a rounding error on a minority of the corpus. 486 of 966 filings
+are second or later within their own (firm, calendar quarter), covering 251,636
+of 298,375 sentences, and the earnings-release-then-periodic-report pair is the
+dominant shape. The failure lands precisely on the recycled boilerplate the
+measure exists to detect.
+
+`quarter` stays available because the background fit is the expensive term and
+a corpus-wide pass over all three forms is hours of it. Anything feeding a
+Phase 5 validation should use the default.
 
 The firm model is cheap either way (one firm's own history) and is fit at the
 same cutoff as its background, because `ticker.novelty.score` refuses a pair
@@ -45,7 +63,7 @@ the horizon.
 
 Usage:
   uv run python scripts/score_novelty.py --form 10-K
-  uv run python scripts/score_novelty.py --as-of filing --limit 5
+  uv run python scripts/score_novelty.py --as-of quarter
 """
 
 from __future__ import annotations
@@ -88,7 +106,18 @@ _SENTENCES_SQL = """
 
 
 def quarter_floor(moment: datetime) -> datetime:
-    """First instant of the quarter containing `moment`, in UTC."""
+    """First instant of the quarter containing `moment`, in UTC.
+
+    Converted to UTC first. DuckDB hands back a TIMESTAMPTZ in the session
+    timezone, so reading `.year` and `.month` off it and then stamping the
+    result `timezone.utc` mixes two calendars. West of UTC the result is still
+    earlier than `moment` and nothing shows; east of UTC a filing late on the
+    last day of a quarter renders as the first day of the next one, the floor
+    lands after the filing, and the filing's own sentences fall into its own
+    firm model. Which sentences get scored would then depend on the `TZ` of the
+    process, which is not a property anyone would think to check.
+    """
+    moment = moment.astimezone(timezone.utc)
     quarter_start_month = 3 * ((moment.month - 1) // 3) + 1
     return datetime(moment.year, quarter_start_month, 1, tzinfo=timezone.utc)
 
@@ -100,7 +129,7 @@ def main() -> None:
     parser.add_argument("--db", type=Path, default=DEFAULT_DB)
     parser.add_argument("--out", type=Path, default=DEFAULT_OUT)
     parser.add_argument("--form", default=None, help="restrict to one form, e.g. 10-K")
-    parser.add_argument("--as-of", choices=("quarter", "filing"), default="quarter")
+    parser.add_argument("--as-of", choices=("filing", "quarter"), default="filing")
     parser.add_argument("--limit", type=int, default=None)
     parser.add_argument(
         "--order", type=int, default=5, help="n-gram order; PLAN fixes this at 5"

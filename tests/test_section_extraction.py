@@ -829,3 +829,29 @@ def test_extraction_matches_approved_fixture(accession, expected_path):
         assert abs(got_end - exp_end) <= TOLERANCE_CHARS, (
             f"{accession} {item}: end {got_end} vs expected {exp_end}"
         )
+
+
+def test_incorporation_repair_drops_an_item_that_overlaps_the_recovered_span():
+    # The repair relocates Item 7 past every other item's start marker. An
+    # item whose own end boundary runs into the new span would double every
+    # sentence between them through the chunker and into both language models.
+    text = _incorporated_10k(2019)
+    # Delete the Item 8 heading that currently bounds Item 7A, so 7A's end
+    # boundary runs on past the recovered Item 7 narrative.
+    text = text.replace("Item 8. Financial Statements\n\nSee attached.\n", "")
+    result = extract_sections(text, "10-K")
+    spans = [(s, e) for _, s, e in result.sections]
+    for i, (a_start, a_end) in enumerate(spans):
+        for b_start, b_end in spans[i + 1:]:
+            assert not (a_start < b_end and b_start < a_end), (
+                f"sections {a_start}-{a_end} and {b_start}-{b_end} overlap"
+            )
+    assert "7" in {item for item, _, _ in result.sections}
+
+
+def test_no_two_sections_ever_overlap_in_a_repaired_filing():
+    for year in (2019, 2024):
+        result = extract_sections(_incorporated_10k(year), "10-K")
+        spans = sorted((s, e) for _, s, e in result.sections)
+        for (a_start, a_end), (b_start, b_end) in zip(spans, spans[1:]):
+            assert a_end <= b_start, f"{year}: {a_start}-{a_end} overlaps {b_start}-{b_end}"
