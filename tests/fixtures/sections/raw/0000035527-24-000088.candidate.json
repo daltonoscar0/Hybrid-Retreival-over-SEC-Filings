@@ -1,0 +1,56 @@
+{
+  "accession": "0000035527-24-000088",
+  "ticker": "FITB",
+  "form": "10-K",
+  "text_length": 1240197,
+  "sections": {
+    "1": [
+      17118,
+      82974
+    ],
+    "1A": [
+      82974,
+      178536
+    ],
+    "3": [
+      187754,
+      187971
+    ],
+    "7": [
+      211248,
+      572683
+    ],
+    "7A": [
+      572683,
+      573166
+    ]
+  },
+  "preview": {
+    "1": {
+      "length": 65856,
+      "head": "ITEM 1. BUSINESS\n\nGeneral Information\n\nFifth Third Bancorp (the \u201cBancorp\u201d or \u201cFifth Third\u201d), an Ohio corporation organized in 1975, is a bank holding company (\u201cBHC\u201d) as defined by the Bank Holding Com",
+      "tail": "regulatory changes, or supervisory direction, cannot be predicted. However, such changes could affect \nthe Bancorp\u2019s business, financial condition and results of operations.\n\n26 Fifth Third Bancorp\n\n\n"
+    },
+    "1A": {
+      "length": 95562,
+      "head": "ITEM 1A. RISK FACTORS\n\nThe risks and uncertainties listed below present risks that could have a material impact on the Bancorp\u2019s financial condition, the results of its operations or its business. Som",
+      "tail": "ctively manage and maintain adequate liquidity to satisfy its commitments could have a material adverse effect on its business, results of operations or financial condition.\n\n41 Fifth Third Bancorp\n\n\n"
+    },
+    "3": {
+      "length": 217,
+      "head": "ITEM 3. LEGAL PROCEEDINGS\n\nRefer to Note 19 of the Notes to Consolidated Financial Statements in Part II, Item 8 of this report for information regarding legal proceedings, which is incorporated herei",
+      "tail": "CEEDINGS\n\nRefer to Note 19 of the Notes to Consolidated Financial Statements in Part II, Item 8 of this report for information regarding legal proceedings, which is incorporated herein by reference.\n\n"
+    },
+    "7": {
+      "length": 361435,
+      "head": "ITEM 7. MANAGEMENT\u2019S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS\n\nThe following is Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations of",
+      "tail": "es are not included in the calculation for average price paid per share and do not count against the maximum number of shares that may yet be repurchased under the Board of Directors\u2019 authorization.\n\n"
+    },
+    "7A": {
+      "length": 483,
+      "head": "ITEM 7A. QUANTITATIVE AND QUALITATIVE DISCLOSURES ABOUT MARKET RISK\n\nThis information is set forth in the Interest Rate and Price Risk Management section of Item 7 (Management\u2019s Discussion and Analysi",
+      "tail": "ted herein by reference. This information contains certain statements that we believe are forward-looking statements. Refer to page15 for cautionary information regarding forward-looking statements.\n\n"
+    }
+  },
+  "failures": []
+}

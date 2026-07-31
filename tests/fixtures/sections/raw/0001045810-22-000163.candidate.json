@@ -1,0 +1,20 @@
+{
+  "accession": "0001045810-22-000163",
+  "ticker": "NVDA",
+  "form": "8-K",
+  "text_length": 77121,
+  "sections": {
+    "EX-99.1": [
+      0,
+      77121
+    ]
+  },
+  "preview": {
+    "EX-99.1": {
+      "length": 77121,
+      "head": "FOR IMMEDIATE RELEASE:\n        NVIDIA Announces Financial Results for Third Quarter Fiscal 2023        \n\u2022 Data Center revenue of $3.83 billion, up 31% from a year ago\n\n\u2022 Quarterly return to shareholde",
+      "tail": "        $                  1,780     \n  expenses                                                                      \n                                                                                \n"
+    }
+  },
+  "failures": []
+}

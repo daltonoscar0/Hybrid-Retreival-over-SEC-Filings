@@ -1,0 +1,38 @@
+{
+  "accession": "0000759944-23-000124",
+  "ticker": "CFG",
+  "form": "10-Q",
+  "text_length": 489330,
+  "sections": {
+    "Part I Item 2": [
+      23297,
+      215749
+    ],
+    "Part II Item 1": [
+      483258,
+      483385
+    ],
+    "Part II Item 1A": [
+      483385,
+      483578
+    ]
+  },
+  "preview": {
+    "Part I Item 2": {
+      "length": 192452,
+      "head": "ITEM 2. MANAGEMENT\u2019S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS\n\n                                                       Page  \n  Forward-Looking Statements               ",
+      "tail": "       W/(N/U)                                                 40                             34                                               39            35  \n\nCitizens Financial Group, Inc. | 39\n\n"
+    },
+    "Part II Item 1": {
+      "length": 127,
+      "head": "ITEM 1. LEGAL PROCEEDINGS\n\nInformation required by this item is presented in Note 11 and is incorporated herein by reference.\n\n",
+      "tail": "ITEM 1. LEGAL PROCEEDINGS\n\nInformation required by this item is presented in Note 11 and is incorporated herein by reference.\n\n"
+    },
+    "Part II Item 1A": {
+      "length": 193,
+      "head": "ITEM 1A. RISK FACTORS\n\nIn addition to the other information set forth in this Report, you should consider the risks described under the caption \u201cRisk Factors\u201d in the Company\u2019s 2022 Form 10-K.\n\n",
+      "tail": "ITEM 1A. RISK FACTORS\n\nIn addition to the other information set forth in this Report, you should consider the risks described under the caption \u201cRisk Factors\u201d in the Company\u2019s 2022 Form 10-K.\n\n"
+    }
+  },
+  "failures": []
+}

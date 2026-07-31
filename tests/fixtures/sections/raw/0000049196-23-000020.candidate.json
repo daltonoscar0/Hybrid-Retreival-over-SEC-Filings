@@ -1,0 +1,56 @@
+{
+  "accession": "0000049196-23-000020",
+  "ticker": "HBAN",
+  "form": "10-K",
+  "text_length": 851854,
+  "sections": {
+    "1": [
+      34316,
+      117451
+    ],
+    "1A": [
+      117451,
+      186398
+    ],
+    "3": [
+      187796,
+      188078
+    ],
+    "7": [
+      190107,
+      428738
+    ],
+    "7A": [
+      428738,
+      428958
+    ]
+  },
+  "preview": {
+    "1": {
+      "length": 83135,
+      "head": "Item 1: Business\n\nWe are a multi-state diversified regional bank holding company organized under Maryland law in 1966 and headquartered in Columbus, Ohio. Through the Bank, we are committed to making ",
+      "tail": "should be able to inspect reports, proxy statements, and other information \nabout us at the offices of the Nasdaq National Market at 33 Whitehall Street, New York, New York 10004.\n\n2022 Form 10-K25\n\n\n"
+    },
+    "1A": {
+      "length": 68947,
+      "head": "Item 1A: Risk Factors\n\nThe risks and uncertainties listed below present risks that could have a material impact on Huntington\u2019s financial condition, the results of operations or its business. Some of ",
+      "tail": "nformation posted on social media, whether or not factually correct, may affect our business prospects. All of these could adversely affect our growth, results of operation, and financial condition.\n\n"
+    },
+    "3": {
+      "length": 282,
+      "head": "Item 3: Legal Proceedings\n\nInformation required by this item is set forth in Note 22 - \u201cCommitments and Contingent Liabilities\u201d of the Notes to Consolidated Financial Statements under the caption \u201cLit",
+      "tail": "22 - \u201cCommitments and Contingent Liabilities\u201d of the Notes to Consolidated Financial Statements under the caption \u201cLitigation and Regulatory Matters\u201d and is incorporated into this Item by reference.\n\n"
+    },
+    "7": {
+      "length": 238631,
+      "head": "Item 7: Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations\n\nINTRODUCTION\n\nThis MD&A provides information we believe necessary for understanding our financial conditi",
+      "tail": "rds materially affects financial condition, results of operations, or liquidity, the impacts are discussed in the applicable section of this MD&A and the Notes to Consolidated Financial \nStatements.\n\n"
+    },
+    "7A": {
+      "length": 220,
+      "head": "Item 7A: Quantitative and Qualitative Disclosures About Market Risk\n\nInformation required by this item is set forth under the heading of \u201cMarket Risk\u201d in Item 7: MD&A, which is incorporated by referen",
+      "tail": "e and Qualitative Disclosures About Market Risk\n\nInformation required by this item is set forth under the heading of \u201cMarket Risk\u201d in Item 7: MD&A, which is incorporated by reference into this item.\n\n"
+    }
+  },
+  "failures": []
+}

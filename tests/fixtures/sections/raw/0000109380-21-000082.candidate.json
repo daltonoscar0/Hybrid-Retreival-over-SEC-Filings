@@ -1,0 +1,56 @@
+{
+  "accession": "0000109380-21-000082",
+  "ticker": "ZION",
+  "form": "10-K",
+  "text_length": 743054,
+  "sections": {
+    "1": [
+      20462,
+      59093
+    ],
+    "1A": [
+      59093,
+      109375
+    ],
+    "3": [
+      110160,
+      110312
+    ],
+    "7": [
+      124221,
+      365254
+    ],
+    "7A": [
+      365254,
+      365486
+    ]
+  },
+  "preview": {
+    "1": {
+      "length": 38631,
+      "head": "ITEM 1. BUSINESS\n\nDESCRIPTION OF BUSINESS\n\nZions Bancorporation, National Association and its subsidiaries (collectively \u201cZions Bancorporation, N.A.,\u201d \u201cthe Bank,\u201d \u201cwe,\u201d \u201cour,\u201d \u201cus\u201d) together comprise ",
+      "tail": "ing time off for mothers, fathers, and domestic partners;\n\n\u2022Adoption assistance program; and\n\n\u2022 Company paid time off for charitable contributions to our giving campaign and volunteer opportunities.\n\n"
+    },
+    "1A": {
+      "length": 50282,
+      "head": "ITEM 1A. RISK FACTORS\n\nOur growth strategy is driven by key factors while adhering to defined risk parameters. The key elements of our strategy reflect our prudent risk-taking philosophy. We generate ",
+      "tail": "ent the COVID-19 pandemic adversely affects our business, \nfinancial condition, or results of operations, it may also have the effect of heightening many of the other risks described in this report.\n\n"
+    },
+    "3": {
+      "length": 152,
+      "head": "ITEM 3. LEGAL PROCEEDINGS\n\nThe information contained in Note 16 of the Notes to Consolidated Financial Statements is incorporated by reference herein.\n\n",
+      "tail": "ITEM 3. LEGAL PROCEEDINGS\n\nThe information contained in Note 16 of the Notes to Consolidated Financial Statements is incorporated by reference herein.\n\n"
+    },
+    "7": {
+      "length": 241033,
+      "head": "ITEM 7. MANAGEMENT\u2019S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS\n\nMANAGEMENT\u2019S DISCUSSION AND ANALYSIS\n\nGAAP to NON-GAAP RECONCILIATIONS\n\nThis Form 10-K presents non-GAAP ",
+      "tail": "dopt. Also described is our expectation of the impact these new accounting pronouncements will have, to the extent they are material, on our financial condition, results of operations, or liquidity.\n\n"
+    },
+    "7A": {
+      "length": 232,
+      "head": "ITEM 7A. QUANTITATIVE AND QUALITATIVE DISCLOSURES ABOUT MARKET RISK\n\nInformation required by this Item is included in \u201cInterest Rate and Market Risk Management\u201d in MD&A beginning on page 67 and is her",
+      "tail": "ATIVE DISCLOSURES ABOUT MARKET RISK\n\nInformation required by this Item is included in \u201cInterest Rate and Market Risk Management\u201d in MD&A beginning on page 67 and is hereby incorporated by reference.\n\n"
+    }
+  },
+  "failures": []
+}

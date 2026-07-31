@@ -35,6 +35,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -48,6 +49,7 @@ from ticker.sections import (  # noqa: E402
     extract_sections,
     flag_length_outliers,
 )
+from ticker.universe import UNIVERSE  # noqa: E402
 
 # Filings where the primary document's own filed HTML carries no recoverable
 # narrative at all, confirmed by direct inspection: FITB's 2020-2023 10-Ks
@@ -59,11 +61,22 @@ from ticker.sections import (  # noqa: E402
 # was never fetched. This is a data-source limitation, not an extractor
 # defect, and is counted separately from genuine misses in the corpus report
 # rather than blended into either "success" or "failure."
+# The set is not a judgment call. Counting non-table characters per 10-K
+# across the universe, these nine occupy the entire low tail at 15,522 to
+# 60,907 characters, the next filing above them has 155,320, and the corpus
+# median is 383,652. No threshold anywhere inside that 94,413-character gap
+# changes the membership. All nine are regional banks and six are 2020 filings
+# covering fiscal 2019.
 NO_NARRATIVE_ACCESSIONS: frozenset[str] = frozenset({
-    "0001193125-20-057751",  # FITB 10-K, filed 2020-03-02
-    "0000035527-21-000100",  # FITB 10-K, filed 2021-02-26
-    "0000035527-22-000119",  # FITB 10-K, filed 2022-02-25
-    "0000035527-23-000122",  # FITB 10-K, filed 2023-02-24
+    "0000035527-23-000122",  # FITB 10-K, 15,522 non-table chars
+    "0000035527-22-000119",  # FITB 10-K, 15,654
+    "0000035527-21-000100",  # FITB 10-K, 15,732
+    "0000109380-20-000092",  # ZION 10-K, 21,319
+    "0000049196-20-000010",  # HBAN 10-K, 30,766
+    "0001281761-20-000010",  # RF   10-K, 48,910
+    "0001069157-20-000016",  # EWBC 10-K, 51,504
+    "0000091576-20-000007",  # KEY  10-K, 57,330
+    "0001193125-20-057751",  # FITB 10-K, 60,907
 })
 
 # (accession, item) pairs where "start marker not found" is confirmed correct,
@@ -102,37 +115,68 @@ REPORT_PATH = Path("reports/phase1_extraction.md")
 
 PREVIEW_CHARS = 200
 
-# Fixture manifest: (ticker, form, accession). Spans both sectors in the
-# locked universe (src/ticker/universe.py), forms 10-K/10-Q/8-K, and years
-# 2020-2025. NVDA/WAL/ZION cover the common formatting; INTC is included
-# deliberately even though its 10-K/10-Q push every "Item N." label into a
-# cross-reference index at the end of the document instead of an inline
-# heading -- see the module docstring in ticker.sections and the report this
-# script writes. It is a real, filer-specific extraction gap that the full
-# corpus build will hit for real, not a regex bug worth hiding by swapping
-# in an easier company.
+# Fixture manifest: (ticker, form, accession), 24 filings.
+#
+# The previous manifest drew 21 filings from 5 CIKs, 6 of them from one, and
+# reported a 100% fixture extraction rate against a corpus rate of 92.5%. That
+# gap is what an unrepresentative fixture set looks like: the five filers in it
+# happened to be the ones the extractor already handled, so the set could not
+# have caught the two failure modes that actually existed.
+#
+# Selection rule, applied in the fixed universe order in
+# src/ticker/universe.py so it reproduces exactly:
+#
+#   Base, 20 filings. One per company, all 20 CIKs. Form alternates by
+#   position, giving 10 10-Ks and 10 10-Qs and, because the universe
+#   interleaves the sectors in blocks of ten, 5 of each form per sector. The
+#   filing year is the company's position modulo the count of years it filed
+#   that form, so the set spreads across 2020 through 2025 rather than
+#   clustering. Filings in NO_NARRATIVE_ACCESSIONS are excluded from the draw:
+#   there are no spans in them for a reviewer to approve.
+#
+#   Edge cases, 4 filings, named rather than drawn. CMA's 10-K satisfies Item 7
+#   by pointing into the F-pages of the same document. RF's 2021 10-K presents
+#   Items 7 and 7A jointly under back-to-back headings. Both are the filings
+#   the short-Item-7 repairs in ticker.sections exist for, and an approved
+#   fixture is the only thing that turns those repairs from plausible into
+#   checked. Two 8-Ks, one per sector, cover EX-99.1; WAL's is 7,164 characters,
+#   near the short end of the exhibit distribution.
+#
+# INTC needs no edge-case slot: its base draw is a 10-K, and every INTC 10-K
+# pushes the "Item N." labels into a cross-reference index instead of using
+# inline headings, so the integrated-report path is covered by the base set.
+#
+# One filing per company rather than one of each form per company. Two per
+# company is 40 filings, and at the roughly two and a half minutes a careful
+# span check takes that is close to two hours of review against the one hour
+# STOP 1 budgets. Coverage of all 20 CIKs was kept and per-company coverage of
+# both forms was given up, because the failure modes seen so far are
+# filer-specific rather than form-specific.
 FIXTURE_MANIFEST: tuple[tuple[str, str, str], ...] = (
-    ("NVDA", "10-K", "0001045810-20-000010"),
-    ("NVDA", "10-K", "0001045810-23-000017"),
-    ("NVDA", "10-K", "0001045810-25-000023"),
-    ("NVDA", "10-Q", "0001045810-21-000064"),
-    ("NVDA", "10-Q", "0001045810-24-000264"),
     ("INTC", "10-K", "0000050863-20-000011"),
-    ("INTC", "10-K", "0000050863-24-000010"),
-    ("INTC", "10-Q", "0000050863-21-000030"),
-    ("INTC", "10-Q", "0000050863-25-000074"),
-    ("WAL", "10-K", "0001212545-21-000085"),
+    ("NVDA", "10-Q", "0001045810-21-000131"),
+    ("TXN", "10-K", "0000097476-22-000009"),
+    ("QCOM", "10-Q", "0000804328-23-000023"),
+    ("AVGO", "10-K", "0001730168-24-000139"),
+    ("MU", "10-Q", "0000723125-25-000021"),
+    ("ADI", "10-K", "0000006281-20-000156"),
+    ("NXPI", "10-Q", "0001413447-21-000062"),
+    ("MCHP", "10-K", "0000827054-22-000094"),
+    ("ON", "10-Q", "0001628280-23-026196"),
+    ("ZION", "10-K", "0000109380-21-000082"),
+    ("RF", "10-Q", "0001281761-25-000063"),
+    ("HBAN", "10-K", "0000049196-23-000020"),
+    ("KEY", "10-Q", "0000091576-21-000114"),
+    ("FITB", "10-K", "0000035527-24-000088"),
+    ("CFG", "10-Q", "0000759944-23-000124"),
     ("WAL", "10-K", "0001212545-24-000092"),
-    ("WAL", "10-Q", "0001212545-20-000163"),
-    ("WAL", "10-Q", "0001212545-23-000149"),
-    ("ZION", "10-K", "0000109380-22-000072"),
-    ("ZION", "10-K", "0000109380-25-000040"),
-    ("ZION", "10-Q", "0000109380-21-000192"),
-    ("ZION", "10-Q", "0000109380-24-000134"),
-    ("NVDA", "8-K", "0001045810-25-000115"),
-    ("INTC", "8-K", "0000050863-25-000169"),
-    ("WAL", "8-K", "0001628280-25-045685"),
-    ("ZION", "8-K", "0000109380-25-000124"),
+    ("EWBC", "10-Q", "0001069157-25-000096"),
+    ("CFR", "10-K", "0000039263-20-000010"),
+    ("CMA", "10-Q", "0000028412-21-000140"),
+    ("CMA", "10-K", "0000028412-23-000094"),
+    ("RF", "10-K", "0001281761-21-000012"),
+    ("NVDA", "8-K", "0001045810-22-000163"),
+    ("WAL", "8-K", "0001212545-23-000109"),
 )
 
 
@@ -258,9 +302,11 @@ def _write_fixture_section(lines: list[str], candidates: list[dict]) -> None:
     lines.append(
         f"Candidate spans over {len(candidates)} fixture filings, extractor's own "
         "output only -- not yet checked against tests/fixtures/sections/expected/, "
-        "which is empty until a human reviews the .candidate.json files below. Not "
-        "the corpus-wide result above; this is 4% of the corpus and, per experience "
-        "with INTC, not representative of it on its own."
+        "which is empty until a human reviews the .candidate.json files below. This "
+        "is not the corpus-wide result above and is not a substitute for it. The "
+        "previous fixture set reported 100% against a corpus rate of 92.5%, because "
+        "its 21 filings came from 5 CIKs that the extractor already handled. This "
+        "set covers all 20."
     )
     lines.append("")
     lines.append("| item | ok | total | rate |")
@@ -309,93 +355,226 @@ def write_report(
     report_path.write_text("\n".join(lines))
 
 
-def run_corpus_measurement(cache_dir: Path) -> dict:
-    """Extraction success measured over every cached 10-K/10-Q/8-K filing --
-    not the 21-filing fixture set, which is 4% of the corpus and was not
-    representative of it.
+# Every target item, and which form's filing count is its raw denominator.
+# Hardcoded rather than derived from what the extractor happened to emit: an
+# item that fails on every single filing would otherwise vanish from the table
+# entirely instead of showing a 0% rate, which is the one case the table most
+# needs to show.
+ITEM_FORMS: tuple[tuple[str, str], ...] = (
+    ("1", "10-K"),
+    ("1A", "10-K"),
+    ("3", "10-K"),
+    ("7", "10-K"),
+    ("7A", "10-K"),
+    ("Part I Item 2", "10-Q"),
+    ("Part II Item 1", "10-Q"),
+    ("Part II Item 1A", "10-Q"),
+    ("EX-99.1", "8-K"),
+)
 
-    The per-item ok/total denominator excludes two things that are not
-    misses, so neither is blended into the success rate: filings in
-    `NO_NARRATIVE_ACCESSIONS` (excluded whole -- the primary document has no
-    narrative to extract at all) and (accession, item) pairs in
-    `LEGITIMATE_OMISSION_ACCESSIONS` (excluded per item -- the filer omitted
-    that one heading because it had nothing to disclose that period,
-    confirmed by checking the same filer's other periods). Both are returned
-    separately, never folded into "ok" or "total" for any item.
+# A section that is a pointer rather than prose: short, and saying so. Counted
+# and reported, never dropped. These are complete sections as filed, so
+# excluding them would be deleting real corpus, but a per-firm language model
+# fit partly on cross-reference sentences is learning the filer's boilerplate
+# for pointing at a footnote, which is worth knowing when reading the Phase 5.2
+# novelty-by-item table.
+_CROSS_REFERENCE_RE = re.compile(
+    r"incorporated (?:herein )?by reference|reference is made to|"
+    r"see note \d|refer to note \d",
+    re.IGNORECASE,
+)
+_CROSS_REFERENCE_MAX_CHARS = 1000
+
+
+def run_corpus_measurement(cache_dir: Path) -> dict:
+    """Extraction success over every cached filing from the locked universe.
+
+    Three rates per item, all three reported, because a rate quoted only
+    after removing cases from its own denominator is not checkable:
+
+      raw         ok divided by every filing of that form
+      extractable filings of that form, minus the ones under
+                  NO_NARRATIVE_ACCESSIONS (the primary document carries no
+                  item narrative at all) and minus the (accession, item)
+                  pairs under LEGITIMATE_OMISSION_ACCESSIONS (the filer
+                  omitted that one heading that period, confirmed against the
+                  same filer's other periods)
+      adjusted    ok divided by extractable
+
+    Filings outside `ticker.universe.UNIVERSE` are skipped and counted
+    separately. The cache is a working directory and can hold a filing pulled
+    for a one-off check; letting one into the denominator would move every
+    rate by a fraction of a percent for no reason anyone could reconstruct.
     """
+    universe_ciks = {company.cik for company in UNIVERSE}
+
     per_item_ok: dict[str, int] = {}
-    per_item_total: dict[str, int] = {}
-    failures: list[tuple[str, str, str, str, str]] = []  # ticker, form, accession, item, reason
-    legitimate_omissions: list[tuple[str, str, str, str]] = []  # ticker, form, accession, item
-    excluded: list[tuple[str, str, str]] = []  # ticker, form, accession
+    form_totals: dict[str, int] = {}
+    failures: list[tuple[str, str, str, str, str]] = []
+    legitimate_omissions: list[tuple[str, str, str, str]] = []
+    excluded: list[tuple[str, str, str]] = []
+    off_universe: list[tuple[str, str, str]] = []
+    cross_references: list[tuple[str, str, str, str, int]] = []
     n_filings = 0
 
     for filing in iter_cached_filings(cache_dir):
         if filing.form not in ("10-K", "10-Q", "8-K"):
             continue
+        if filing.cik not in universe_ciks:
+            off_universe.append((filing.ticker, filing.form, filing.accession))
+            continue
+        form_totals[filing.form] = form_totals.get(filing.form, 0) + 1
         if filing.accession in NO_NARRATIVE_ACCESSIONS:
             excluded.append((filing.ticker, filing.form, filing.accession))
             continue
         n_filings += 1
+
         result = extract_sections(filing.text, filing.form)
-        seen_items = {item for item, _, _ in result.sections} | {item for item, _ in result.failures}
-        for item in seen_items:
-            if (filing.accession, item) in LEGITIMATE_OMISSION_ACCESSIONS:
-                continue
-            per_item_total[item] = per_item_total.get(item, 0) + 1
-        for item, _, _ in result.sections:
-            if (filing.accession, item) in LEGITIMATE_OMISSION_ACCESSIONS:
-                continue
+        for item, start, end in result.sections:
             per_item_ok[item] = per_item_ok.get(item, 0) + 1
+            span = filing.text[start:end]
+            if len(span) <= _CROSS_REFERENCE_MAX_CHARS and _CROSS_REFERENCE_RE.search(span):
+                cross_references.append(
+                    (filing.ticker, filing.form, filing.accession, item, len(span))
+                )
         for item, reason in result.failures:
             if (filing.accession, item) in LEGITIMATE_OMISSION_ACCESSIONS:
-                legitimate_omissions.append((filing.ticker, filing.form, filing.accession, item))
+                legitimate_omissions.append(
+                    (filing.ticker, filing.form, filing.accession, item)
+                )
             else:
-                failures.append((filing.ticker, filing.form, filing.accession, item, reason))
+                failures.append(
+                    (filing.ticker, filing.form, filing.accession, item, reason)
+                )
+
+    n_no_narrative_by_form: dict[str, int] = {}
+    for _, form, _ in excluded:
+        n_no_narrative_by_form[form] = n_no_narrative_by_form.get(form, 0) + 1
+
+    rows = []
+    for item, form in ITEM_FORMS:
+        raw_total = form_totals.get(form, 0)
+        omitted = sum(1 for _, _, _, i in legitimate_omissions if i == item)
+        extractable = raw_total - n_no_narrative_by_form.get(form, 0) - omitted
+        rows.append(
+            {
+                "item": item,
+                "form": form,
+                "ok": per_item_ok.get(item, 0),
+                "raw_total": raw_total,
+                "extractable": extractable,
+            }
+        )
 
     return {
         "n_filings": n_filings,
-        "per_item_ok": per_item_ok,
-        "per_item_total": per_item_total,
+        "form_totals": form_totals,
+        "rows": rows,
         "failures": failures,
         "legitimate_omissions": legitimate_omissions,
         "excluded": excluded,
+        "off_universe": off_universe,
+        "cross_references": cross_references,
     }
 
 
 def _write_corpus_section(lines: list[str], stats: dict) -> None:
+    form_totals = stats["form_totals"]
     lines.append("## Corpus-wide extraction results")
     lines.append("")
     lines.append(
-        f"Every cached 10-K/10-Q/8-K filing ({stats['n_filings']} filings), not the "
-        "21-filing fixture set. Denominator excludes the filings listed under "
-        "\"Excluded: no recoverable narrative\" and the (accession, item) pairs "
-        "under \"Confirmed legitimate item omissions\" below -- neither is a miss, "
-        "so neither counts against or for any item's rate."
+        "Every cached filing from the locked 20-company universe: "
+        + ", ".join(f"{n} {form}" for form, n in sorted(form_totals.items()))
+        + ". Not the 24-filing fixture set, which is 2.5% of the corpus and, per "
+        "the last fixture set's 100% against a corpus 92.5%, not representative "
+        "of it on its own."
     )
     lines.append("")
-    lines.append("| item | ok | total | rate |")
-    lines.append("|---|---|---|---|")
-    for item in sorted(stats["per_item_total"]):
-        ok = stats["per_item_ok"].get(item, 0)
-        total = stats["per_item_total"][item]
-        lines.append(f"| {item} | {ok} | {total} | {ok / total:.1%} |")
+    lines.append(
+        "Three rates per item. The raw rate divides by every filing of that form. "
+        "The extractable count removes the filings under \"Excluded: no "
+        "recoverable narrative\" and the (accession, item) pairs under \"Confirmed "
+        "legitimate item omissions\", neither of which is a section this extractor "
+        "could have found. The adjusted rate divides by that. All three are shown "
+        "because a rate quoted only after removing cases from its own denominator "
+        "is not checkable."
+    )
     lines.append("")
+    lines.append("| item | form | ok | all filings | raw | extractable | adjusted |")
+    lines.append("|---|---|---|---|---|---|---|")
+    for row in stats["rows"]:
+        raw = row["ok"] / row["raw_total"] if row["raw_total"] else 0.0
+        adjusted = row["ok"] / row["extractable"] if row["extractable"] else 0.0
+        lines.append(
+            f"| {row['item']} | {row['form']} | {row['ok']} | {row['raw_total']} | "
+            f"{raw:.1%} | {row['extractable']} | {adjusted:.1%} |"
+        )
+    lines.append("")
+    lines.append(
+        "These are census counts over the whole corpus, not estimates from a "
+        "sample, so no confidence interval applies."
+    )
+    lines.append("")
+
+    if stats["off_universe"]:
+        lines.append("### Skipped: outside the locked universe")
+        lines.append("")
+        lines.append(
+            "Present in the cache but not in `ticker.universe.UNIVERSE`, so not in "
+            "any denominator above. The cache is a working directory and can hold "
+            "a filing pulled for a one-off check."
+        )
+        lines.append("")
+        for ticker, form, accession in sorted(stats["off_universe"]):
+            lines.append(f"- {ticker} {form} {accession}")
+        lines.append("")
 
     lines.append("### Excluded: no recoverable narrative")
     lines.append("")
     if stats["excluded"]:
         lines.append(
-            "Confirmed by direct inspection: the primary document's filed HTML "
-            "carries no Item 1/1A/3/7/7A narrative at all (see NO_NARRATIVE_ACCESSIONS "
-            "in scripts/make_extraction_fixture.py). Not counted as a miss above."
+            "The filed HTML primary document carries no item narrative at all. "
+            "These filers incorporate the business description, risk factors, and "
+            "MD&A by reference to an annual report filed as a separate exhibit, "
+            "leaving the primary document as financial statement tables and XBRL. "
+            "Counting non-table characters per 10-K across the universe, these "
+            "occupy the entire low tail at 15,522 to 60,907 characters, the next "
+            "filing above them has 155,320, and the corpus median is 383,652. No "
+            "threshold anywhere inside that gap changes the membership. See "
+            "NO_NARRATIVE_ACCESSIONS in scripts/make_extraction_fixture.py."
         )
         lines.append("")
-        for ticker, form, accession in stats["excluded"]:
+        for ticker, form, accession in sorted(stats["excluded"]):
             lines.append(f"- {ticker} {form} {accession}")
     else:
         lines.append("None.")
     lines.append("")
+
+    lines.append("### Cross-reference sections (extracted, and counted separately)")
+    lines.append("")
+    lines.append(
+        f"{len(stats['cross_references'])} extracted sections are under "
+        f"{_CROSS_REFERENCE_MAX_CHARS} characters and consist of a pointer to a "
+        "financial statement note or another part of the document rather than "
+        "narrative prose. These are complete sections as filed, not truncations, "
+        "and they are kept: dropping them would be deleting real corpus. They are "
+        "counted here because a per-firm language model fit partly on "
+        "cross-reference sentences is learning how that filer words a pointer, "
+        "which is worth knowing when reading the Phase 5.2 novelty-by-item table."
+    )
+    lines.append("")
+    if stats["cross_references"]:
+        by_item: dict[str, list[int]] = {}
+        for _, _, _, item, length in stats["cross_references"]:
+            by_item.setdefault(item, []).append(length)
+        lines.append("| item | sections | median chars |")
+        lines.append("|---|---|---|")
+        for item in sorted(by_item):
+            lengths = sorted(by_item[item])
+            lines.append(
+                f"| {item} | {len(lengths)} | {lengths[len(lengths) // 2]} |"
+            )
+        lines.append("")
 
     lines.append("### Confirmed legitimate item omissions (not misses, excluded from the rate)")
     lines.append("")
@@ -417,6 +596,30 @@ def _write_corpus_section(lines: list[str], stats: dict) -> None:
         lines.append("None.")
     lines.append("")
 
+    joint = [row for row in stats["failures"] if row[4].startswith("presented jointly")]
+    unresolved = [row for row in stats["failures"] if not row[4].startswith("presented jointly")]
+
+    lines.append("### Items folded into a jointly presented section (not misses)")
+    lines.append("")
+    lines.append(
+        "The filer put two item headings back to back and ran one narrative "
+        "under both. The combined span is emitted under the earlier item and "
+        "the later one is not emitted at all, because two sections over the "
+        "same offsets would double every sentence in them through the chunker "
+        "and into both language models. No text is lost. These count against "
+        "the later item's rate above, which is the conservative reading: the "
+        "item has no span of its own."
+    )
+    lines.append("")
+    if joint:
+        lines.append("| ticker | form | accession | item |")
+        lines.append("|---|---|---|---|")
+        for ticker, form, accession, item, _ in sorted(joint):
+            lines.append(f"| {ticker} | {form} | {accession} | {item} |")
+    else:
+        lines.append("None.")
+    lines.append("")
+
     lines.append("### Genuine misses (unresolved)")
     lines.append("")
     lines.append(
@@ -425,10 +628,10 @@ def _write_corpus_section(lines: list[str], stats: dict) -> None:
         "Counted as a failure in the table above."
     )
     lines.append("")
-    if stats["failures"]:
+    if unresolved:
         lines.append("| ticker | form | accession | item | reason |")
         lines.append("|---|---|---|---|---|")
-        for ticker, form, accession, item, reason in sorted(stats["failures"]):
+        for ticker, form, accession, item, reason in sorted(unresolved):
             lines.append(f"| {ticker} | {form} | {accession} | {item} | {reason} |")
     else:
         lines.append("None.")
@@ -475,10 +678,13 @@ def main() -> None:
     if args.corpus:
         corpus_stats = run_corpus_measurement(args.cache_dir)
         print(f"\ncorpus: {corpus_stats['n_filings']} filings measured")
-        for item in sorted(corpus_stats["per_item_total"]):
-            ok = corpus_stats["per_item_ok"].get(item, 0)
-            total = corpus_stats["per_item_total"][item]
-            print(f"  {item:20s} {ok:4d}/{total:4d}  {ok / total:.1%}")
+        for row in corpus_stats["rows"]:
+            raw = row["ok"] / row["raw_total"] if row["raw_total"] else 0.0
+            adjusted = row["ok"] / row["extractable"] if row["extractable"] else 0.0
+            print(
+                f"  {row['item']:20s} {row['ok']:4d}/{row['raw_total']:4d} raw {raw:6.1%}"
+                f"   {row['ok']:4d}/{row['extractable']:4d} adjusted {adjusted:6.1%}"
+            )
 
     if args.all or args.corpus:
         write_report(args.report, corpus_stats=corpus_stats, candidates=candidates)

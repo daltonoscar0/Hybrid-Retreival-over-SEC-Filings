@@ -1,0 +1,38 @@
+{
+  "accession": "0001628280-23-026196",
+  "ticker": "ON",
+  "form": "10-Q",
+  "text_length": 177658,
+  "sections": {
+    "Part I Item 2": [
+      120254,
+      161878
+    ],
+    "Part II Item 1": [
+      163863,
+      164276
+    ],
+    "Part II Item 1A": [
+      164276,
+      167116
+    ]
+  },
+  "preview": {
+    "Part I Item 2": {
+      "length": 41624,
+      "head": "Item 2. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations\n\nYou should read the following discussion in conjunction with our audited historical consolidated financia",
+      "tail": "nting Pronouncements\n\nFor a discussion of recent accounting pronouncements, see our Annual Report on Form 10-K for the year ended December 31, 2022, which was filed with the SEC on February 6, 2023.\n\n"
+    },
+    "Part II Item 1": {
+      "length": 413,
+      "head": "Item 1. Legal Proceedings\n\nSee Note 9: ''Commitments and Contingencies'' under the heading \"Legal Matters\" in the notes to the consolidated unaudited financial statements included elsewhere in this Fo",
+      "tail": "dditional information on our legal proceedings and related matters. See also Part I, Item 1 \"Business - Government Regulation\" of the 2022 Form 10-K for information on certain environmental matters.\n\n"
+    },
+    "Part II Item 1A": {
+      "length": 2840,
+      "head": "Item 1A. Risk Factors\n\nOur business, financial condition and results of operations are subject to a number of trends, risks and uncertainties. We review and, where applicable, update our risk factors ",
+      "tail": " could lose all or part of your investment. All forward-looking statements attributable to us or persons acting on our behalf are expressly qualified in their entirety by this cautionary statement.\n\n\n"
+    }
+  },
+  "failures": []
+}

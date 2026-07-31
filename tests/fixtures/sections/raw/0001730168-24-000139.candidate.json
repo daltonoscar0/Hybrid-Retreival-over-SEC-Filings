@@ -1,0 +1,56 @@
+{
+  "accession": "0001730168-24-000139",
+  "ticker": "AVGO",
+  "form": "10-K",
+  "text_length": 509864,
+  "sections": {
+    "1": [
+      12358,
+      83922
+    ],
+    "1A": [
+      83922,
+      169738
+    ],
+    "3": [
+      176858,
+      177167
+    ],
+    "7": [
+      180409,
+      237144
+    ],
+    "7A": [
+      237144,
+      239136
+    ]
+  },
+  "preview": {
+    "1": {
+      "length": 71564,
+      "head": "ITEM 1. BUSINESS\n\nOverview\n\nWe are a global technology leader that designs, develops and supplies a broad range of semiconductor and infrastructure software solutions. Our over 60-year history of inno",
+      "tail": "tworking and storage products group. He was also the leader of Product Line Management for the Optical Ethernet and Multi-service Edge portfolio at Nortel Networks Corporation prior to joining LSI.\n\n\n"
+    },
+    "1A": {
+      "length": 85816,
+      "head": "ITEM 1A. RISK FACTORS\n\nOur business, operations and financial results are subject to various risks and uncertainties, including those described below, that could adversely affect our business, financi",
+      "tail": "can be no assurance that we will declare cash dividends in the future in any particular amounts, or at all. A reduction in our cash dividend payments could have a negative effect on our stock price.\n\n"
+    },
+    "3": {
+      "length": 309,
+      "head": "ITEM 3. LEGAL PROCEEDINGS\n\nThe information set forth under Note 14. \u201cCommitments and Contingencies\u201d included in Part II, Item 8 of this Annual Report on Form 10-K, is incorporated herein by reference.",
+      "tail": "in Part II, Item 8 of this Annual Report on Form 10-K, is incorporated herein by reference. For an additional discussion of certain risks associated with legal proceedings, see \u201cRisk Factors\u201d above.\n\n"
+    },
+    "7": {
+      "length": 56735,
+      "head": "ITEM 7. MANAGEMENT\u2019S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS\n\nThis Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations should be read",
+      "tail": "$3,355 million increase in employee withholding tax payments related to net settled equity awards, a $2,169 million increase in dividend payments, and a $1,352 million increase in stock repurchases.\n\n"
+    },
+    "7A": {
+      "length": 1992,
+      "head": "ITEM 7A. QUANTITATIVE AND QUALITATIVE DISCLOSURES ABOUT MARKET RISK\n\nForeign Currency Exchange Risk\n\nFrom time to time, we use foreign exchange forward contracts to hedge a portion of our exposures to",
+      "tail": "he 2023 Term Loans approximates their fair value as the underlying interest rates are tied to the Secured Overnight Financing Rate. We had no floating rate debt \noutstanding as of October 29, 2023.\n\n\n"
+    }
+  },
+  "failures": []
+}

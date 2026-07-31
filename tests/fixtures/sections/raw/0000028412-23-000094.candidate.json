@@ -1,0 +1,56 @@
+{
+  "accession": "0000028412-23-000094",
+  "ticker": "CMA",
+  "form": "10-K",
+  "text_length": 719530,
+  "sections": {
+    "1": [
+      8858,
+      79431
+    ],
+    "1A": [
+      79431,
+      139472
+    ],
+    "3": [
+      141356,
+      141517
+    ],
+    "7A": [
+      146043,
+      146336
+    ],
+    "7": [
+      172253,
+      369014
+    ]
+  },
+  "preview": {
+    "1": {
+      "length": 70573,
+      "head": "Item 1. Business.\n\nGENERAL\n\nComerica Incorporated (\u201cComerica\u201d) is a financial services company, incorporated under the laws of the State of Delaware in 1973, and headquartered in Dallas, Texas. Based ",
+      "tail": "he SEC, we have included those web addresses as inactive textual references only. Except as specifically incorporated by reference into this report, information on those websites is not part hereof.\n\n"
+    },
+    "1A": {
+      "length": 60041,
+      "head": "Item 1A. Risk Factors.\n\nThis report includes forward-looking statements as defined in the Private Securities Litigation Reform Act of 1995. In addition, Comerica may make other written and oral commun",
+      "tail": "may not accurately reflect the underlying value of the securities, and investors should consider this before relying on the market prices of Comerica's securities when making an investment decision.\n\n"
+    },
+    "3": {
+      "length": 161,
+      "head": "Item 3. Legal Proceedings.\n\nPlease see Note 21 of the Notes to Consolidated Financial Statements starting on page F-90 of the Financial Section of this report.\n\n",
+      "tail": "Item 3. Legal Proceedings.\n\nPlease see Note 21 of the Notes to Consolidated Financial Statements starting on page F-90 of the Financial Section of this report.\n\n"
+    },
+    "7A": {
+      "length": 293,
+      "head": "Item 7A. Quantitative and Qualitative Disclosures About Market Risk.\n\nReference is made to the subheadings entitled \u201cMarket and Liquidity Risk,\u201d \u201cOperational Risk,\u201d \"Technology Risk,\" \u201cCompliance Risk",
+      "tail": "e subheadings entitled \u201cMarket and Liquidity Risk,\u201d \u201cOperational Risk,\u201d \"Technology Risk,\" \u201cCompliance Risk\u201d and \u201cStrategic Risk\u201d on pages F-24 through F-30 of the Financial Section of this report.\n\n\n"
+    },
+    "7": {
+      "length": 196761,
+      "head": "2022 OVERVIEW\n\nComerica Incorporated (the Corporation) is a financial holding company headquartered in Dallas, Texas. The Corporation's major business segments are the Commercial Bank, the Retail Bank",
+      "tail": "the reporting of financial condition and results of operations and require management to make estimates about matters that are uncertain; and\n\n\u2022 the Corporation's stock price can be volatile.\n\nF-37\n\n\n"
+    }
+  },
+  "failures": []
+}

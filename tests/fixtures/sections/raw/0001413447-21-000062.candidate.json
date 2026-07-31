@@ -1,0 +1,38 @@
+{
+  "accession": "0001413447-21-000062",
+  "ticker": "NXPI",
+  "form": "10-Q",
+  "text_length": 139217,
+  "sections": {
+    "Part I Item 2": [
+      78357,
+      122457
+    ],
+    "Part II Item 1": [
+      123936,
+      123980
+    ],
+    "Part II Item 1A": [
+      123980,
+      124155
+    ]
+  },
+  "preview": {
+    "Part I Item 2": {
+      "length": 44100,
+      "head": "Item 2. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations\n\nThis interim Management\u2019s Discussion and Analysis (\"MD&A\") should be read in conjunction with our consoli",
+      "tail": "her than commitments resulting from normal business operations. None of these arrangements has or is likely to have a material effect on our financial condition, results of operations or cash flows.\n\n"
+    },
+    "Part II Item 1": {
+      "length": 44,
+      "head": "Item 1. Legal Proceedings\n\nNot applicable.\n\n",
+      "tail": "Item 1. Legal Proceedings\n\nNot applicable.\n\n"
+    },
+    "Part II Item 1A": {
+      "length": 175,
+      "head": "Item 1A. Risk Factors\n\nThere have been no material changes from the risk factors previously disclosed in our Annual Report on Form 10-K for the year ended December 31, 2020.\n\n",
+      "tail": "Item 1A. Risk Factors\n\nThere have been no material changes from the risk factors previously disclosed in our Annual Report on Form 10-K for the year ended December 31, 2020.\n\n"
+    }
+  },
+  "failures": []
+}

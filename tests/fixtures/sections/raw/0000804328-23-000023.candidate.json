@@ -1,0 +1,38 @@
+{
+  "accession": "0000804328-23-000023",
+  "ticker": "QCOM",
+  "form": "10-Q",
+  "text_length": 268465,
+  "sections": {
+    "Part I Item 2": [
+      90558,
+      253633
+    ],
+    "Part II Item 1": [
+      255855,
+      256066
+    ],
+    "Part II Item 1A": [
+      256066,
+      256454
+    ]
+  },
+  "preview": {
+    "Part I Item 2": {
+      "length": 163075,
+      "head": "ITEM 2. MANAGEMENT\u2019S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS\n\nThis information should be read in conjunction with the condensed consolidated financial statements and t",
+      "tail": "nimum tax on global income. These changes, if and as adopted by countries, may increase tax uncertainty and may adversely affect our provision for income taxes, results of operations and cash flows.\n\n"
+    },
+    "Part II Item 1": {
+      "length": 211,
+      "head": "ITEM 1. LEGAL PROCEEDINGS\n\nInformation regarding certain legal proceedings is provided in this Quarterly Report in \u201cNotes to Condensed Consolidated Financial Statements, Note 6. Commitments and Contin",
+      "tail": "AL PROCEEDINGS\n\nInformation regarding certain legal proceedings is provided in this Quarterly Report in \u201cNotes to Condensed Consolidated Financial Statements, Note 6. Commitments and Contingencies.\u201d\n\n"
+    },
+    "Part II Item 1A": {
+      "length": 388,
+      "head": "ITEM 1A. RISK FACTORS\n\nWe have provided updated Risk Factors in the section labeled \u201cRisk Factors\u201d in \u201cPart I, Item 2, Management\u2019s Discussion and Analysis of Financial Condition and Results of Operat",
+      "tail": "ts of Operations.\u201d We do not believe those updates have materially changed the type or magnitude of the risks we face in comparison to the disclosure provided in our 2022 Annual Report on Form 10-K.\n\n"
+    }
+  },
+  "failures": []
+}

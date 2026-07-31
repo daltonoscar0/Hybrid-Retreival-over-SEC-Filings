@@ -1,0 +1,38 @@
+{
+  "accession": "0000028412-21-000140",
+  "ticker": "CMA",
+  "form": "10-Q",
+  "text_length": 372749,
+  "sections": {
+    "Part I Item 2": [
+      210742,
+      366228
+    ],
+    "Part II Item 1": [
+      368227,
+      368417
+    ],
+    "Part II Item 1A": [
+      368417,
+      368701
+    ]
+  },
+  "preview": {
+    "Part I Item 2": {
+      "length": 155486,
+      "head": "ITEM 2. Management's Discussion and Analysis of Financial Condition and Results of Operations\n\nFORWARD-LOOKING STATEMENTS\n\nThis report includes forward-looking statements as defined in the Private Sec",
+      "tail": "nt was zero at June 30, 2021 and $72 million at December 31, 2020.\n\n(b) In first quarter 2021, the Corporation acquired an intangible asset of $13 million to be amortized over a period of 10 years.\n\n\n"
+    },
+    "Part II Item 1": {
+      "length": 190,
+      "head": "ITEM 1. Legal Proceedings\n\nFor information regarding the Corporation's legal proceedings, see \"Part I. Item 1. Note 12 - Contingent Liabilities,\" which is incorporated herein by reference.\n\n",
+      "tail": "ITEM 1. Legal Proceedings\n\nFor information regarding the Corporation's legal proceedings, see \"Part I. Item 1. Note 12 - Contingent Liabilities,\" which is incorporated herein by reference.\n\n"
+    },
+    "Part II Item 1A": {
+      "length": 284,
+      "head": "ITEM 1A. Risk Factors\n\nThere has been no material change in the Corporation\u2019s risk factors as previously disclosed in our Form 10-K for the fiscal year ended December 31, 2020 in response to Part I, I",
+      "tail": "actors as previously disclosed in our Form 10-K for the fiscal year ended December 31, 2020 in response to Part I, Item 1A. of such Form 10-K. Such risk factors are incorporated herein by reference.\n\n"
+    }
+  },
+  "failures": []
+}

@@ -1,0 +1,20 @@
+{
+  "accession": "0001212545-23-000109",
+  "ticker": "WAL",
+  "form": "8-K",
+  "text_length": 7164,
+  "sections": {
+    "EX-99.1": [
+      0,
+      7164
+    ]
+  },
+  "preview": {
+    "EX-99.1": {
+      "length": 7164,
+      "head": "Western Alliance Bancorporation Announces First Quarter 2023 Earnings Release\nDate, Conference Call and Webcast, and provides Quarter End Financial Update\n\nPHOENIX--(BUSINESS WIRE)-- Western Alliance ",
+      "tail": "may be made from time to time, set forth in this press release to\nreflect new information, future events or otherwise.\n\nInvestors:\n\nDale Gibbons, 602-952-5476\n\nMedia:\n\nStephanie Whitlow, 480-998-6547\n"
+    }
+  },
+  "failures": []
+}

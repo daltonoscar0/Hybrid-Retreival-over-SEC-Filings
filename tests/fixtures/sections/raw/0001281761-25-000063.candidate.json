@@ -1,0 +1,38 @@
+{
+  "accession": "0001281761-25-000063",
+  "ticker": "RF",
+  "form": "10-Q",
+  "text_length": 514589,
+  "sections": {
+    "Part I Item 2": [
+      328471,
+      505720
+    ],
+    "Part II Item 1": [
+      507301,
+      507598
+    ],
+    "Part II Item 1A": [
+      507598,
+      507759
+    ]
+  },
+  "preview": {
+    "Part I Item 2": {
+      "length": 177249,
+      "head": "Item 2. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations\n\nINTRODUCTION\n\nThe following discussion and analysis is part of Regions Financial Corporation\u2019s (\u201cRegions\u201d",
+      "tail": "the One Big Beautiful Bill Act passed into law. The Company is still evaluating the impacts of the statute to the consolidated financial statements and expects that such impacts will be immaterial.\n\n\n"
+    },
+    "Part II Item 1": {
+      "length": 297,
+      "head": "Item 1. Legal Proceedings\n\nThe information presented in the Legal Contingencies section of Note 12 \"Commitments, Contingencies and Guarantees\" in the Notes to the Consolidated Financial Statements (Un",
+      "tail": "2 \"Commitments, Contingencies and Guarantees\" in the Notes to the Consolidated Financial Statements (Unaudited) in Part I. Item 1. of this Quarterly Report on Form 10-Q is incorporated by reference.\n\n"
+    },
+    "Part II Item 1A": {
+      "length": 161,
+      "head": "Item 1A. Risk Factors\n\nThere are no material changes to the risk factors set forth in Regions' Annual Report on Form 10-K for the year ended December 31, 2024.\n\n",
+      "tail": "Item 1A. Risk Factors\n\nThere are no material changes to the risk factors set forth in Regions' Annual Report on Form 10-K for the year ended December 31, 2024.\n\n"
+    }
+  },
+  "failures": []
+}

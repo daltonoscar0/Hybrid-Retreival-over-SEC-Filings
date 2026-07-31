@@ -1,0 +1,38 @@
+{
+  "accession": "0000723125-25-000021",
+  "ticker": "MU",
+  "form": "10-Q",
+  "text_length": 265306,
+  "sections": {
+    "Part I Item 2": [
+      118642,
+      156025
+    ],
+    "Part II Item 1": [
+      157823,
+      158344
+    ],
+    "Part II Item 1A": [
+      158344,
+      254164
+    ]
+  },
+  "preview": {
+    "Part I Item 2": {
+      "length": 37383,
+      "head": "ITEM 2. MANAGEMENT\u2019S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS\n\nThis discussion should be read in conjunction with the consolidated financial statements and accompanying",
+      "tail": ", 2024.\n\nRecently Issued Accounting Standards\n\nSee \u201cPart I. Financial Information - Item 1. Financial Statements - Notes to Consolidated Financial Statements - Recently Issued Accounting Standards.\u201d\n\n"
+    },
+    "Part II Item 1": {
+      "length": 521,
+      "head": "ITEM 1. LEGAL PROCEEDINGS\n\nFor a discussion of legal proceedings, see \u201cPart I. Financial Information - Item 1. Financial Statements - Notes to Consolidated Financial Statements - Contingencies\u201d and \u201cI",
+      "tail": "elated to environmental matters unless we reasonably believe that the related monetary sanctions, if any, will be less than a specified threshold. We use a threshold of $1 million for this purpose.\n\n\n"
+    },
+    "Part II Item 1A": {
+      "length": 95820,
+      "head": "ITEM 1A. RISK FACTORS\n\nIn addition to the factors discussed elsewhere in this Form 10-Q, this section discusses important factors which could cause actual results or events to differ materially from t",
+      "tail": "ck. In addition, \nthe payment of dividends is a use of cash, which may reduce the availability of cash for other business purposes, including investments, acquisitions, or repayment of indebtedness.\n\n"
+    }
+  },
+  "failures": []
+}

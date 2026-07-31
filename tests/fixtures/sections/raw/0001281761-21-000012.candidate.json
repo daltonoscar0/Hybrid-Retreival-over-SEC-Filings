@@ -1,0 +1,52 @@
+{
+  "accession": "0001281761-21-000012",
+  "ticker": "RF",
+  "form": "10-K",
+  "text_length": 1050865,
+  "sections": {
+    "1": [
+      31232,
+      97087
+    ],
+    "1A": [
+      97087,
+      189327
+    ],
+    "3": [
+      189923,
+      190174
+    ],
+    "7": [
+      193688,
+      546430
+    ]
+  },
+  "preview": {
+    "1": {
+      "length": 65855,
+      "head": "Item 1. Business\n\nRegions Financial Corporation is a FHC headquartered in Birmingham, Alabama operating in the South, Midwest and Texas. The terms \"Regions,\" \"the Company,\" \"we,\" \"us\" and \"our\" mean R",
+      "tail": "cers, (iv) Fair Disclosure Policy Summary, and (v) the charters of our Audit Committee, Compensation and Human Resources Committee, Nominating and Corporate Governance Committee, and Risk Committee.\n\n"
+    },
+    "1A": {
+      "length": 92240,
+      "head": "Item 1A. Risk Factors\n\nAn investment in the Company involves risks, some of which, including market, liquidity, credit, operational, legal, compliance, reputational and strategic risks, could be subst",
+      "tail": " options or other stock grants to retain and motivate our employees. These issuances of our securities could dilute the voting and economic interests of our existing shareholders.\n\nTable of Contents\n\n"
+    },
+    "3": {
+      "length": 251,
+      "head": "Item 3. Legal Proceedings\n\nInformation required by this item is set forth in Note 24 \"Commitments, Contingencies and Guarantees\" in the Notes to the Consolidated Financial Statements, which are includ",
+      "tail": "this item is set forth in Note 24 \"Commitments, Contingencies and Guarantees\" in the Notes to the Consolidated Financial Statements, which are included in Item 8. of this Annual Report on Form 10-K.\n\n"
+    },
+    "7": {
+      "length": 352742,
+      "head": "Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations\n\nItem 7A. Quantitative and Qualitative Disclosures about Market Risk\n\nEXECUTIVE OVERVIEW\n\nManagement belie",
+      "tail": "n. Intangible assets are comprised of trademarks, customer lists and other intangibles. Intangible assets will be amortized over the expected useful life of each recognized asset.\n\nTable of Contents\n\n"
+    }
+  },
+  "failures": [
+    {
+      "item": "7A",
+      "reason": "presented jointly with Item 7: the two headings are adjacent and one combined narrative follows both. The combined span is emitted under Item 7 and is not repeated here, because two sections over the same offsets would double every sentence in it."
+    }
+  ]
+}

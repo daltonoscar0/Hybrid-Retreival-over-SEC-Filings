@@ -1,0 +1,56 @@
+{
+  "accession": "0000006281-20-000156",
+  "ticker": "ADI",
+  "form": "10-K",
+  "text_length": 485965,
+  "sections": {
+    "1": [
+      12465,
+      56095
+    ],
+    "1A": [
+      56095,
+      128386
+    ],
+    "3": [
+      133373,
+      133969
+    ],
+    "7": [
+      144980,
+      216087
+    ],
+    "7A": [
+      216087,
+      229887
+    ]
+  },
+  "preview": {
+    "1": {
+      "length": 43630,
+      "head": "ITEM 1. BUSINESS\n\nCompany Overview, Strategy and Mission\n\nAnalog Devices, Inc. (we, Analog Devices or the Company) is a leading global high-performance analog technology company dedicated to solving o",
+      "tail": " with the following awards: ForbesAmerica\u2019s Best Employers List (2019, 2018), ForbesGlobal 2000: World\u2019s Best Employer List (2019, 2018) and The Boston Globe\u2019s Top Places to Work (2019, 2018, 2017).\n\n"
+    },
+    "1A": {
+      "length": 72291,
+      "head": "ITEM 1A. RISK FACTORS\n\nSet forth below and elsewhere in this report and in other documents we file with the Securities and Exchange Commission (SEC) are descriptions of certain risks and uncertainties",
+      "tail": "ts were unable to obtain or maintain their security clearances, we might be unable to perform these contracts or compete for other projects of this nature, \nwhich could adversely affect our revenue.\n\n"
+    },
+    "3": {
+      "length": 596,
+      "head": "ITEM 3. LEGAL PROCEEDINGS\n\nFrom time to time in the ordinary course of our business, various claims, charges and litigation are asserted or commenced against us arising from, or related to, among othe",
+      "tail": ", we can give no assurance that we will prevail. We do not believe that any current legal matters will have a material adverse \neffect on our financial position, results of operations or cash flows.\n\n"
+    },
+    "7": {
+      "length": 71107,
+      "head": "ITEM 7. MANAGEMENT\u2019S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS (all tabular amounts in thousands except per share amounts)\n\nThe following discussion includes a compariso",
+      "tail": "story and other factors. If the judgments and estimates made by us are incorrect, we may need to record additional contingent losses that could materially adversely impact our results of operations.\n\n"
+    },
+    "7A": {
+      "length": 13800,
+      "head": "ITEM 7A. QUANTITATIVE AND QUALITATIVE DISCLOSURES ABOUT MARKET RISK\n\nInterest Rate Exposure\n\nOur interest income and expense are sensitive to changes in the general level of interest rates. In this re",
+      "tail": "'s quantitative goodwill impairment assessment process. For example, we tes...  \n\n/s/ Ernst & Young LLP\n\nWe have served as the Company\u2019s auditor since 1967.\n\nBoston, Massachusetts\n\nNovember 24, 2020\n\n"
+    }
+  },
+  "failures": []
+}

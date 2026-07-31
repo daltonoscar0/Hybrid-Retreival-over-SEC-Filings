@@ -1,0 +1,56 @@
+{
+  "accession": "0000827054-22-000094",
+  "ticker": "MCHP",
+  "form": "10-K",
+  "text_length": 480310,
+  "sections": {
+    "1": [
+      19593,
+      54495
+    ],
+    "1A": [
+      54495,
+      156906
+    ],
+    "3": [
+      162685,
+      162816
+    ],
+    "7": [
+      168002,
+      233686
+    ],
+    "7A": [
+      233686,
+      234229
+    ]
+  },
+  "preview": {
+    "1": {
+      "length": 34902,
+      "head": "Item 1. Business\n\nOverview\n\nWe develop, manufacture and sell smart, connected and secure embedded control solutions used by our customers for a wide variety of applications. With over 30 years of tech",
+      "tail": "d pursuant to Sections 13(a) or 15(d) of the Exchange Act\n\nAll of our SEC filings on our website are available free of charge. The information on our website is not incorporated into this Form 10-K.\n\n"
+    },
+    "1A": {
+      "length": 102411,
+      "head": "Item 1A. Risk Factors\n\nWhen evaluating Microchip and its business, you should give careful consideration to the factors below, as well as the information provided elsewhere in this Form 10-K and in ot",
+      "tail": "recent changes in the value of the U.S. dollar, there can be no assurance as to the future impact that any weakness or strength in the U.S. dollar will have on our business or results of operations.\n\n"
+    },
+    "3": {
+      "length": 131,
+      "head": "Item 3. Legal Proceedings\n\nRefer to Note 11 to our consolidated financial statements for information regarding legal proceedings.\n\n",
+      "tail": "Item 3. Legal Proceedings\n\nRefer to Note 11 to our consolidated financial statements for information regarding legal proceedings.\n\n"
+    },
+    "7": {
+      "length": 65684,
+      "head": "Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations\n\nNote Regarding Forward-looking Statements\n\nThis report, including \"Item 1. Business,\" \"Item 1A. Risk Fact",
+      "tail": "rship dilution to our existing stockholders.\n\nRecently Issued Accounting Pronouncements\n\nRefer to Note 1 to our consolidated financial statements regarding recently issued accounting pronouncements.\n\n"
+    },
+    "7A": {
+      "length": 543,
+      "head": "Item 7A. Quantitative and Qualitative Disclosures About Market Risk\n\nAs of March 31, 2022, our long-term debt totaled $7.84 billion. We have no interest rate exposure to rate changes on our fixed rate",
+      "tail": "terest rate debt outstanding as of March 31, 2022. A 50-basis point increase in interest rates would impact our expected annual interest expense for the next 12 months by approximately $7.0 million.\n\n"
+    }
+  },
+  "failures": []
+}

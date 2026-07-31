@@ -1,0 +1,38 @@
+{
+  "accession": "0001069157-25-000096",
+  "ticker": "EWBC",
+  "form": "10-Q",
+  "text_length": 600344,
+  "sections": {
+    "Part I Item 2": [
+      374302,
+      585093
+    ],
+    "Part II Item 1": [
+      587260,
+      587448
+    ],
+    "Part II Item 1A": [
+      587448,
+      587745
+    ]
+  },
+  "preview": {
+    "Part I Item 2": {
+      "length": 210791,
+      "head": "ITEM 2. MANAGEMENT\u2019S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS\n\n                                                                                                Page  \n  ",
+      "tail": "             59.51      $                          55.79  \n  Tangible book value per share (non-GAAP)                (b)/(c)      $                      56.10      $                          52.39  \n\n"
+    },
+    "Part II Item 1": {
+      "length": 188,
+      "head": "ITEM 1. LEGAL PROCEEDINGS\n\nSeeNote 10 - Commitments and Contingencies - Litigation to the Consolidated Financial Statements in Part I of this Form 10-Q, incorporated herein by reference.\n\n",
+      "tail": "ITEM 1. LEGAL PROCEEDINGS\n\nSeeNote 10 - Commitments and Contingencies - Litigation to the Consolidated Financial Statements in Part I of this Form 10-Q, incorporated herein by reference.\n\n"
+    },
+    "Part II Item 1A": {
+      "length": 297,
+      "head": "ITEM 1A. RISK FACTORS\n\nThe Company\u2019s 2024 Form 10-K contains disclosure regarding the risks and uncertainties related to the Company\u2019s business under the headingItem 1A. Risk Factors. There have been ",
+      "tail": "ncertainties related to the Company\u2019s business under the headingItem 1A. Risk Factors. There have been no material changes to the Company\u2019s risk factors as presented in the Company\u2019s 2024 Form 10-K.\n\n"
+    }
+  },
+  "failures": []
+}

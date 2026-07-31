@@ -1,0 +1,38 @@
+{
+  "accession": "0000091576-21-000114",
+  "ticker": "KEY",
+  "form": "10-Q",
+  "text_length": 607513,
+  "sections": {
+    "Part I Item 2": [
+      11866,
+      270432
+    ],
+    "Part II Item 1": [
+      600158,
+      601691
+    ],
+    "Part II Item 1A": [
+      601691,
+      602131
+    ]
+  },
+  "preview": {
+    "Part I Item 2": {
+      "length": 258566,
+      "head": "Item 2. Management\u2019s Discussion & Analysis of Financial Condition & Results of Operations\n\nIntroduction\n\nThis section reviews the financial condition and results of operations of KeyCorp and its subsi",
+      "tail": "ountries with emerging market exposure essentially limited to commercial facilities; these exposures are actively monitored by management. We do not have at-risk exposures in the rest of the world.\n\n\n"
+    },
+    "Part II Item 1": {
+      "length": 1533,
+      "head": "Item 1. Legal Proceedings\n\nThe information presented in the Legal Proceedings section of Note 17 (\u201cContingent Liabilities and Guarantees\u201d) of the Notes to Consolidated Financial Statements (Unaudited)",
+      "tail": "of a particular matter or a combination of matters may be material to our results of operations for a particular period, depending upon the size of the loss or our income for that particular period.\n\n"
+    },
+    "Part II Item 1A": {
+      "length": 440,
+      "head": "Item 1A. Risk Factors\n\nFor a discussion of certain risk factors affecting us, see the section titled \u201cSupervision and Regulation\u201d in Part I, Item 1. Business, on pages 10-25 of our 2020 Form 10-K; Par",
+      "tail": "38 of our 2020 Form 10-K; the sections titled \u201cSupervision and regulation\u201d and \u201cStrategic developments\u201d in this Form 10-Q; and our disclosure regarding forward-looking statements in this Form 10-Q.\n\n\n"
+    }
+  },
+  "failures": []
+}

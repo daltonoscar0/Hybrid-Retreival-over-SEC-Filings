@@ -1,0 +1,38 @@
+{
+  "accession": "0001045810-21-000131",
+  "ticker": "NVDA",
+  "form": "10-Q",
+  "text_length": 169029,
+  "sections": {
+    "Part I Item 2": [
+      100831,
+      138292
+    ],
+    "Part II Item 1": [
+      140755,
+      141138
+    ],
+    "Part II Item 1A": [
+      141138,
+      159278
+    ]
+  },
+  "preview": {
+    "Part I Item 2": {
+      "length": 37461,
+      "head": "ITEM 2. MANAGEMENT\u2019S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS\n\nForward-Looking Statements\n\nThis Quarterly Report on Form 10-Q contains forward-looking statements within",
+      "tail": "ently Issued Accounting Pronouncements\n\nRefer to Note 1 of the Notes to Condensed Consolidated Financial Statements for a discussion of adoption of new and recently issued accounting pronouncements.\n\n"
+    },
+    "Part II Item 1": {
+      "length": 383,
+      "head": "ITEM 1. LEGAL PROCEEDINGS\n\nRefer to Part I, Item 1, Note 13 of the Notes to Condensed Consolidated Financial Statements for a discussion of significant developments in our legal proceedings since Janu",
+      "tail": "edings since January 31, 2021. Also refer to Item 3, \u201cLegal Proceedings\u201d in our Annual Report on Form 10-K for the fiscal year ended January 31, 2021 for a prior discussion of our legal proceedings.\n\n"
+    },
+    "Part II Item 1A": {
+      "length": 18140,
+      "head": "ITEM 1A. RISK FACTORS\n\nOther than the risk factors listed below, there have been no material changes from the risk factors previously described under Item 1A of our Annual Report on Form 10-K for the ",
+      "tail": "ders and interrupt other critical functions. Delayed sales, lower margins or lost customers as a result of these disruptions could adversely affect our financial results, stock price and reputation.\n\n"
+    }
+  },
+  "failures": []
+}

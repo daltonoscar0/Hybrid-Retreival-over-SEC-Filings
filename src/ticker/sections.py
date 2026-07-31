@@ -135,6 +135,72 @@ TEN_Q_PART2_TARGET_ITEMS: tuple[str, ...] = ("1", "1A")
 
 EX99_ITEM = "EX-99.1"
 
+# Per-item floor, below which a span is reported as a failure instead of
+# emitted. PLAN.md section 2: "log extraction failures loudly rather than
+# silently emitting a truncated section." Before this existed the extractor
+# emitted a 95-character Item 7 as a valid MD&A, which is precisely that
+# failure mode.
+#
+# Every number is read off the corpus's own length distribution, not chosen
+# for roundness, and each sits below the shortest span the item legitimately
+# has while still catching a heading with no body under it. The two kinds of
+# item need very different floors and averaging them would defeat the check:
+#
+#   Narrative items -- 1, 1A, 7, Part I Item 2 -- have observed minima of
+#   25,114 / 24,154 / 16,752 / 14,081 characters. A floor well under those is
+#   still far above any boundary miss, which lands in the hundreds.
+#
+#   Cross-reference items -- 3, 7A, Part II Item 1, Part II Item 1A -- are
+#   routinely satisfied by a single sentence pointing at a financial statement
+#   note ("Reference is made to Note 20"), or by the word "None." Their
+#   observed minima are 128 / 201 / 44 / 124 characters and those are complete
+#   sections as filed, not truncations. The floor here only rules out a span
+#   too short to hold a sentence at all. Filings whose Item 3 or 7A is a
+#   pointer rather than prose are counted and reported separately in
+#   reports/phase1_extraction.md, since a corpus of pointers is a real quality
+#   limitation even though it is not an extraction defect.
+MIN_SECTION_CHARS: dict[str, int] = {
+    "1": 5000,
+    "1A": 5000,
+    "3": 100,
+    "7": 2000,
+    "7A": 150,
+    "Part I Item 2": 2000,
+    "Part II Item 1": 30,
+    "Part II Item 1A": 100,
+    EX99_ITEM: 500,
+}
+
+
+def _below_minimum(item: str, start: int, end: int) -> str | None:
+    minimum = MIN_SECTION_CHARS.get(item)
+    if minimum is None or (end - start) >= minimum:
+        return None
+    return (
+        f"span is {end - start} characters, below the {minimum}-character "
+        f"minimum for {item}; recorded as a failure rather than emitted, "
+        "because a span this short for this item is a boundary miss and a "
+        "short section that looks complete poisons everything downstream"
+    )
+
+
+def enforce_minimums(extraction: SectionExtraction) -> SectionExtraction:
+    """Move every below-minimum span out of `sections` and into `failures`.
+
+    Applied once at the end of `extract_sections`, after the repairs in
+    `_repair_short_item7` have had their chance, so a span that a repair can
+    rescue is rescued rather than reported.
+    """
+    kept: list[tuple[str, int, int]] = []
+    failures = list(extraction.failures)
+    for item, start, end in extraction.sections:
+        reason = _below_minimum(item, start, end)
+        if reason is None:
+            kept.append((item, start, end))
+        else:
+            failures.append((item, reason))
+    return SectionExtraction(sections=kept, failures=failures)
+
 
 @dataclass(frozen=True, slots=True)
 class SectionExtraction:
@@ -533,12 +599,180 @@ def _extract_10q_integrated_fallback(text: str) -> SectionExtraction:
     )
 
 
+# ---------------------------------------------------------------------------
+# Short-Item-7 repairs
+#
+# Item 7 is the only target item that is never legitimately short. Measured
+# over the 111 extractable 10-Ks in the corpus, its length distribution has a
+# hard gap: seven filings land between 95 and 480 characters, the eighth is
+# 16,752, and the median is 74,971. Nothing sits in between. Both ends of that
+# gap are a different structural problem and neither is a regex bug, so both
+# are repaired here rather than by loosening the heading patterns.
+#
+# The two repairs are tried in order, cheapest first, and only when Item 7's
+# own span falls under `MIN_SECTION_CHARS["7"]`. If neither applies, Item 7 is
+# reported as a failure. A short Item 7 is never emitted as valid.
+# ---------------------------------------------------------------------------
+
+# Repair 1, joint presentation. Some filers put the Item 7 and Item 7A
+# headings back to back and then run one combined narrative under both
+# (observed: RF's 2021 10-K, where the two headings are 95 characters apart
+# and the whole 352,647-character MD&A lands under 7A). The next-heading end
+# rule then gives Item 7 the 95 characters between the two headings and files
+# the entire MD&A under Market Risk. That is a misattribution, not a
+# truncation: no text is lost, it is filed under the wrong item, which would
+# put a full MD&A into the Phase 5.2 "novelty by item type" table as Market
+# Risk. The combined span is emitted under Item 7 and Item 7A is reported as
+# jointly presented rather than emitted with the same offsets, because two
+# sections sharing a span would double every sentence in it through the
+# chunker and into both language models.
+
+# Repair 2, incorporation by reference into the F-pages. Comerica's six 10-Ks
+# satisfy Item 7 with a pointer: "Reference is made to the sections entitled
+# ... on pages F-4 through F-39 of the Financial Section of this report." The
+# narrative is in the same document, after an index block that maps each
+# financial-section title to its F-page. The anchor is that index block's
+# position, not any string in the pointer: the pointer's own section names
+# roll forward year to year ("2019 Overview and 2020 Outlook" becomes "2024
+# Overview"), and the index block's rendering picks up stray spaces inside the
+# page numbers ("F- 4", "F -3") and inside the years ("20 20 Overview"), so
+# matching the pointer text verbatim breaks on five of the six years.
+#
+# Everything below anchors by position -- first match after a known offset --
+# never by rank. "Last match in the document" would break the moment a
+# heading repeats inside an exhibit.
+
+_FPAGE_INDEX_ROW_RE = re.compile(
+    r"^[ \t]*(\S.{0,90}?)[ \t]{2,}F[ \t]*-[ \t]*\d[\d \t]{0,4}[ \t]*$",
+    re.MULTILINE,
+)
+
+# An index block is a run of F-page rows with no large gap between them. Both
+# numbers are structural, not tuned: index rows are one line each, so 400
+# characters is several lines of slack and still far below the 9,000-plus
+# characters of Performance Graph and Selected Financial Data content that
+# separates the real block from anything else shaped like it, and the
+# front-matter table of contents contributes at most one isolated F-page row
+# ("FINANCIAL REVIEW AND REPORTS  F-1"), which five rows rules out.
+_MAX_INDEX_ROW_GAP = 400
+_MIN_INDEX_ROWS = 5
+
+# The first financial-section heading the Item 7 pointer incorporates. Keyed
+# on the four-digit-year-plus-Overview shape rather than a literal year, per
+# the roll-forward above. Starting here rather than at the first body heading
+# after the index block matters: the two headings before it, Performance Graph
+# and Selected Financial Data, are what Item 6's own pointer incorporates, and
+# handing Item 6's content to Item 7 would be a boundary error dressed up as a
+# fix.
+_YEAR_OVERVIEW_HEADING_RE = re.compile(r"^[ \t]*\d{4}[ \t]*OVERVIEW\b.*$", re.MULTILINE | re.IGNORECASE)
+
+# Where the incorporated narrative stops: the first financial statement or
+# audit-report heading after it. All three spellings are matched because
+# filers disagree on which they use and the earliest one wins regardless
+# ("Report of Management" is Comerica's; "Management's Report" is the phrasing
+# elsewhere in the corpus). Each must be a standalone heading line, not a
+# substring: "Consolidated Balance Sheet" appears 43 times inside Comerica's
+# own MD&A prose, and a substring match would cut the section at the first
+# sentence that mentions the balance sheet.
+_INCORPORATED_END_RES = (
+    re.compile(r"^[ \t]*Reports? of Independent\b.*$", re.MULTILINE | re.IGNORECASE),
+    re.compile(r"^[ \t]*Consolidated Balance Sheets?[ \t]*$", re.MULTILINE | re.IGNORECASE),
+    re.compile(
+        r"^[ \t]*(?:Report of Management|Management.s Report)[ \t]*$",
+        re.MULTILINE | re.IGNORECASE,
+    ),
+)
+
+
+def _find_fpage_index_block(text: str, after: int) -> tuple[int, int] | None:
+    """Span of the first F-page index block starting after `after`, or None."""
+    run: list[re.Match[str]] = []
+    for match in _FPAGE_INDEX_ROW_RE.finditer(text):
+        if match.start() <= after:
+            continue
+        if run and match.start() - run[-1].end() > _MAX_INDEX_ROW_GAP:
+            if len(run) >= _MIN_INDEX_ROWS:
+                return run[0].start(), run[-1].end()
+            run = []
+        run.append(match)
+    if len(run) >= _MIN_INDEX_ROWS:
+        return run[0].start(), run[-1].end()
+    return None
+
+
+def _first_heading_after(text: str, pattern: re.Pattern[str], after: int) -> int | None:
+    for match in pattern.finditer(text):
+        if match.start() > after and _preceded_by_blank_line(text, match.start()):
+            return match.start()
+    return None
+
+
+def _incorporated_item7_span(text: str, stub_start: int) -> tuple[int, int] | None:
+    block = _find_fpage_index_block(text, stub_start)
+    if block is None:
+        return None
+    start = _first_heading_after(text, _YEAR_OVERVIEW_HEADING_RE, block[1])
+    if start is None:
+        return None
+    ends = [
+        position
+        for position in (
+            _first_heading_after(text, pattern, start) for pattern in _INCORPORATED_END_RES
+        )
+        if position is not None
+    ]
+    if not ends:
+        return None
+    return start, min(ends)
+
+
+def _repair_short_item7(
+    text: str, sections: list[tuple[str, int, int]]
+) -> tuple[list[tuple[str, int, int]], list[tuple[str, str]]]:
+    """Replace a below-minimum Item 7 span with the repaired one, if either
+    repair applies. Returns (sections, extra_failures)."""
+    by_item = {item: (start, end) for item, start, end in sections}
+    if "7" not in by_item:
+        return sections, []
+    start, end = by_item["7"]
+    if end - start >= MIN_SECTION_CHARS["7"]:
+        return sections, []
+
+    joint = by_item.get("7A")
+    if joint is not None and joint[0] == end and joint[1] - start >= MIN_SECTION_CHARS["7"]:
+        repaired = [
+            (item, s, e) for item, s, e in sections if item not in ("7", "7A")
+        ] + [("7", start, joint[1])]
+        return sorted(repaired, key=lambda row: row[1]), [
+            (
+                "7A",
+                "presented jointly with Item 7: the two headings are adjacent and "
+                "one combined narrative follows both. The combined span is emitted "
+                "under Item 7 and is not repeated here, because two sections over "
+                "the same offsets would double every sentence in it.",
+            )
+        ]
+
+    incorporated = _incorporated_item7_span(text, start)
+    if incorporated is not None:
+        repaired = [(item, s, e) for item, s, e in sections if item != "7"] + [
+            ("7", incorporated[0], incorporated[1])
+        ]
+        return sorted(repaired, key=lambda row: row[1]), []
+
+    return sections, []
+
+
 def _extract_10k(text: str) -> SectionExtraction:
     headers = _find_item_headers(text)
     if _is_integrated_report(headers):
         return _extract_10k_integrated_fallback(text)
     resolved, missing = _resolve_in_order(headers, TEN_K_TARGET_ITEMS)
-    return _build_sections(text, headers, resolved, missing)
+    built = _build_sections(text, headers, resolved, missing)
+    sections, extra_failures = _repair_short_item7(text, built.sections)
+    return SectionExtraction(
+        sections=sections, failures=built.failures + extra_failures
+    )
 
 
 def _extract_10q(text: str) -> SectionExtraction:
@@ -608,11 +842,11 @@ def _extract_8k(text: str) -> SectionExtraction:
 def extract_sections(text: str, form: str) -> SectionExtraction:
     normalized = form.strip().upper()
     if normalized == "10-K":
-        return _extract_10k(text)
+        return enforce_minimums(_extract_10k(text))
     if normalized == "10-Q":
-        return _extract_10q(text)
+        return enforce_minimums(_extract_10q(text))
     if normalized == "8-K":
-        return _extract_8k(text)
+        return enforce_minimums(_extract_8k(text))
     raise ValueError(f"extract_sections: unsupported form {form!r}")
 
 

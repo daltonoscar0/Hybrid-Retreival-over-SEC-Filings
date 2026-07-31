@@ -19,7 +19,9 @@ empty corpus.
 
 from __future__ import annotations
 
+import functools
 import json
+import re
 from pathlib import Path
 
 import pytest
@@ -44,6 +46,36 @@ TOLERANCE_CHARS = 5
 # synthetic fixtures: exercise the extractor's rules without network access
 # ---------------------------------------------------------------------------
 
+_FILLER_SENTENCE = "This sentence is filler so the section clears its minimum length."
+
+
+def _pad(lead: str, target: int) -> str:
+    """`lead`, then plain filler on the following line, to `target` characters.
+
+    These documents exist to exercise boundary rules, not lengths, but
+    `extract_sections` refuses to emit a span under `MIN_SECTION_CHARS[item]`.
+    Padding keeps them testing the shipped contract rather than a variant of
+    it with the length gate switched off, which is the version that let a
+    95-character Item 7 through in the first place.
+
+    The filler goes on the line after `lead`, separated by a single newline
+    and never a blank one, so it cannot read as a heading: every heading rule
+    in `ticker.sections` requires a blank line above. It also carries no item
+    number, no parenthetical, no F-page, and no double space, so it cannot
+    trip the item-suffix, F-page-index, or table-of-contents patterns either.
+    """
+    if len(lead) >= target:
+        return lead
+    repeats = -(-(target - len(lead)) // (len(_FILLER_SENTENCE) + 1))
+    return lead + "\n" + " ".join([_FILLER_SENTENCE] * repeats)
+
+
+ITEM_1_BODY = _pad("We make widgets. See “Item 1A. Risk Factors” for more.", 6000)
+ITEM_1A_BODY = _pad("Widgets may break.", 6000)
+ITEM_3_BODY = _pad("None pending.", 200)
+ITEM_7_BODY = _pad("Revenue grew, as discussed in “Item 1A. Risk Factors” above.", 3000)
+ITEM_7A_BODY = _pad("Rates matter.", 300)
+
 SYNTHETIC_10K = (
     "UNITED STATES SECURITIES AND EXCHANGE COMMISSION\n\n"
     # Single newline, not a blank line, between the TOC caption and its
@@ -61,18 +93,18 @@ SYNTHETIC_10K = (
     "  Item 8.         Financial Statements                        60  \n\n"
     "Part I\n\n"
     "Item 1. Business\n\n"
-    "We make widgets. See “Item 1A. Risk Factors” for more.\n\n"
+    f"{ITEM_1_BODY}\n\n"
     "Item 1A. Risk Factors\n\n"
-    "Widgets may break.\n\n"
+    f"{ITEM_1A_BODY}\n\n"
     "Item 2. Properties\n\n"
     "One factory.\n\n"
     "Item 3. Legal Proceedings\n\n"
-    "None pending.\n\n"
+    f"{ITEM_3_BODY}\n\n"
     "Item 6. [Reserved]\n\n"
     "Item 7. Management's Discussion and Analysis\n\n"
-    "Revenue grew, as discussed in “Item 1A. Risk Factors” above.\n\n"
+    f"{ITEM_7_BODY}\n\n"
     "Item 7A. Quantitative and Qualitative Disclosures\n\n"
-    "Rates matter.\n\n"
+    f"{ITEM_7A_BODY}\n\n"
     "Item 8. Financial Statements\n\n"
     "See attached.\n"
 )
@@ -117,7 +149,7 @@ def test_10k_cross_references_do_not_shift_the_real_boundary():
 
 def test_10k_missing_item_is_a_loud_failure_not_a_truncated_section():
     text = SYNTHETIC_10K.replace(
-        "Item 7A. Quantitative and Qualitative Disclosures\n\nRates matter.\n\n", ""
+        f"Item 7A. Quantitative and Qualitative Disclosures\n\n{ITEM_7A_BODY}\n\n", ""
     )
     result = extract_sections(text, "10-K")
     got = {item for item, _, _ in result.sections}
@@ -144,8 +176,8 @@ def test_10k_split_letter_rendering_is_recovered_for_known_titles():
     # Some filers' HTML-to-text conversion splits "Item 1A." into
     # "Item 1. A" -- see ZION 0000109380-21-000192 in the real fixture set.
     text = SYNTHETIC_10K.replace(
-        "Item 1A. Risk Factors\n\nWidgets may break.",
-        "Item 1. A Risk Factors\n\nWidgets may break.",
+        f"Item 1A. Risk Factors\n\n{ITEM_1A_BODY}",
+        f"Item 1. A Risk Factors\n\n{ITEM_1A_BODY}",
     )
     result = extract_sections(text, "10-K")
     got = {item: (start, end) for item, start, end in result.sections}
@@ -159,8 +191,8 @@ def test_10k_indefinite_article_after_item_number_is_not_treated_as_a_letter():
     # because "A" follows the period -- it is only recognized for the exact
     # canonical 1A/7A titles, precisely to avoid this.
     text = SYNTHETIC_10K.replace(
-        "Item 3. Legal Proceedings\n\nNone pending.",
-        "Item 3. A previously disclosed matter was settled.",
+        f"Item 3. Legal Proceedings\n\n{ITEM_3_BODY}",
+        _pad("Item 3. A previously disclosed matter was settled.", 200),
     )
     result = extract_sections(text, "10-K")
     got = {item for item, _, _ in result.sections}
@@ -183,16 +215,16 @@ SYNTHETIC_10Q = (
     "Item 1. Financial Statements\n\n"
     "Balance sheet here.\n\n"
     "Item 2. Management's Discussion and Analysis\n\n"
-    "Results improved.\n\n"
+    f"{_pad('Results improved.', 3000)}\n\n"
     "Item 3. Quantitative and Qualitative Disclosures\n\n"
     "Rates matter.\n\n"
     "Item 4. Controls and Procedures\n\n"
     "Effective.\n\n"
     "Part II. Other Information\n\n"
     "Item 1. Legal Proceedings\n\n"
-    "None pending.\n\n"
+    f"{_pad('None pending.', 120)}\n\n"
     "Item 1A. Risk Factors\n\n"
-    "No material changes.\n\n"
+    f"{_pad('No material changes.', 200)}\n\n"
     "Item 6. Exhibits\n\n"
     "See index.\n"
 )
@@ -267,23 +299,23 @@ SYNTHETIC_INTEGRATED_10K = (
     # so the chapter's *second* listed subsection is the real anchor.
     "Introduction to Our Business Spread.jpg\n\n"
     "A Year in Review\n\n"
-    "Widget demand grew this year.\n\n"
+    f"{_pad('Widget demand grew this year.', 3000)}\n\n"
     "Our Strategy\n\n"
-    "We aim to lead the market.\n\n"
+    f"{_pad('We aim to lead the market.', 3000)}\n\n"
     "Management's Discussion and Analysis\n\n"
     "Our Products\n\n"
-    "We sell widgets and gadgets.\n\n"
+    f"{_pad('We sell widgets and gadgets.', 1500)}\n\n"
     "Segment Trends and Results\n\n"
-    "Widget segment revenue increased.\n\n"
+    f"{_pad('Widget segment revenue increased.', 1500)}\n\n"
     "Risk Factors and Other Key Information\n\n"
     "Risk Factors\n\n"
-    "Our business faces various risks.\n\n"
+    f"{_pad('Our business faces various risks.', 6000)}\n\n"
     "Quantitative and Qualitative Disclosures about Market Risk\n\n"
-    "We are exposed to interest rate risk.\n\n"
+    f"{_pad('We are exposed to interest rate risk.', 300)}\n\n"
     "Financial Statements and Supplemental Details\n\n"
     "Notes to Consolidated Financial Statements\n\n"
     "Legal Proceedings\n\n"
-    "We are party to various legal proceedings.\n\n"
+    f"{_pad('We are party to various legal proceedings.', 200)}\n\n"
     "Key Terms\n\n"
     "Definitions used throughout this report.\n\n"
     "Form 10-K Cross-Reference Index\n\n"
@@ -341,7 +373,7 @@ def test_10k_integrated_report_not_detected_for_a_normal_partial_failure():
     # report -- detection requires zero item-label headings anywhere, not
     # "the item-label path failed at something."
     text = SYNTHETIC_10K.replace(
-        "Item 7A. Quantitative and Qualitative Disclosures\n\nRates matter.\n\n", ""
+        f"Item 7A. Quantitative and Qualitative Disclosures\n\n{ITEM_7A_BODY}\n\n", ""
     )
     result = extract_sections(text, "10-K")
     failed_items = {item for item, _ in result.failures}
@@ -368,15 +400,15 @@ SYNTHETIC_INTEGRATED_10Q = (
     "Balance sheet data follows.\n\n"
     "Notes to Consolidated Condensed Financial Statements\n\n"
     "Legal Proceedings\n\n"
-    "We are party to various legal proceedings this quarter.\n\n"
+    f"{_pad('We are party to various legal proceedings this quarter.', 120)}\n\n"
     "Management's Discussion and Analysis (MD&A)\n\n"
     "Operating Segments Trends and Results\n\n"
-    "Segment revenue increased this quarter.\n\n"
+    f"{_pad('Segment revenue increased this quarter.', 1500)}\n\n"
     "Liquidity and Capital Resources\n\n"
-    "Cash flow remained strong.\n\n"
+    f"{_pad('Cash flow remained strong.', 1500)}\n\n"
     "Risk Factors and Other Key Information\n\n"
     "Risk Factors\n\n"
-    "The risks described in our most recent Form 10-K remain applicable.\n\n"
+    f"{_pad('The risks described in our most recent Form 10-K remain applicable.', 300)}\n\n"
     "Form 10-Q Cross-Reference Index\n\n"
     "Item Number      Item\n"
     "Item 2.          Management's Discussion and Analysis   Page 25\n"
@@ -401,7 +433,10 @@ def test_10q_integrated_report_recovers_all_three_targets():
 
 
 def test_8k_returns_whole_text_as_one_section():
-    text = "NVIDIA Announces Financial Results\n\nRevenue of $44.1 billion.\n"
+    text = (
+        "NVIDIA Announces Financial Results\n\n"
+        f"{_pad('Revenue of $44.1 billion.', 900)}\n"
+    )
     result = extract_sections(text, "8-K")
     assert result.failures == []
     assert result.sections == [("EX-99.1", 0, len(text))]
@@ -411,6 +446,211 @@ def test_8k_empty_exhibit_text_is_a_failure_not_an_empty_section():
     result = extract_sections("   \n\n  ", "8-K")
     assert result.sections == []
     assert result.failures == [("EX-99.1", "exhibit text is empty")]
+
+
+# ---------------------------------------------------------------------------
+# minimum section length: a short span is a failure, never a valid section
+# ---------------------------------------------------------------------------
+
+
+def test_short_narrative_item_is_a_failure_not_a_valid_section():
+    text = SYNTHETIC_10K.replace(ITEM_1_BODY, "We make widgets.")
+    result = extract_sections(text, "10-K")
+    assert "1" not in {item for item, _, _ in result.sections}
+    reason = dict(result.failures)["1"]
+    assert "below the 5000-character minimum" in reason
+    # The measured length belongs in the reason, so the failure table says how
+    # short rather than only that it was short.
+    assert re.search(r"span is \d+ characters", reason)
+
+
+def test_cross_reference_item_at_its_legitimate_floor_is_still_valid():
+    # Item 3's shortest real span in the corpus is 128 characters: a single
+    # sentence pointing at a financial statement note. That is a complete
+    # section as filed, not a truncation, and a floor that rejected it would
+    # be deleting real corpus rather than catching a miss.
+    body = (
+        "Reference is made to Note 20, Contingent Liabilities, of the "
+        "Consolidated Financial Statements in this report."
+    )
+    text = SYNTHETIC_10K.replace(ITEM_3_BODY, body)
+    result = extract_sections(text, "10-K")
+    got = {item: (start, end) for item, start, end in result.sections}
+    assert "3" in got
+    assert got["3"][1] - got["3"][0] < 200
+
+
+def test_minimum_is_per_item_not_one_global_threshold():
+    # The same length is fine for Item 3 and a boundary miss for Item 7.
+    short = "Reference is made to the Financial Section of this report."
+    text = SYNTHETIC_10K.replace(ITEM_3_BODY, _pad(short, 150))
+    text = text.replace(ITEM_7_BODY, _pad(short, 150))
+    result = extract_sections(text, "10-K")
+    got = {item for item, _, _ in result.sections}
+    assert "3" in got
+    assert "7" not in got
+
+
+def test_below_minimum_span_is_never_silently_dropped():
+    # Rejecting the span is only half the contract; PLAN section 2 asks for
+    # the failure to be loud. Every rejected item must appear in `failures`.
+    text = SYNTHETIC_10K.replace(ITEM_1A_BODY, "Widgets may break.")
+    result = extract_sections(text, "10-K")
+    assert "1A" in {item for item, _ in result.failures}
+
+
+# ---------------------------------------------------------------------------
+# short-Item-7 repairs: joint presentation, and incorporation by reference
+# into the F-pages of the same document
+# ---------------------------------------------------------------------------
+
+
+def _joint_presentation_10k(mdna_body: str) -> str:
+    """A 10-K whose Item 7 and Item 7A headings sit back to back with one
+    combined narrative under both, the shape of RF's 2021 10-K."""
+    return SYNTHETIC_10K.replace(
+        f"Item 7. Management's Discussion and Analysis\n\n"
+        f"{ITEM_7_BODY}\n\n"
+        f"Item 7A. Quantitative and Qualitative Disclosures\n\n"
+        f"{ITEM_7A_BODY}\n\n",
+        f"Item 7. Management's Discussion and Analysis\n\n"
+        f"Item 7A. Quantitative and Qualitative Disclosures\n\n"
+        f"{mdna_body}\n\n",
+    )
+
+
+def test_jointly_presented_item_7_and_7a_put_the_narrative_under_item_7():
+    body = _pad("EXECUTIVE OVERVIEW. Revenue grew this year.", 40000)
+    result = extract_sections(_joint_presentation_10k(body), "10-K")
+    got = {item: (start, end) for item, start, end in result.sections}
+    assert "7" in got
+    start, end = got["7"]
+    assert end - start > 40000
+    assert "Revenue grew this year" in _joint_presentation_10k(body)[start:end]
+
+
+def test_joint_presentation_does_not_emit_7a_over_the_same_span():
+    # Two sections sharing offsets would double every sentence in the
+    # combined narrative through the chunker and into both language models.
+    body = _pad("EXECUTIVE OVERVIEW. Revenue grew this year.", 40000)
+    result = extract_sections(_joint_presentation_10k(body), "10-K")
+    assert "7A" not in {item for item, _, _ in result.sections}
+    assert "presented jointly with Item 7" in dict(result.failures)["7A"]
+
+
+def _incorporated_10k(year: int, *, index_rows: int = 8) -> str:
+    """A 10-K that satisfies Item 7 with a pointer into the F-pages of the
+    same document, the shape of all six of Comerica's 10-Ks.
+
+    `index_rows` controls how many F-page rows the index block carries, so a
+    test can starve the block below the minimum run length.
+    """
+    rows = [
+        ("Performance Graph", 2),
+        ("Selected Financial Data", 3),
+        (f"{year} Overview", 4),
+        ("Results of Operations", 6),
+        ("Risk Management", 20),
+        ("Critical Accounting Policies", 34),
+        ("Forward-Looking Statements", 38),
+        ("Consolidated Balance Sheets", 40),
+    ][:index_rows]
+    index_block = "".join(f"  {title:<58}F-{page}   \n" for title, page in rows)
+
+    return (
+        SYNTHETIC_10K.replace(
+            f"Item 7. Management's Discussion and Analysis\n\n{ITEM_7_BODY}\n\n",
+            "Item 7. Management's Discussion and Analysis\n\n"
+            "Reference is made to the sections entitled "
+            f"“{year} Overview,” “Results of Operations,” “Risk Management,” "
+            "“Critical Accounting Policies” and “Forward-Looking Statements” "
+            f"on pages F-4 through F-39 of the Financial Section of this report.\n\n",
+        )
+        + "\nFINANCIAL REVIEW AND REPORTS\n\n"
+        + "Widget Bancorp and Subsidiaries\n\n"
+        + index_block
+        + "\nF-1\n\n"
+        + "PERFORMANCE GRAPH\n\n"
+        + _pad("The graph compares total returns against two indices.", 4000)
+        + "\n\nSELECTED FINANCIAL DATA\n\n"
+        + _pad("Five year summary of selected financial data.", 4000)
+        + f"\n\n{year} OVERVIEW\n\n"
+        + _pad(
+            "Net income rose. As shown in the Consolidated Balance Sheets "
+            "above, total assets grew.",
+            40000,
+        )
+        + "\n\nRISK MANAGEMENT\n\n"
+        + _pad("Credit risk is managed through underwriting standards.", 20000)
+        + "\n\nCONSOLIDATED BALANCE SHEETS\n\n"
+        + _pad("Total assets 90,000. Total liabilities 80,000.", 5000)
+        + "\n\nREPORT OF MANAGEMENT\n\n"
+        + _pad("Management is responsible for the financial statements.", 2000)
+        + "\n"
+    )
+
+
+def test_incorporation_by_reference_recovers_item_7_from_the_f_pages():
+    text = _incorporated_10k(2019)
+    result = extract_sections(text, "10-K")
+    got = {item: (start, end) for item, start, end in result.sections}
+    assert "7" in got
+    start, end = got["7"]
+    assert end - start > 50000
+    body = text[start:end]
+    assert "Net income rose" in body
+    assert "Credit risk is managed" in body
+
+
+def test_incorporation_by_reference_survives_the_year_rolling_forward():
+    # The pointer's own section names change every year: "2019 Overview and
+    # 2020 Outlook" becomes "2024 Overview". Anchoring on a literal year
+    # would pass on one filing and fail on the next five.
+    for year in (2019, 2021, 2024):
+        text = _incorporated_10k(year)
+        got = {item: (s, e) for item, s, e in extract_sections(text, "10-K").sections}
+        assert "7" in got, year
+        assert got["7"][1] - got["7"][0] > 50000, year
+
+
+def test_incorporation_by_reference_skips_the_headings_item_6_incorporates():
+    # Performance Graph and Selected Financial Data are what Item 6's own
+    # pointer incorporates. Starting at the first body heading after the
+    # index block would hand Item 6's content to Item 7.
+    text = _incorporated_10k(2019)
+    start, end = next((s, e) for item, s, e in extract_sections(text, "10-K").sections if item == "7")
+    body = text[start:end]
+    assert "The graph compares total returns" not in body
+    assert "Five year summary" not in body
+
+
+def test_incorporation_end_boundary_ignores_the_phrase_inside_prose():
+    # "Consolidated Balance Sheets" appears 43 times inside Comerica's own
+    # MD&A prose. Only the standalone heading may end the section.
+    text = _incorporated_10k(2019)
+    start, end = next((s, e) for item, s, e in extract_sections(text, "10-K").sections if item == "7")
+    body = text[start:end]
+    assert "As shown in the Consolidated Balance Sheets" in body
+    assert "Total assets 90,000" not in body
+
+
+def test_incorporation_by_reference_requires_a_real_index_block():
+    # One stray F-page row in a table of contents is not an index block. With
+    # nothing to anchor on, Item 7 is reported as a failure rather than
+    # guessed at.
+    text = _incorporated_10k(2019, index_rows=2)
+    result = extract_sections(text, "10-K")
+    assert "7" not in {item for item, _, _ in result.sections}
+    assert "7" in {item for item, _ in result.failures}
+
+
+def test_repairs_do_not_fire_on_an_item_7_that_is_already_long_enough():
+    result = extract_sections(SYNTHETIC_10K, "10-K")
+    got = {item: (start, end) for item, start, end in result.sections}
+    real_item_7 = SYNTHETIC_10K.index("Item 7. Management's Discussion")
+    real_item_7a = SYNTHETIC_10K.index("Item 7A. Quantitative")
+    assert got["7"] == (real_item_7, real_item_7a)
+    assert "7A" in got
 
 
 def test_flag_length_outliers_needs_enough_history_before_scoring():
@@ -446,6 +686,92 @@ def test_flag_length_outliers_is_scoped_per_ticker_and_item():
         ("acc-10", "ZION", "3", 158),
     ]
     assert flag_length_outliers(entries) == []
+
+
+# ---------------------------------------------------------------------------
+# real-filing regression for the two short-Item-7 repairs
+#
+# These read the raw text dumps, not human-approved offsets, so they assert a
+# magnitude rather than an exact span: an Item 7 that recovers the F-page
+# narrative is six figures of characters, and one that did not is three. No
+# reviewer judgment is needed to tell those apart, which is why this can be a
+# test today while the offset fixtures are still pending review.
+#
+# The corpus cache under data/raw/ is not committed (278 MB), so the full
+# six-year Comerica sweep only runs where it exists and skips elsewhere. The
+# committed fixture dumps under tests/fixtures/sections/raw/ carry whichever
+# Comerica and Regions years the fixture manifest pins, and those run
+# everywhere.
+# ---------------------------------------------------------------------------
+
+CACHE_DIR = Path("data/raw")
+
+
+@functools.lru_cache(maxsize=1)
+def _cache_index() -> tuple[tuple[str, str, str, Path], ...]:
+    """(ticker, form, accession, text_path) for every complete cache entry.
+
+    Cached because the three tests below would otherwise each walk all 967
+    metadata files, and the walk costs more than the extraction they exist to
+    check.
+    """
+    if not CACHE_DIR.exists():
+        return ()
+    rows = []
+    for meta_path in sorted(CACHE_DIR.glob("*.json")):
+        meta = json.loads(meta_path.read_text())
+        text_path = meta_path.with_suffix(".txt")
+        if "ticker" in meta and "form" in meta and text_path.exists():
+            rows.append((meta["ticker"], meta["form"], meta["accession"], text_path))
+    return tuple(rows)
+
+
+def _cached_10k_texts(ticker: str) -> list[tuple[str, str]]:
+    """(accession, text) for every cached 10-K of `ticker`, oldest first."""
+    return [
+        (accession, path.read_text())
+        for tk, form, accession, path in _cache_index()
+        if tk == ticker and form == "10-K"
+    ]
+
+
+def _item_length(text: str, item: str) -> int | None:
+    for name, start, end in extract_sections(text, "10-K").sections:
+        if name == item:
+            return end - start
+    return None
+
+
+def test_every_cached_comerica_10k_recovers_its_f_page_mdna():
+    filings = _cached_10k_texts("CMA")
+    if not filings:
+        pytest.skip("data/raw/ is not populated here; run scripts/download_corpus.py")
+    assert len(filings) == 6, f"expected 6 Comerica 10-Ks in the cache, found {len(filings)}"
+    for accession, text in filings:
+        length = _item_length(text, "7")
+        assert length is not None, f"{accession}: Item 7 was not extracted at all"
+        assert length > 50_000, f"{accession}: Item 7 is only {length} characters"
+
+
+def test_regions_2021_mdna_is_filed_under_item_7_not_market_risk():
+    filings = dict(_cached_10k_texts("RF"))
+    text = filings.get("0001281761-21-000012")
+    if text is None:
+        pytest.skip("data/raw/ is not populated here; run scripts/download_corpus.py")
+    got = {item: (s, e) for item, s, e in extract_sections(text, "10-K").sections}
+    assert got["7"][1] - got["7"][0] > 300_000
+    assert "7A" not in got
+
+
+def test_the_repairs_change_nothing_for_a_filer_that_never_needed_them():
+    # NVDA's 10-Ks extract cleanly on the item-label path. If a repair fired
+    # on one of them it would be stealing a correct extraction.
+    filings = _cached_10k_texts("NVDA")
+    if not filings:
+        pytest.skip("data/raw/ is not populated here; run scripts/download_corpus.py")
+    for accession, text in filings:
+        got = {item for item, _, _ in extract_sections(text, "10-K").sections}
+        assert got == {"1", "1A", "3", "7", "7A"}, accession
 
 
 # ---------------------------------------------------------------------------

@@ -1,0 +1,56 @@
+{
+  "accession": "0000097476-22-000009",
+  "ticker": "TXN",
+  "form": "10-K",
+  "text_length": 224972,
+  "sections": {
+    "1": [
+      5029,
+      31228
+    ],
+    "1A": [
+      31228,
+      56773
+    ],
+    "3": [
+      59580,
+      59871
+    ],
+    "7": [
+      62498,
+      81898
+    ],
+    "7A": [
+      81898,
+      85488
+    ]
+  },
+  "preview": {
+    "1": {
+      "length": 26199,
+      "head": "ITEM 1. Business\n\nWe design and make semiconductors that we sell to electronics designers and manufacturers all over the world. Our operations began in 1930, and we are incorporated in Delaware. With ",
+      "tail": "s. Stockholders may request copies of these documents free of charge by writing to Texas Instruments Incorporated, Attention: Investor Relations, P.O. Box 660199, MS\n8657, Dallas, Texas, 75266-0199.\n\n"
+    },
+    "1A": {
+      "length": 25545,
+      "head": "ITEM 1A. Risk factors\n\nYou should read the following risk factors in conjunction with the factors discussed elsewhere in this and other of our filings with the Securities and Exchange Commission (SEC)",
+      "tail": "\nWe have a significant amount of goodwill on our consolidated balance sheet. Charges associated with impairments of goodwill could adversely affect our financial condition and results of operations.\n\n"
+    },
+    "3": {
+      "length": 291,
+      "head": "ITEM 3. Legal proceedings\n\nWe are involved in various inquiries and proceedings that arise in the ordinary course of our business. We believe that the amount of our liability, if any, will not have a ",
+      "tail": "in the ordinary course of our business. We believe that the amount of our liability, if any, will not have a material adverse effect upon our financial condition, results of operations or liquidity.\n\n"
+    },
+    "7": {
+      "length": 19400,
+      "head": "ITEM 7. Management\u2019s discussion and analysis of financial condition and results of operations\n\nOverview\n\nWe design, make and sell semiconductors to electronics designers and manufacturers all over the",
+      "tail": "mer demand, customer negotiations, technology shifts and other factors.\n\nCommitments and contingencies\n\nSee Note 10 to the financial statements for a discussion of our commitments and contingencies.\n\n"
+    },
+    "7A": {
+      "length": 3590,
+      "head": "ITEM 7A. Quantitative and qualitative disclosures about market risk\n\nForeign exchange risk\n\nThe U.S. dollar is our functional currency for financial reporting. Our non-U.S. entities own assets or liab",
+      "tail": "nsation arrangements with employees. Gains or losses from changes in the fair value of these total return swaps generally offset the related losses or gains on the deferred compensation liabilities.\n\n"
+    }
+  },
+  "failures": []
+}
