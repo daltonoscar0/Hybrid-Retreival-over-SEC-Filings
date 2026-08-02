@@ -226,3 +226,156 @@ the ingest path closely, so "`sentences.filed_at` always equals
 `filings.filed_at`" rests on the schema comment and on a zero-disagreement query
 against the built database rather than on the insert code. It did not read the
 judging or agreement modules.
+
+---
+
+# Re-audit, Phase 5
+
+Run again after the Phase 5 validation layer was written, against the same
+invariants. Four of the prior fixes were re-verified and hold. The two LOWs
+recorded and not fixed above are still open and still recorded. Eight new
+findings; six are fixed below, two are documentation and are also fixed.
+
+Nothing here changed a number, because no number had been produced yet:
+`reports/results.md` is still a stub and Phase 5 had not run to completion.
+That is timing, not innocence. Two of the findings reconstruct the original
+CRITICAL's exact failure mode through routes the original fix does not block.
+
+## The regression test for the CRITICAL did not test the fix
+
+`tests/test_fusion.py`, `scripts/fuse.py`
+
+The prior audit closed the CRITICAL by moving the tuned run to
+`data/runs/tuned/` and pinning it with
+`test_the_tuned_run_is_not_discoverable_by_the_ablation_ladder`. That test
+constructs the tuned path itself and never calls `fuse.py`. What it pins is
+that the glob is non-recursive and that `TUNED_SUBDIR` is a non-empty string.
+
+Demonstrated rather than argued: reverting `scripts/fuse.py` to write
+`wsum.jsonl` straight into the globbed directory, which restores the CRITICAL
+in full, leaves that test green. Only the legacy-file refusal at the top of
+`main` would have caught it, and that refusal had no test at all.
+
+**Fix.** `test_fuse_main_writes_the_tuned_run_outside_the_glob` drives `main()`
+through `sys.argv` over a real two-system run set and a real qrels file, then
+asks `discover_runs` what it can see. It fails against the reverted line.
+`test_fuse_main_refuses_to_run_when_a_legacy_tuned_run_sits_in_the_glob` covers
+the refusal.
+
+## One CLI flag reproduced the CRITICAL
+
+`scripts/evaluate.py`, `src/ticker/evaluation.py`
+
+`--runs-dir` is free. `scripts/evaluate.py --runs-dir data/runs/tuned` globs the
+tuned directory, finds `wsum.jsonl`, and scores it over every judged query
+including the ones that chose its weights, writing to `reports/results.md`
+because the output path routes on the qrels stem. The subdirectory protects the
+default value of a flag, which is the same class of convention that moving the
+file was meant to replace.
+
+**Fix.** `fuse.py` writes a `.held-out-only` marker into the tuned directory and
+`discover_runs` raises on any directory carrying it. The refusal is a property
+of the directory rather than of a flag's default.
+`test_pointing_the_ablation_ladder_at_the_tuned_directory_is_refused` covers it.
+
+## The invariant 3 type firewall did not survive serialization
+
+`scripts/score_novelty.py`, `src/ticker/validation.py`
+
+In process, invariant 3 holds by type: the display z-score is its own class and
+the aggregation path rejects it by isinstance. On disk both a z-score and a raw
+contrast are a float under `novelty`. The prior audit's clean finding here was
+correct when written and became incomplete when Phase 5 added the first
+cross-document reader of that file.
+
+**Fix.** `score_novelty.py` writes `score_kind: raw_contrast` and
+`validation.load_scores` raises on anything else or on its absence. The scoring
+pass was restarted rather than the column backfilled: a provenance marker
+written by a migration asserts something the writer never observed.
+
+## Survivorship in the sector background was disclosed in one docstring
+
+`src/ticker/universe.py`, `src/ticker/novelty/score.py`
+
+The 20 CIKs were chosen in 2026 by requiring continuous filing from 2020
+through 2025, so every sector background, at every `as_of`, is fit on firms
+known in 2026 to have survived. The strict `<` filter governs which sentences
+the fit may read and says nothing about which firms are eligible. For regional
+banks this is concrete: SVB Financial, Signature Bank and First Republic are
+excluded because they failed in 2023, so a 2023 bank filing's control contains
+only banks that came through that year.
+
+This is future information selecting the corpus that one of the two terms in
+every novelty contrast is fit on. It is locked by RUN.md and unfixable without
+breaking the six-year per-firm assumption, so the finding is the disclosure
+gap. It appeared in `universe.py`'s docstring and in no report.
+
+**Fix.** Stated in `reports/README-notes.md` and in `phase4_novelty.md`'s
+skepticism section, with the bias direction left unasserted because it is not
+measured. Excluding the failed banks keeps distress language out of the
+background and pushes the contrast down; including them would have pushed it
+up. Which dominates is unanswered.
+
+## A partial score file produced a clean-looking result
+
+`scripts/validate.py`, `src/ticker/validation.py`
+
+`JoinDiagnostics` counts rows lost inside the sections a score file contains,
+so a firm the scoring pass never reached is structurally invisible to it: its
+sections are not in the file to be counted as missing. The interrupted pass
+that `data/novelty/scores.jsonl` came from was missing three companies
+entirely, and would have produced a 100% join rate over 18 of 20 firms.
+
+**Fix.** `validation.coverage` reconciles the file against the `filings` table,
+scoped to the forms the file actually contains so a deliberate 10-K-only scope
+does not read as incomplete. `validate.py` prints the shortfall, names the
+unscored filings, and exits rather than writing a report unless
+`--allow-partial` is passed.
+
+## The 5.2 bootstrap reseeded inside its own loop
+
+`src/ticker/validation.py`
+
+`random.Random(seed)` sat inside the per-item loop, so every item drew an
+identical stream of resample indices and two items with equal n got perfectly
+correlated intervals. Each CI was individually valid; the table exists to be
+read across items and would not have supported that.
+
+**Fix.** Seeded once for the table.
+`test_two_items_with_equal_n_get_independent_resamples` covers it.
+
+## Two documentation defects
+
+`src/ticker/novelty/score.py` claimed there was "exactly one place in the
+codebase that writes a `filed_at <` predicate". There are three:
+`db.prior_sentences`, `db.background_sentences`, and
+`lazy_prices.align_prior_section`. All three are correct; the comment would
+have sent an auditor of the time filter to one of them. Corrected to name all
+three.
+
+`reports/README-notes.md` described the query-set drops as "thin-material
+rather than low-scoring". The recorded reason for q58 is that a query with
+almost no relevant material gives a degenerate per-query nDCG, which is a
+reason about the metric the systems are scored with. The note now states this.
+The same paragraph quoted the substring counts as counts over 148,097 chunks;
+they were taken over a 146,449-chunk build predating the Item 7 span repairs.
+`query_set.md` keeps its original figures, now labelled as the pre-repair
+record, and `pooling.py` and `retrieval/dense.py` carry the current count.
+
+## Still open, deliberately
+
+The two LOWs from the first audit. `fusion.held_out_score` trusts its
+`train_ids` argument, and the query set was selected partly on corpus term
+frequency. Both recorded, neither fixed.
+
+Corpus-wide BM25 IDF and date-blind dense embedding were re-verified as the
+PLAN section 1 scope decision rather than a leak. The disclosure still lives
+only in `reports/README-notes.md`, which feeds a README that does not exist
+yet, and neither retrieval module mentions it.
+
+## What this audit did not do
+
+It ran no tests. Every guard it reported was verified to exist rather than
+verified to fire; the one exception is the reverted-line experiment above,
+which was run afterwards to confirm the claim about the fusion test. It did
+not read the ingest path, `sections.py` in full, or the agreement modules.

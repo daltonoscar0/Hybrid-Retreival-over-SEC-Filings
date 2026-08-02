@@ -15,13 +15,14 @@ single call that tunes and reports.
 from __future__ import annotations
 
 import importlib.util
+import json
 import sys
 
 from pathlib import Path
 
 import pytest
 
-from ticker.evaluation import discover_runs, load_run_jsonl
+from ticker.evaluation import TUNED_MARKER, discover_runs, load_run_jsonl
 from ticker.fusion import (
     DEFAULT_RRF_K,
     held_out_score,
@@ -354,3 +355,122 @@ def test_the_tuned_run_is_not_discoverable_by_the_ablation_ladder(tmp_path: Path
     assert discovered == {"bm25", "rrf"}
     assert fuse_script.WSUM_NAME not in discovered
     assert (tuned_dir / f"{fuse_script.WSUM_NAME}.jsonl").exists()
+
+
+def _write_qrels(path: Path, query_ids, chunk_ids) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w") as f:
+        for query_id in query_ids:
+            for rank, chunk_id in enumerate(chunk_ids):
+                row = {
+                    "query_id": query_id,
+                    "chunk_id": chunk_id,
+                    "grade": 3 - rank if rank < 3 else 0,
+                    "judged_at": "2026-01-01T00:00:00+00:00",
+                    "session_id": "test",
+                }
+                f.write(json.dumps(row) + "\n")
+
+
+def _many_systems(query_ids):
+    bm25 = {q: {"c1": 12.0, "c2": 8.0, "c3": 2.0} for q in query_ids}
+    dense = {q: {"c3": 0.91, "c1": 0.80, "c4": 0.62} for q in query_ids}
+    return bm25, dense
+
+
+def test_fuse_main_writes_the_tuned_run_outside_the_glob(tmp_path, monkeypatch, capsys):
+    """Drives scripts/fuse.py end to end rather than placing the file by hand.
+
+    The neighbouring test constructs the tuned path itself, so it stays green
+    even if fuse.py is changed to write `wsum.jsonl` straight into the globbed
+    directory, which is the exact CRITICAL the subdirectory exists to prevent.
+    This one calls `main()` and then asks `discover_runs` what it can see, so
+    the assertion covers fuse.py's choice of path and not just the glob's
+    depth.
+    """
+    runs_dir = tmp_path / "runs"
+    query_ids = [f"q{i}" for i in range(8)]
+    bm25, dense = _many_systems(query_ids)
+    write_run_jsonl(runs_dir / "bm25.jsonl", bm25)
+    write_run_jsonl(runs_dir / "dense.jsonl", dense)
+
+    qrels_path = tmp_path / "qrels.jsonl"
+    _write_qrels(qrels_path, query_ids, ["c1", "c3", "c2", "c4"])
+
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "fuse.py",
+            "--runs-dir", str(runs_dir),
+            "--qrels", str(qrels_path),
+            "--report", str(tmp_path / "fusion_tuning.md"),
+        ],
+    )
+    fuse_script.main()
+
+    assert (runs_dir / fuse_script.TUNED_SUBDIR / f"{fuse_script.WSUM_NAME}.jsonl").exists()
+    assert not (runs_dir / f"{fuse_script.WSUM_NAME}.jsonl").exists()
+    assert fuse_script.WSUM_NAME not in set(discover_runs(runs_dir))
+
+
+def test_pointing_the_ablation_ladder_at_the_tuned_directory_is_refused(
+    tmp_path, monkeypatch
+):
+    """The subdirectory alone only protects the default --runs-dir.
+
+    `evaluate.py --runs-dir data/runs/tuned` reconstructs the CRITICAL exactly:
+    discover_runs globs the tuned directory, finds wsum.jsonl, and it is scored
+    over every judged query including the ones that fit its weights. The marker
+    fuse.py writes is what makes the refusal a property of the directory rather
+    than of a flag's default.
+    """
+    runs_dir = tmp_path / "runs"
+    query_ids = [f"q{i}" for i in range(8)]
+    bm25, dense = _many_systems(query_ids)
+    write_run_jsonl(runs_dir / "bm25.jsonl", bm25)
+    write_run_jsonl(runs_dir / "dense.jsonl", dense)
+    qrels_path = tmp_path / "qrels.jsonl"
+    _write_qrels(qrels_path, query_ids, ["c1", "c3", "c2", "c4"])
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "fuse.py",
+            "--runs-dir", str(runs_dir),
+            "--qrels", str(qrels_path),
+            "--report", str(tmp_path / "fusion_tuning.md"),
+        ],
+    )
+    fuse_script.main()
+
+    tuned_dir = runs_dir / fuse_script.TUNED_SUBDIR
+    assert (tuned_dir / TUNED_MARKER).exists()
+    with pytest.raises(ValueError, match="held-out-only"):
+        discover_runs(tuned_dir)
+    # the ordinary directory is unaffected
+    assert set(discover_runs(runs_dir)) == {"bm25", "dense", "rrf"}
+
+
+def test_fuse_main_refuses_to_run_when_a_legacy_tuned_run_sits_in_the_glob(
+    tmp_path, monkeypatch
+):
+    """The refusal at fuse.py's top had no test at all.
+
+    Moving where the file is written does not move a file an earlier run
+    already left behind, so the refusal is the only thing standing between a
+    stale tuned run and the ablation ladder.
+    """
+    runs_dir = tmp_path / "runs"
+    query_ids = [f"q{i}" for i in range(8)]
+    bm25, dense = _many_systems(query_ids)
+    write_run_jsonl(runs_dir / "bm25.jsonl", bm25)
+    write_run_jsonl(runs_dir / "dense.jsonl", dense)
+    write_run_jsonl(runs_dir / f"{fuse_script.WSUM_NAME}.jsonl", dense)
+
+    monkeypatch.setattr(
+        sys, "argv", ["fuse.py", "--runs-dir", str(runs_dir)]
+    )
+    with pytest.raises(SystemExit) as excinfo:
+        fuse_script.main()
+    assert excinfo.value.code == 1

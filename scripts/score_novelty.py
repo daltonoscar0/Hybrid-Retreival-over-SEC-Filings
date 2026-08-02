@@ -82,6 +82,11 @@ from ticker.records import Sentence
 DEFAULT_DB = Path("data/ticker.duckdb")
 DEFAULT_OUT = Path("data/novelty/scores.jsonl")
 
+# The value of the `score_kind` column. `ticker.validation.load_scores`
+# requires it, so a file of within-document z-scores cannot be read by a
+# cross-document aggregation by mistake.
+RAW_CONTRAST = "raw_contrast"
+
 # Ordered by firm first, then time, so every filing that shares a model pair
 # is consecutive and exactly one pair has to be held at a time. Ordering by
 # filed_at instead, the natural reading order, interleaves all 20 firms and
@@ -196,6 +201,15 @@ def main() -> None:
                         json.dumps(
                             {
                                 "sentence_id": sentence_id,
+                                # Invariant 3 is enforced by type in process:
+                                # the display z-score is its own class and the
+                                # aggregation path rejects it by isinstance.
+                                # None of that survives serialization, and the
+                                # readers of this file all aggregate across
+                                # documents. Naming the column's kind is what
+                                # lets them refuse a file of z-scores instead
+                                # of averaging one.
+                                "score_kind": RAW_CONTRAST,
                                 "novelty": novelty_raw(sentence, firm_lm, background_lm),
                                 "section_id": section_id,
                                 "accession": accession,

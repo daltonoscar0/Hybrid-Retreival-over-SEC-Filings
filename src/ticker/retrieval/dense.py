@@ -13,7 +13,7 @@ and the retriever therefore cannot drift apart even if the upstream repo moves.
 Index. FAISS `IndexFlatIP` over L2-normalized vectors. Inner product between
 unit vectors is cosine similarity, so this is exact cosine search with no
 approximation and no training step. PLAN section 3 says flat is fine at this
-scale and invariant 6 forbids a vector database; at 146k chunks x 768 dims a
+scale and invariant 6 forbids a vector database; at 148k chunks x 768 dims a
 flat index is 450 MB in RAM and searches in single-digit milliseconds, which is
 faster than the encoder call that produced the query vector. IVF or HNSW would
 add a recall/latency knob that nothing in this project needs and would make the

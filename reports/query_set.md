@@ -29,7 +29,11 @@ read off those notes:
 
 ## The 20 dropped
 
-Substring counts below are over the 146,449 chunks in `data/ticker.duckdb`. A
+Substring counts below are over the 146,449 chunks `data/ticker.duckdb` held
+when the selection was run. The Item 7 span repairs in `e2572a7` later took the
+corpus to 148,097 chunks. The counts are left as they were, because they are the
+record of what the selection actually saw; they are not current corpus counts,
+and anything quoting them should say so. A
 count is a proxy for how much candidate material exists, not for how much of it
 is relevant, and it is quoted only where the material is thin enough that the
 query would not fill a judging pool.

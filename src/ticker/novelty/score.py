@@ -258,8 +258,10 @@ def build_models(
     charge the firm for language that is standard in semiconductors and
     unheard of in regional banks. `db.background_sentences` handles the time
     filter and the firm exclusion; the sector narrowing happens here rather
-    than in a new data-layer query, so there is exactly one place in the
-    codebase that writes a `filed_at <` predicate.
+    than in a new data-layer query, so the novelty path adds no `filed_at <`
+    predicate of its own. The three in the codebase are `db.prior_sentences`,
+    `db.background_sentences`, and `lazy_prices.align_prior_section`; an audit
+    of the time filter has to read all three.
 
     Both models are fit over the union vocabulary so their surprisals can be
     subtracted, and the background is wired in as the firm model's parent so

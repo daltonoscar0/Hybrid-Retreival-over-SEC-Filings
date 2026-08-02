@@ -60,12 +60,25 @@ them, not things that were attempted and failed.
 ## Two things about the evaluation setup that belong in the README, not in a footnote
 
 **The 40 queries were selected partly on corpus term frequency.** Twenty of
-sixty candidates were dropped, several on substring counts over all 148,097
-chunks: "going concern" hit 16, "funded status" 54, "advanced packaging" 172.
+sixty candidates were dropped, several on substring counts over the corpus:
+"going concern" hit 16, "funded status" 54, "advanced packaging" 172. Those
+counts were taken over a 146,449-chunk build of the corpus, before the Item 7
+span repairs in `e2572a7`; the corpus now holds 148,097 chunks, so the counts
+are indicative rather than exact.
+
 That shapes the evaluation set using the corpus the systems are scored on. It
-happened before pooling and before any judgment, the reasons were thin-material
-rather than low-scoring, and every drop is listed with its reason in
-`reports/query_set.md`. Say it in one sentence rather than leave it to be found.
+happened before pooling and before any judgment, and every drop is listed with
+its reason in `reports/query_set.md`.
+
+State the reasons accurately, because they are not all the same. Most drops
+were for thin material. At least one, q58 "going concern doubt", was recorded
+as dropped because a query with almost no relevant material gives a degenerate
+per-query nDCG, which is a reason about the metric the systems are scored with
+and not only about how much material exists. q48 and q49 are the same shape one
+step softer. The decision is still defensible, and low-base-rate queries were
+deliberately retained through q59 (284 chunks) so the precision case is still
+tested. But a README sentence claiming the reasons were thin-material rather
+than metric-driven would be contradicted by the repo's own record.
 
 **Time discipline is scoped to novelty, not to retrieval.** BM25 fits its IDF
 over the whole corpus with no time predicate, and the dense index embeds every
@@ -75,6 +88,35 @@ the discipline to "every novelty score" and treats retrieval as static ad hoc
 rather than walk-forward. The two documents disagree. The design follows PLAN.
 A reader who knows the leakage literature will spot it, so it is better stated
 than defended later.
+
+**The sector background is fit on a survivorship-selected peer set, and that
+is future information.** The 20 CIKs were chosen in 2026 by requiring
+continuous filing under one CIK from 2020 through 2025. Every novelty score
+subtracts a sector background fit on those firms, so a filing from 2020 is
+scored against a peer set whose membership was decided using information from
+2026. The strict `<` time discipline holds inside the fit and does not reach
+the question of which firms are in it.
+
+The regional-bank case is the one to state plainly. SVB Financial, Signature
+Bank and First Republic are absent because they failed in 2023. The background
+against which a surviving bank's 2023 language is judged therefore contains no
+bank that did not survive that year, in precisely the period the measure would
+most likely be asked about. The semiconductor side excludes Xilinx and Maxim
+Integrated as acquired, and Marvell for a 2021 redomicile that orphaned its
+earlier CIK.
+
+The direction of the resulting bias is not measured and should not be asserted.
+Excluding the failed banks removes distress language from the background, which
+raises background surprisal for that language and pushes the contrast down; had
+those firms been present, their early-2023 filings would have lowered it and
+pushed the contrast up. Which effect dominates is an empirical question nobody
+here has answered.
+
+This is documented rather than fixed, and `src/ticker/universe.py` says so:
+including firms whose filings stop mid-window breaks the six-years-per-firm
+assumption the per-firm models depend on. The point is that any README sentence
+asserting time discipline over novelty without qualification is false at the
+corpus-construction layer, which is upstream of every guard the code enforces.
 
 ## Query set size: 40, not the 60 PLAN specified
 

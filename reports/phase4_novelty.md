@@ -128,6 +128,20 @@ mean-by-item preview, and the spot-check input file all wait on it.
 
 ## What a reader should be skeptical of
 
+The sector background's membership was chosen with future information. The 20
+CIKs were selected in 2026 by requiring continuous filing from 2020 through
+2025, so every background model, at every `as_of`, is fit on firms known in
+2026 to have survived. The strict `<` filter governs which of their sentences
+the fit may read; it has nothing to say about which firms are eligible in the
+first place. For regional banks the effect is concrete: SVB Financial,
+Signature Bank and First Republic are excluded because they failed in 2023, so
+a 2023 bank filing's control contains only banks that came through that year.
+The bias direction is not measured. Excluding those firms keeps distress
+language out of the background and pushes the contrast down; including them
+would have pushed it up. `src/ticker/universe.py` records the selection rule
+and why it is not fixable without breaking the six-year per-firm assumption.
+
+
 Nothing here has been validated. Phase 5.1 is the test of whether this measure
 means anything, and it has not run. Until the diff-agreement AUC exists, this is
 a measure with a defensible construction, a tested implementation, an audit it

@@ -2,7 +2,7 @@
 
 Why pool instead of judging every chunk
 ----------------------------------------
-The corpus has 146,449 chunks. Sixty queries against the full corpus is 8.8
+The corpus has 148,097 chunks. Sixty queries against the full corpus is 8.9
 million (query, chunk) pairs; nobody judges that and nobody expects it. TREC
 ad hoc pooling (Sparck Jones & van Rijsbergen) instead takes the union of the
 top-K results from several qualitatively different retrieval systems and

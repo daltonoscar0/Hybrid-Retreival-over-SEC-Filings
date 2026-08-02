@@ -64,11 +64,33 @@ def load_run_jsonl(path: Path) -> dict[str, dict[str, float]]:
     return run
 
 
+# A directory carrying this file holds runs whose parameters were fit on
+# judged queries. They are reportable only on a held-out split, by the code
+# that knows which split that was.
+TUNED_MARKER = ".held-out-only"
+
+
 def discover_runs(runs_dir: Path) -> dict[str, Path]:
     """system name (file stem) -> path, sorted by name for a stable table
-    row order run to run."""
+    row order run to run.
+
+    Refuses a directory marked `TUNED_MARKER`. Keeping the tuned run in a
+    subdirectory puts it outside this glob, but only while the caller passes
+    the default `--runs-dir`; `scripts/evaluate.py --runs-dir data/runs/tuned`
+    otherwise walks straight into it and scores a tuned run over the queries
+    that chose its weights. Depending on a flag's default value is the same
+    kind of convention that moving the file was meant to replace, so the
+    refusal is attached to the directory itself.
+    """
     if not runs_dir.exists():
         return {}
+    if (runs_dir / TUNED_MARKER).exists():
+        raise ValueError(
+            f"{runs_dir} is marked {TUNED_MARKER}: it holds runs whose weights "
+            "were fit on judged queries. Scoring them here would report them "
+            "over the queries that tuned them. Their held-out number is in "
+            "reports/fusion_tuning.md, produced by scripts/fuse.py."
+        )
     return {path.stem: path for path in sorted(runs_dir.glob("*.jsonl"))}
 
 

@@ -38,7 +38,7 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-from ticker.evaluation import load_run_jsonl
+from ticker.evaluation import TUNED_MARKER, load_run_jsonl
 from ticker.fusion import (
     DEFAULT_METRIC,
     DEFAULT_RRF_K,
@@ -278,6 +278,12 @@ def main() -> None:
     weights = tune_weights(qrels, runs, train, args.metric, step=args.step)
     wsum_run = weighted(runs, weights)
     rows = write_run_jsonl(wsum_path, wsum_run)
+    # Marks the directory itself, so pointing evaluate.py at it is refused
+    # rather than silently scored over the queries that chose these weights.
+    (wsum_path.parent / TUNED_MARKER).write_text(
+        "Runs here were tuned on judged queries. Held-out numbers only, via "
+        "scripts/fuse.py and reports/fusion_tuning.md.\n"
+    )
 
     train_metric = score_run(qrels, wsum_run, train, args.metric)
     test_metric = held_out_score(qrels, wsum_run, train, test, args.metric)
