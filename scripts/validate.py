@@ -51,6 +51,21 @@ ITEM_NAMES = {
 NEWS_ITEMS = {"1A", "3", "7"}
 BOILERPLATE_ITEM = "1"
 
+# Below this, an item's mean is dominated by what the section is made of
+# rather than by how novel its content is. Item 3 in this corpus averages
+# under 10 sentences a filing because it is mostly a cross-reference into the
+# notes; comparing that mean against MD&A's 393 is comparing section
+# composition, not novelty.
+STUB_SENTENCES_PER_SECTION = 50
+
+_SECTIONS_PER_ITEM_SQL = """
+    SELECT sec.item, COUNT(DISTINCT sec.section_id)
+    FROM sections sec
+    JOIN filings f ON sec.accession = f.accession
+    WHERE f.form IN ({placeholders})
+    GROUP BY sec.item
+"""
+
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
@@ -115,17 +130,23 @@ def main() -> None:
 
     print("5.2 mean novelty by item ...")
     by_item = mean_novelty_by_item(item_rows, resamples=args.resamples, seed=args.seed)
+    placeholders = ", ".join("?" for _ in cov.forms)
+    sections_per_item = dict(
+        con.execute(
+            _SECTIONS_PER_ITEM_SQL.format(placeholders=placeholders), list(cov.forms)
+        ).fetchall()
+    )
 
     args.report.parent.mkdir(parents=True, exist_ok=True)
     with args.report.open("w") as out:
-        out.write(_render(point, lower, upper, changed, total, diag, by_item, cov, args))
+        out.write(_render(point, lower, upper, changed, total, diag, by_item, cov, sections_per_item, args))
     print(f"wrote {args.report}")
 
     if lower <= 0.5 <= upper:
         _print_diagnoses(diag)
 
 
-def _render(point, lower, upper, changed, total, diag, by_item, cov, args) -> str:
+def _render(point, lower, upper, changed, total, diag, by_item, cov, sections_per_item, args) -> str:
     lines = [
         "# Phase 5 validation: 5.1 diff agreement and 5.2 concentration by item",
         "",
@@ -215,30 +236,108 @@ def _render(point, lower, upper, changed, total, diag, by_item, cov, args) -> st
         )
     lines.append("")
 
-    ranked = sorted(by_item.items(), key=lambda kv: kv[1][1], reverse=True)
-    if ranked:
-        top_item = ranked[0][0]
-        lines += ["### Reading", ""]
-        if top_item == BOILERPLATE_ITEM:
-            lines += [
-                f"Novelty is highest in Item {BOILERPLATE_ITEM} Business, the most",
-                "boilerplate-heavy item in the corpus. PLAN 5.2 names this outcome in",
-                "advance: it is a boilerplate-detection failure, not a finding. The",
-                "measure is separating text that is rare from text that is new, and",
-                "those are the same thing only in the items that carry news.",
-                "",
-            ]
-        elif top_item in NEWS_ITEMS:
-            lines += [
-                f"Novelty is highest in Item {top_item} "
-                f"{ITEM_NAMES.get(top_item, '')}, which is one of the items PLAN",
-                "expects to carry news. This is the predicted direction. It is a",
-                "sanity check that passed, not independent evidence that the measure",
-                "works; 5.1 and 5.3 are what test that.",
-                "",
-            ]
-
+    lines += _item_reading(by_item, sections_per_item)
     return "\n".join(lines) + "\n"
+
+
+def _overlaps(a: tuple[float, float], b: tuple[float, float]) -> bool:
+    return a[0] <= b[1] and b[0] <= a[1]
+
+
+def _item_reading(by_item, sections_per_item) -> list[str]:
+    """State 5.2 against what PLAN predicted, including where it disagrees.
+
+    A ranking alone is not the check. PLAN predicts novelty concentrates in
+    legal proceedings, risk factors and MD&A relative to Item 1 Business, so
+    what matters is whether each predicted item sits above the Business
+    control and whether the intervals separate. Items whose sections are a
+    few sentences long are reported apart from that comparison: their mean is
+    dominated by section composition rather than by how novel the item's
+    content is, and reading them alongside items forty times longer invites a
+    conclusion neither number supports.
+    """
+    if BOILERPLATE_ITEM not in by_item:
+        return []
+
+    control_n, control_mean, control_lo, control_hi = by_item[BOILERPLATE_ITEM]
+    lines = ["### Reading", ""]
+
+    stubs = {
+        item
+        for item in by_item
+        if sections_per_item.get(item)
+        and by_item[item][0] / sections_per_item[item] < STUB_SENTENCES_PER_SECTION
+    }
+
+    lines += [
+        f"The control is Item {BOILERPLATE_ITEM} {ITEM_NAMES[BOILERPLATE_ITEM]}, the "
+        f"most boilerplate-heavy item in the corpus, at {control_mean:+.4f}.",
+        "",
+    ]
+
+    if stubs:
+        detail = ", ".join(
+            f"Item {item} at {by_item[item][0] / sections_per_item[item]:.1f} "
+            f"sentences per section"
+            for item in sorted(stubs)
+        )
+        lines += [
+            f"Set aside first: {detail}. The substantial items run "
+            + ", ".join(
+                f"{by_item[i][0] / sections_per_item[i]:.0f}"
+                for i in sorted(set(by_item) - stubs)
+            )
+            + " sentences per section. A mean over a handful of sentences per",
+            "filing describes what the item is made of more than how novel it is.",
+            "Item 3 in this corpus is largely a cross-reference into the notes, so",
+            "its position at either end of the table is not evidence about whether",
+            "legal news is novel.",
+            "",
+        ]
+
+    lines += ["Against the control, for the substantial items:", ""]
+    for item in sorted(set(by_item) - stubs):
+        if item == BOILERPLATE_ITEM:
+            continue
+        n, mean, lo, hi = by_item[item]
+        predicted = item in NEWS_ITEMS
+        above = mean > control_mean
+        separated = not _overlaps((lo, hi), (control_lo, control_hi))
+        if above and separated:
+            verdict = "above the control, intervals disjoint"
+        elif above:
+            verdict = "above the control, but the intervals overlap"
+        elif separated:
+            verdict = "below the control, intervals disjoint"
+        else:
+            verdict = "indistinguishable from the control"
+        tag = "predicted by PLAN" if predicted else "not among PLAN's predictions"
+        lines.append(
+            f"- Item {item} {ITEM_NAMES.get(item, '')} ({tag}): {verdict}."
+        )
+    lines.append("")
+
+    predicted_substantial = [i for i in NEWS_ITEMS if i in by_item and i not in stubs]
+    confirmed = [
+        i
+        for i in predicted_substantial
+        if by_item[i][1] > control_mean
+        and not _overlaps((by_item[i][2], by_item[i][3]), (control_lo, control_hi))
+    ]
+    if len(confirmed) < len(predicted_substantial):
+        missed = sorted(set(predicted_substantial) - set(confirmed))
+        lines += [
+            "This is a partial result and the shortfall is the part worth stating. "
+            + ", ".join(f"Item {i} {ITEM_NAMES.get(i, '')}" for i in missed)
+            + (" is " if len(missed) == 1 else " are ")
+            + "predicted by PLAN to carry more novelty than boilerplate and does not",
+            "separate from the control here. 5.2 is a sanity check rather than the",
+            "test of the measure, and 5.1 passed independently, so this does not",
+            "invalidate the measure. It does mean the by-item figure cannot be",
+            "presented as confirming the literature's prediction.",
+            "",
+        ]
+    return lines
 
 
 def _print_diagnoses(diag) -> None:
