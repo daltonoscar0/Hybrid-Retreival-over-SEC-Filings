@@ -11,7 +11,11 @@ import pytest
 
 from ticker import db
 from ticker.judging import (
+    HIT,
+    OFF,
     fetch_chunk_displays,
+    highlight,
+    query_terms,
     rejudge_path,
     run_judging_session,
     sample_for_rejudge,
@@ -185,3 +189,58 @@ def test_sample_for_rejudge_caps_at_available_graded_pairs(tmp_path: Path):
     path = tmp_path / "standard.jsonl"
     append_judgment(path, Judgment("q1", "c0", 1, "t", "s1"))
     assert len(sample_for_rejudge(path, 100, seed=1)) == 1
+
+
+def test_query_terms_drops_stopwords_and_stems_plurals():
+    assert query_terms("changes to the revenue recognition policy") == frozenset(
+        {"change", "revenue", "recognition", "policy"}
+    )
+
+
+def test_query_terms_keeps_double_s_words_intact():
+    assert "business" in query_terms("business segment disclosure")
+
+
+def test_highlight_marks_a_query_term():
+    out = highlight("The goodwill balance fell.", query_terms("goodwill"))
+    assert out == f"The {HIT}goodwill{OFF} balance fell."
+
+
+def test_highlight_matches_across_a_plural():
+    out = highlight("Several risks emerged.", query_terms("risk"))
+    assert f"{HIT}risks{OFF}" in out
+
+
+def test_highlight_matches_a_morphological_prefix():
+    out = highlight("An impairment was recorded.", query_terms("impair"))
+    assert f"{HIT}impairment{OFF}" in out
+
+
+def test_highlight_leaves_short_incidental_prefixes_alone():
+    # "in" would prefix-match half the passage if the 5-character floor were
+    # not enforced.
+    out = highlight("Investors in India increased.", query_terms("in"))
+    assert HIT not in out
+
+
+def test_highlight_does_not_paint_stopwords():
+    out = highlight("The policy of the firm.", query_terms("the policy"))
+    assert out.count(HIT) == 1
+
+
+def test_highlight_preserves_newlines_from_wrapping():
+    wrapped = "goodwill was\nimpaired here"
+    out = highlight(wrapped, query_terms("goodwill impaired"))
+    assert out.count("\n") == 1
+    assert "\n" in out
+
+
+def test_highlight_does_not_change_visible_line_width():
+    line = "goodwill impairment charge recorded"
+    out = highlight(line, query_terms("goodwill"))
+    stripped = out.replace(HIT, "").replace(OFF, "")
+    assert stripped == line
+
+
+def test_highlight_with_no_terms_returns_text_unchanged():
+    assert highlight("anything at all", frozenset()) == "anything at all"

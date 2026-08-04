@@ -9,6 +9,7 @@ here takes `next_key` as a plain `Callable[[], str]` and never touches
 from __future__ import annotations
 
 import random
+import re
 from collections import Counter
 from dataclasses import dataclass
 from datetime import date, datetime
@@ -45,7 +46,73 @@ GRADE_LEGEND = (
 BOLD = "\033[1m"
 DIM = "\033[2m"
 CYAN = "\033[36m"
+HIT = "\033[1;33m"
 OFF = "\033[0m"
+
+# Words carrying no topical signal. Highlighting them would paint most of the
+# passage and defeat the point, which is to make the relevant span findable
+# without reading all 1.1k characters.
+STOPWORDS = frozenset(
+    "a an and are as at be by for from has have in is it its of on or that the "
+    "to was were will with".split()
+)
+
+_WORD_RE = re.compile(r"[A-Za-z][A-Za-z0-9']*")
+
+
+def _stem(word: str) -> str:
+    """Lowercase and drop a possessive or a plural `s`.
+
+    Deliberately not a real stemmer. A query for "customer concentration risk"
+    has to light up "customers" and "risks", and that is the whole of the
+    morphology this needs. The `ss` guard keeps "business" from becoming
+    "busines" and matching nothing.
+    """
+    word = word.lower()
+    if word.endswith("'s"):
+        word = word[:-2]
+    if len(word) > 3 and word.endswith("s") and not word.endswith("ss"):
+        word = word[:-1]
+    return word
+
+
+def query_terms(query_text: str) -> frozenset[str]:
+    return frozenset(
+        stem
+        for stem in (_stem(w) for w in _WORD_RE.findall(query_text))
+        if stem and stem not in STOPWORDS
+    )
+
+
+def _is_hit(stem: str, terms: frozenset[str]) -> bool:
+    for term in terms:
+        if stem == term:
+            return True
+        # Prefix matching in both directions catches impairment/impair and
+        # litigation/litigate. Floored at 5 characters because shorter prefixes
+        # match across unrelated words.
+        longer, shorter = (stem, term) if len(stem) > len(term) else (term, stem)
+        if len(shorter) >= 5 and longer.startswith(shorter):
+            return True
+    return False
+
+
+def highlight(text: str, terms: frozenset[str]) -> str:
+    """Wrap query-matching words in `text` with the highlight escape.
+
+    Applied after wrapping, never before. `_wrap` counts characters to find
+    its break points, and an escape sequence inserted first would be counted
+    as visible width, so every line would break short by the length of the
+    codes it contains.
+    """
+    if not terms:
+        return text
+
+    def paint(match: re.Match[str]) -> str:
+        word = match.group(0)
+        return f"{HIT}{word}{OFF}" if _is_hit(_stem(word), terms) else word
+
+    return _WORD_RE.sub(paint, text)
 
 
 def rejudge_path(out_path: Path) -> Path:
@@ -148,7 +215,7 @@ def _render(
         f"{DIM}{display.ticker} {display.form} item {display.item}  "
         f"filed {display.filed_at.date()}{period}{OFF}"
     )
-    echo(_wrap(display.text))
+    echo(highlight(_wrap(display.text), query_terms(query_text)))
     echo(
         f"{DIM}this query {q_done + 1}/{q_total}   "
         f"overall {o_done + 1}/{o_total} ({pct:.0f}%){OFF}"
