@@ -8,8 +8,8 @@ rather than after it. Knowing whether the measure means anything should
 gate whether a day of judging is worth spending.
 
 Writes `reports/phase5_validation.md` and prints the same numbers. When the
-AUC is near 0.5 it prints the ranked diagnosis list RUN.md C1 specifies, in
-that order, because the three causes are told apart by different evidence
+AUC is near 0.5 it prints the ranked diagnosis list in cheapest-first
+order, because the three causes are told apart by different evidence
 and checking them out of order wastes the most time on the least likely.
 
 5.3, the agreement against blind human spot-check labels, is not here. It
@@ -341,9 +341,9 @@ def _item_reading(by_item, sections_per_item) -> list[str]:
 
 
 def _print_diagnoses(diag) -> None:
-    """The ranked list RUN.md C1 asks for, in its order."""
+    """The ranked diagnosis list, cheapest evidence first."""
     print()
-    print("The 95% CI covers 0.5. Per RUN.md C1, in this order:")
+    print("The 95% CI covers 0.5. Check in this order:")
     print()
     print("1. The sentence-ID join. Join rate above is "
           f"{diag.join_rate:.1%}; anything below ~99% means the diff and the")

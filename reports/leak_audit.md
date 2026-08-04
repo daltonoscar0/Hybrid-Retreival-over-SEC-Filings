@@ -25,8 +25,8 @@ and labels it as not a result.
 None of that mattered, because the tuned artifact left the process as a file.
 `fuse.py` wrote `data/runs/wsum.jsonl`; `evaluation.discover_runs` globs
 `*.jsonl` under that directory and `scripts/evaluate.py` scores everything it
-finds over every judged query. The sequence is exactly the one RUN.md B5 asks
-for: fuse, then evaluate. `reports/results.md` would have carried a `wsum` row
+finds over every judged query. The sequence is the intended one: fuse, then
+evaluate. `reports/results.md` would have carried a `wsum` row
 whose score covered the twenty queries that chose its weights, with a bootstrap
 CI and a significance marker against the untuned arms.
 
@@ -306,7 +306,8 @@ excluded because they failed in 2023, so a 2023 bank filing's control contains
 only banks that came through that year.
 
 This is future information selecting the corpus that one of the two terms in
-every novelty contrast is fit on. It is locked by RUN.md and unfixable without
+every novelty contrast is fit on. It is locked by PLAN section 1's corpus
+decision and unfixable without
 breaking the six-year per-firm assumption, so the finding is the disclosure
 gap. It appeared in `universe.py`'s docstring and in no report.
 

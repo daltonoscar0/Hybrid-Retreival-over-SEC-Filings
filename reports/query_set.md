@@ -1,8 +1,8 @@
 # Query set: 60 candidates cut to 40
 
-`data/queries.jsonl` held 60 candidate queries. RUN.md B2 fixes the set at 40:
-"40 keeps the paired tests adequately powered and saves a day of my time". This
-records which 20 went and why.
+`data/queries.jsonl` held 60 candidate queries. The set is fixed at 40, on the
+grounds that 40 keeps the paired tests adequately powered and saves a day of
+hand judging. This records which 20 went and why.
 
 The ten PLAN.md section 2 examples are the seed set and all ten survive
 (`q01`-`q10`). The other 30 survivors were chosen to hold the sector mix and the

@@ -12,8 +12,8 @@ Three modules under `src/ticker/novelty/`, one driver, and one labeling tool.
 | Corpus scoring pass | `scripts/score_novelty.py` | `tests/test_score_novelty.py` (7) |
 | Blind spot-check tool | `scripts/spotcheck.py` | `tests/test_spotcheck.py` (25) |
 
-Per RUN.md, step 2 of PLAN's model ladder is cut. There is no neural language
-model and none was started.
+Step 2 of PLAN's model ladder is cut, item 2 on PLAN section 4's de-scope
+ladder. There is no neural language model and none was started.
 
 ## The measure
 

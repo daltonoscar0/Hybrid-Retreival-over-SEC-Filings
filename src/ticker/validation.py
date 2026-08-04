@@ -56,8 +56,8 @@ class SectionObservations:
 class JoinDiagnostics:
     """Why rows were lost, counted at every stage they can be lost at.
 
-    RUN.md C1 says that when the AUC comes back near 0.5 the sentence-ID
-    join is the first thing to check, ahead of the measure itself. That
+    When the AUC comes back near 0.5 the sentence-ID join is the first
+    thing to check, ahead of the measure itself. That
     check is only possible if the losses were counted while they happened,
     so they are counted here rather than reconstructed afterwards.
     """

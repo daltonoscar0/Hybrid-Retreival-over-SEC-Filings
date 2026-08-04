@@ -121,7 +121,7 @@ corpus-construction layer, which is upstream of every guard the code enforces.
 ## Query set size: 40, not the 60 PLAN specified
 
 PLAN.md section 3 Phase 2 calls for 60 queries. The set is 40. This is a
-deliberate de-scope taken under RUN.md B2, on the stated grounds that 40 keeps
+deliberate de-scope decision, on the stated grounds that 40 keeps
 the paired tests adequately powered and saves a day of hand judging. It is not
 an accident and it is not a shortfall against a target that was still live.
 
@@ -147,7 +147,7 @@ should be read as underpowered rather than as a null.
 
 ## Claims in this repo that are not yet backed by a number
 
-Kept as a running list, per RUN.md C6. Every line here is something the README
+Kept as a running list. Every line here is something the README
 must not assert until the number exists.
 
 Blocked on the human labeling pass:
@@ -158,20 +158,28 @@ Blocked on the human labeling pass:
 - The intra-annotator kappa.
 - Both columns of the Phase 6 two-qrel table, which is the artifact.
 
-Blocked on the dense index finishing:
+Still unverified for the dense index:
 
-- Any dense retrieval number at all.
-- The three-source pool size. The two-source pool is 37.4 chunks per query mean.
-- Byte-identical rebuild for the dense index. Verified for BM25 on the full
-  corpus, verified for dense only on subset builds.
+- Byte-identical rebuild. Verified for BM25 on the full corpus, verified for
+  dense only on subset builds. `--verify-repeat` exists and doubles a 3 h 17 m
+  build, which is why it has not been run at full scale.
 
-Blocked on Phase 5, which has not run:
+Measured, and available to assert:
 
-- That novelty means anything. The diff-agreement AUC is the test and it has not
-  been computed. Until it has, the novelty layer is a measure with a plausible
-  construction and no validation.
-- Mean novelty by item type. The Phase 4 scoring pass covers 10-K filings only,
-  not the 10-Qs or the earnings exhibits.
+- The dense index is built over all 148,097 chunks, and its `corpus_sha256`
+  matches the BM25 manifest, so the two arms index the same corpus.
+- The three-source judging pool is 53.6 chunks per query, 2,144 in total. The
+  dense arm contributes 16.2 per query that neither other source surfaced.
+- Novelty covers all 298,375 sentences across 10-K, 10-Q and 8-K, every row
+  with `as_of == filed_at`.
+- Validation 5.1: AUC 0.7132, CI [0.7013, 0.7244], join rate 100%. PLAN's kill
+  condition of an AUC near 0.5 is not met.
+- Validation 5.2 is a partial negative. Risk Factors separates from the Item 1
+  Business control with disjoint intervals; MD&A does not, and PLAN predicts it
+  should. Items 3 and 7A are too short per section to interpret.
+
+Blocked on Phase 5.3, which needs labels:
+
 - Agreement between the blind spot-check labels and the novelty deciles.
 
 Asserted from construction rather than measurement:

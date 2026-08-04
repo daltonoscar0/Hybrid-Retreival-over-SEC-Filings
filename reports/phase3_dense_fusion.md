@@ -10,20 +10,23 @@ manifest. `src/ticker/fusion.py` holds RRF, weighted fusion, and the held-out
 tuning split; `scripts/fuse.py` is its CLI. Tests are in `tests/test_dense.py`
 (15) and `tests/test_fusion.py` (32).
 
-Per RUN.md the finance-adapted second embedding arm is cut. There is one dense
-model and it is a constant in the module, not a parameter.
+The finance-adapted second embedding arm is cut, item 3 on PLAN section 4's
+de-scope ladder. There is one dense model and it is a constant in the module,
+not a parameter.
 
-## State of the dense index at the time of writing
+## State of the dense index
 
-The index is not built. The build is running and needs about five hours on this
-machine. Everything downstream of it is therefore also outstanding:
-`data/runs/dense.jsonl`, the RRF and weighted fusion run files, the three-source
-judging pool, and every row of the ablation ladder.
+Built. 148,097 chunks, 768 dimensions, `IndexFlatIP`, 461.10 MB on disk, from
+`BAAI/bge-base-en-v1.5` at revision `a5beb1e3e68b9ab74eb54cfd186867f64f240e1a`.
+The encode took 11,839 s, 3 h 17 m, at 12.5 chunks/s. 11,369 chunks (7.7%)
+exceed the model's 512-token limit and are truncated; the count is in the
+manifest.
 
-This is a throughput limit, not a defect, and the number behind it is measured
-rather than estimated. See below.
+The index manifest's `corpus_sha256` matches the BM25 manifest's, so both arms
+were built from a byte-identical corpus and their runs can be fused without
+silently comparing different indexes.
 
-When the build finishes, in this order:
+Downstream of it, run in this order:
 
 ```
 uv run python scripts/search.py \
@@ -39,6 +42,11 @@ uv run python scripts/pool.py \
 skips the weighted arm until judgments exist, and `pool.py` overwrites
 `data/pool/pool.jsonl` with the three-source pool that judging should actually
 use. Nothing in that sequence needs a decision.
+
+All three have run. `data/runs/dense.jsonl` holds 4,000 rows at top-100 over
+40 queries, `data/runs/rrf.jsonl` 6,664, and the three-source pool is below.
+Dense query latency is 54.2 ms mean and 164.1 ms p95, against BM25's 1.5 ms
+mean: the query encode dominates and the FAISS search is negligible.
 
 ## Two problems found while building it, both real
 
@@ -77,13 +85,20 @@ chunks drawn from the corpus, mean chunk length 1,119 characters:
 | mps, fp16, max_seq_length 256 | 22.5 |
 | cpu, fp32, 512 | 4.7 |
 
-At the shipped configuration, fp32 and the model's own 512-token limit, 148,097
-chunks is about 5.2 hours.
+Those figures are from a 256-chunk sample and they understate the full build,
+which ran at 12.5 chunks/s and finished in 3 h 17 m. The sample was drawn
+without regard to length, while `sentence-transformers` sorts by length before
+batching, so a long run amortizes padding across homogeneous batches in a way
+a small sample does not.
 
-That is not a misconfiguration. `bge-base-en-v1.5` is 110M parameters, so a
-512-token forward pass is roughly 113 GFLOP, and 7.9 sequences per second is
-about 890 GFLOPS, near 30% of this GPU's fp32 peak. The corpus is simply large
-for the hardware.
+A first pass attributed the runtime to hardware, reasoning that a 512-token
+forward pass through 110M parameters is roughly 113 GFLOP and that 7.9
+sequences per second was therefore near 30% of this GPU's fp32 peak. That
+reasoning assumed every chunk hits the token limit. Measured over the corpus,
+chunks run to a mean of 251 tokens and a median of 165, and only 7.7% exceed
+512, so the true per-chunk cost is about 2.4x lower and the utilization figure
+is correspondingly lower. The runtime is real; the hardware-bound explanation
+for it was not established.
 
 The shipped configuration is the slowest of the five. fp16 would cut it to 4.1
 hours and `max_seq_length 256` to 1.8, and neither was taken. Halving the
@@ -93,16 +108,13 @@ inside a speed decision is the thing this repo is organised against. fp16 was
 left off because the manifest claims fp32 and the difference bought about an
 hour.
 
-## The pool with two of its three sources
-
-Reported here rather than in the Phase 2 report because it is what the pool
-looks like with the dense source missing, which is the state the unbuilt index
-leaves it in.
+## The pool, one source at a time
 
 | pool | min | max | mean | total judgments |
 |---|---|---|---|---|
 | keyword seed only | 20 | 20 | 20.0 | 800 |
 | keyword seed plus BM25 | 25 | 40 | 37.4 | 1,497 |
+| all three sources | 36 | 60 | 53.6 | 2,144 |
 
 The keyword-only pool hit its `keyword-k=20` cap on every one of the 40 queries,
 so its "mean 20.0" is the cap and not a measurement. Adding BM25 nearly doubles
@@ -110,10 +122,13 @@ the pool, which says the two sources disagree about what is worth looking at on
 almost every query. That disagreement is the argument for pooling and it is the
 reason a keyword-only pool should not be judged.
 
-The three-source number is not known and will not be until the dense index
-exists. Judging the two-source pool now would fix a ceiling on measurable recall
-that excludes, by construction, exactly the chunks the dense arm was added to
-find.
+Adding the dense arm contributes a further 16.2 chunks per query on average,
+none of which the other two sources surfaced. Judging the two-source pool
+instead would have left every one of those unjudged, and an unjudged chunk
+counts as non-relevant, so the ablation ladder would have carried a recall
+ceiling biased against exactly the arm the dense index was built to test. The
+cost of waiting for the index was one night; the cost of not waiting would have
+been a number that could not be repaired without re-judging.
 
 `scripts/pool.py` and `scripts/judge.py` opened the corpus read-write, which in
 DuckDB takes an exclusive file lock, so either one locked every other process
@@ -140,10 +155,13 @@ overlap. `scripts/fuse.py` writes the tuning-set number and the held-out number
 side by side in `reports/fusion_tuning.md`, because the gap between them is the
 only way a reader can tell whether the weights overfit.
 
-Run today, `scripts/fuse.py` reports that it has one run file and needs two, and
-writes nothing. Once the dense run file exists it will produce RRF immediately;
-the weighted arm additionally waits on judgments, and the script says so and
-exits 0 rather than inventing a qrels file.
+Run against both run files, `scripts/fuse.py` produced RRF over `bm25` and
+`dense` into `data/runs/rrf.jsonl`, 6,664 rows. RRF reads ranks only, so it
+needs no judgments and that arm is final. The weighted arm was skipped: it
+learns its weights from judgments and there are none, so the script reported
+that and exited 0 rather than inventing a qrels file. No weights, no tuning-set
+number and no held-out number are reported, because there is nothing to compute
+them from.
 
 ## The ablation ladder
 

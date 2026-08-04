@@ -1,6 +1,6 @@
 """Dense retriever over `chunks`: `BAAI/bge-base-en-v1.5` plus a FAISS flat index.
 
-Model. RUN.md locks the embedding arm to `bge-base-en-v1.5` and cuts the
+Model. The embedding arm is locked to `bge-base-en-v1.5`, cutting the
 finance-adapted second arm, so there is no model selection to make here and
 `MODEL_NAME` is a constant rather than a parameter. What is still a choice is
 which revision: a bare model name resolves to whatever `main` points at on the
