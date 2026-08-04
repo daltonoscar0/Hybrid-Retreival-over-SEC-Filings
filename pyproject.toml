@@ -13,6 +13,7 @@ dependencies = [
     "sentence-transformers>=3.0",
     "faiss-cpu>=1.8",
     "scikit-learn>=1.5",
+    "matplotlib>=3.8",
 ]
 
 [dependency-groups]
