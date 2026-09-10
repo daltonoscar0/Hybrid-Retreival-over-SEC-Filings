@@ -92,7 +92,7 @@ poison every downstream number and you will not notice for two weeks.
 
 ## 3. Phases
 
-### Phase 0 — Skeleton and data contract (1 day)
+### Phase 0, Skeleton and data contract (1 day)
 
 Repo layout, `uv` environment, DuckDB schema, and the frozen record types.
 
@@ -108,7 +108,7 @@ filters on it, and you want that filter to be impossible to forget.
 
 **Exit criteria:** schema created, one filing ingested end to end, `pytest` green.
 
-### Phase 1 — Corpus build (3-4 days)
+### Phase 1, Corpus build (3-4 days)
 
 Downloader with caching and rate limiting. Section extractor with per-item
 regression tests. Sentence splitter tuned for financial prose: dollar amounts,
@@ -119,7 +119,7 @@ splitters. Chunker.
 type with the failures enumerated in a report, sentence count and length
 distribution sane on inspection.
 
-### Phase 2 — Lexical baseline and the evaluation harness (4-5 days)
+### Phase 2, Lexical baseline and the evaluation harness (4-5 days)
 
 Build the harness before the second retriever. If evaluation comes last it gets
 compromised to make the numbers look good, and everyone reading the repo knows it.
@@ -152,7 +152,7 @@ Query examples that exercise both lexical and semantic matching:
 **Exit criteria:** BM25 numbers on the board with CIs. A single command reproduces
 the table.
 
-### Phase 3 — Dense retrieval and fusion (3 days)
+### Phase 3, Dense retrieval and fusion (3 days)
 
 - Embeddings: start with `bge-base-en-v1.5`. Evaluate a finance-adapted model
   (Fin-E5 or FinLang) as a second arm. FinMTEB's finding that general-benchmark
@@ -167,7 +167,7 @@ the table.
 with significance markers. Including the cases where fusion does not beat the best
 single system. Those cases are the most interesting rows in the table.
 
-### Phase 4 — The novelty layer (5-7 days)
+### Phase 4, The novelty layer (5-7 days)
 
 This is the part nobody else's demo has. It is also the part where it is easy to
 build something that produces a number that means nothing, so the contrast design
@@ -220,7 +220,7 @@ standard in the next phase.
 **Exit criteria:** novelty scores for every sentence, computed under the time
 constraint, with the n-gram and diff-based measures both in place.
 
-### Phase 5 — Validating that novelty means something (3-4 days)
+### Phase 5, Validating that novelty means something (3-4 days)
 
 Four checks, cheapest first. The first two are non-negotiable.
 
@@ -249,7 +249,7 @@ into a trading-signal claim; the sample is 600 filings and the honest framing is
 **Exit criteria:** a validation section with four numbers, written before you build
 the demo UI so the UI reflects what the measure actually does.
 
-### Phase 6 — Novelty as a ranking signal, evaluated honestly (2-3 days)
+### Phase 6, Novelty as a ranking signal, evaluated honestly (2-3 days)
 
 The tempting mistake: fold novelty into the relevance score and report an nDCG
 improvement. It will not improve nDCG, because your relevance judgments are about
@@ -272,7 +272,7 @@ rather than as a silent term in the ranking function.
 
 **Exit criteria:** the two-column table. This table is the artifact.
 
-### Phase 7 — Demo and writeup (4-5 days)
+### Phase 7, Demo and writeup (4-5 days)
 
 - FastAPI backend, single-page frontend. Search box, results with sentence-level
   novelty highlighting, a novelty toggle, and a filter by company and period.
